@@ -4,7 +4,7 @@ import { Button } from '../UI/Buttom'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../UI/Card'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@radix-ui/react-tabs'
 import { Input } from '../UI/Input'
-import { Label } from '../UI/label'
+import { Label } from '../UI/Label'
 import {  Link } from 'react-router-dom'
 import { login } from '../../Service/Auth/AuthService'
 import LogoMatemix from '../../assets/MateMix_Logo.png'
@@ -44,10 +44,13 @@ const LoginComponent = () => {
   
 return (
     <div className="min-h-screen flex flex-col bg-white">
-      <header className="flex items-center px-6 py-4 border-b">
-        <img src={LogoMatemix} alt="Matemix Logo" className="h-8 w-auto" />
-      </header>
-      <main className="flex flex-1 items-center justify-center bg-gray-50">
+        <header className="flex items-center px-6 py-4 border-b transition-transform duration-300 transform hover:scale-102 transform-origin-center">
+            <Link to="/" className="flex items-center">
+                <img src={LogoMatemix} alt="Matemix Logo" className="h-8 w-auto" />
+            </Link>
+        </header>
+
+        <main className="flex flex-1 items-center justify-center bg-gray-50">
           <div className="w-full max-w-md">          
         
           <Card className="w-full max-w-md mx-auto">

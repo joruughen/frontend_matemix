@@ -1,4 +1,4 @@
-import { cn } from "../../Lib/Util";
+import {cn} from "../../Lib/Util.tsx";
 
 import React from "react"
 

@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
-import { cn } from "../../Lib/Util";
+import {cn} from "../../Lib/Util.tsx";
 
 const Tabs = TabsPrimitive.Root;
 
@@ -26,9 +26,6 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "px-5 py-2 rounded-md text-sm font-medium transition-colors duration-300",
-      "bg-gray-200 text-gray-700 hover:bg-gray-300",
-      "data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-lg",
       className
     )}
     {...props}

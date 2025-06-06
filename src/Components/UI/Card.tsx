@@ -1,5 +1,5 @@
 import * as React from "react"
-import { cn } from "../../Lib/Util"
+import {cn} from "../../Lib/Util.tsx";
 
 export const Card = React.forwardRef<
     HTMLDivElement,
