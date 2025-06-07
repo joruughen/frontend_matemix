@@ -33,7 +33,7 @@ const LoginComponent = () => {
 
     const handleNavigateToDashboardAlumnos = () => {
         console.log("Navigating to Dashboard...");
-        navigate("/dashboard"); // Redirige a /dashboard
+        navigate("/studentdashboard"); // Redirige a /dashboard
     }
 
     const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,10 +46,11 @@ const LoginComponent = () => {
             if (response.status === 200) {
                 console.log('Inicio de sesión exitoso');
                 setError(""); // Reseteamos el error si el login es exitoso
-                localStorage.setItem("token", response.data.accessToken);
+                console.log(response.data.accessToken);
+                localStorage.setItem("token_matemix", response.data.accessToken);
 
                 try {
-                    const token = localStorage.getItem("token");
+                    const token = localStorage.getItem("token_matemix");
                     if (token) {
                         const response_user_info = await authService.verifyToken(token);
                         console.log(response_user_info);
@@ -58,6 +59,9 @@ const LoginComponent = () => {
                         if (response_user_info.status === 200) {
                             console.log(response_user_info.data);
                             console.log(response_user_info.data.role);
+                            console.log(response_user_info.data.username);
+                            localStorage.setItem("username_matemix", response_user_info.data.username);
+
                             if (response_user_info.data.role === "STUDENT") {
                                 handleNavigateToDashboardAlumnos();
                             }

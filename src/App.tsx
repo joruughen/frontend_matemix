@@ -2,8 +2,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import HomePage from "./Pages/Home.tsx"
 import LoginPage from "./Pages/Login.tsx"
-import DashboardPage from "./Pages/Dashboard.tsx"
-import RootLayout from "./Components/UI/layout.tsx"
+import StudentDashboardPage from "./Pages/StudentDashboard.tsx"
+import Layout from "./Components/UI/Layout.tsx"
 import EjerciciosPage from "./Pages/Ejercicios.tsx"
 import ProgresoPage from "./Pages/Progreso.tsx"
 import AnalisisPage from "./Pages/Analisis.tsx"
@@ -12,17 +12,17 @@ import ReportesPage from "./Pages/Reportes.tsx"
 function App() {
     return (
         <Router>
-            <RootLayout>
+            <Layout>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/login" element={<LoginPage />} />
-                    <Route path="/dashboard" element={<DashboardPage />} />
+                    <Route path="/studentdashboard" element={<StudentDashboardPage />} />
                     <Route path="/ejercicios" element={<EjerciciosPage />} />
                     <Route path="/progreso" element={<ProgresoPage />} />
                     <Route path="/analisis" element={<AnalisisPage />} />
                     <Route path="/reportes" element={<ReportesPage />} />
                 </Routes>
-            </RootLayout>
+            </Layout>
         </Router>
     )
 }

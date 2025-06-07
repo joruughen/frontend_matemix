@@ -1,7 +1,23 @@
 import * as React from "react"
 import {cn} from "../../Lib/Util.tsx";
 
-export const Card = React.forwardRef<
+interface CardProps {
+    children: React.ReactNode
+    className?: string
+}
+
+export function Card({ children, className = "" }: CardProps) {
+    return <div className={`bg-white rounded-lg border border-gray-200 shadow-sm ${className}`}>{children}</div>
+}
+
+export function CardContent({ children, className = "" }: CardProps) {
+    return <div className={`p-6 ${className}`}>{children}</div>
+}
+
+
+
+
+export const Card2 = React.forwardRef<
     HTMLDivElement,
     React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
@@ -49,7 +65,7 @@ export const CardDescription = React.forwardRef<
 ))
 CardDescription.displayName = "CardDescription"
 
-export const CardContent = React.forwardRef<
+export const CardContent2 = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
