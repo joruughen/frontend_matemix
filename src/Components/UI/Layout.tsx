@@ -9,7 +9,8 @@ interface LayoutProps {
 // Define las rutas donde el sidebar debe aparecer
 const SIDEBAR_STUDENT_ROUTES = [
     "/studentdashboard",
-    "/progreso"
+    "/progreso",
+    "/ejercicios"
 ]
 
 

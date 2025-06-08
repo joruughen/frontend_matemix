@@ -1,27 +1,25 @@
-import React from "react"
-import clsx from "clsx"
+// Progress.tsx
+import React from 'react';
 
-interface ProgressProps extends React.HTMLAttributes<HTMLDivElement> {
-  value: number
-  color?: "green" | "orange" | "red" | "blue" | "gray"
-  className?: string
+interface ProgressProps {
+  value: number;
+  style?: React.CSSProperties;  // Permite pasar un estilo personalizado (como el color)
 }
 
-export function Progress({ value, color = "blue", className, ...props }: ProgressProps) {
-  const bgMap: Record<string, string> = {
-    green: "bg-emerald-500",
-    orange: "bg-orange-600",
-    red: "bg-pink-600",
-    blue: "bg-blue-500",
-    gray: "bg-gray-600",
-  }
+const Progress: React.FC<ProgressProps> = ({ value, style }) => {
+  const progressBarStyle = {
+    width: `${value}%`,
+    height: '10px',
+    borderRadius: '5px',
+    backgroundColor: '#E5E7EB',  // Gris de fondo
+    ...style,  // Aplica el estilo pasado (como el color)
+  };
 
   return (
-    <div className={clsx("w-full bg-gray-200 rounded h-2", className)} {...props}>
-      <div
-        className={clsx("h-2 rounded transition-all duration-300", bgMap[color])}
-        style={{ width: `${value}%` }}
-      />
-    </div>
-  )
-}
+      <div style={{ width: '100%', backgroundColor: '#F3F4F6', borderRadius: '5px' }}>
+        <div style={progressBarStyle}></div>
+      </div>
+  );
+};
+
+export { Progress };

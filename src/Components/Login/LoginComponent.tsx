@@ -61,6 +61,7 @@ const LoginComponent = () => {
                             console.log(response_user_info.data.role);
                             console.log(response_user_info.data.username);
                             localStorage.setItem("username_matemix", response_user_info.data.username);
+                            localStorage.setItem("userId_matemix", response_user_info.data.userId);
 
                             if (response_user_info.data.role === "STUDENT") {
                                 handleNavigateToDashboardAlumnos();
