@@ -2,7 +2,7 @@ import type React from "react"
 
 interface BadgeProps {
   children: React.ReactNode
-  variant?: "default" | "success" | "warning" | "destructive" | "outline"
+  variant?: "default" | "success" | "warning" | "destructive" | "outline" | "completed"
   className?: string
 }
 
@@ -13,6 +13,7 @@ export function Badge({ children, variant = "default", className = "" }: BadgePr
     warning: "bg-yellow-100 text-yellow-800",
     destructive: "bg-red-100 text-red-800",
     outline: "border border-gray-300 text-gray-700",
+    completed: "bg-orange-100 text-orange-600",
   }
 
   return (

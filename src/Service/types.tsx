@@ -82,6 +82,22 @@ export interface AlumnoTema  {
     id: string;  // También cambiamos el tipo a string, ya que en MongoDB se almacena como string
 }
 
+export interface UsuarioResponse {
+    usuario: {
+        _id: string;
+        alumno_id: string;
+        tema_id: string;
+        temas: Array<{
+            id: string;
+            nombre: string;
+            nivel: string;
+        }>;
+    };
+}
+export interface UsuarioTemaUpdate {
+    nombre: string;
+    nivel: string;
+}
 
 
 // Respuestas types.tsx
@@ -97,7 +113,48 @@ export interface Respuesta {
     fecha_respuesta: string;     // Fecha en que el alumno respondió
 }
 
-
+export interface RespuestaCorrecta {
+    alumno_id: string;
+    tema_id: string;
+    pregunta_id: string;
+    respuesta: string;
+    respuesta_correcta: boolean;
+    fecha_respuesta: string;
+    id: string;
+}
 
 
 //
+
+
+
+// Preguntas types.
+
+export interface PreguntaCreate {
+    pregunta: string;
+    respuesta_correcta: string;
+    es_multiple_choice: boolean;
+    opciones: string[];
+    pista: string;
+    concepto_principal: string;
+}
+
+export interface PreguntaUpdate {
+    pregunta?: string;
+    respuesta_correcta?: string;
+    es_multiple_choice?: boolean;
+    opciones?: string[];
+    pista?: string;
+    concepto_principal?: string;
+}
+
+export interface PreguntaResponse {
+    id: string;
+    pregunta: string;
+    respuesta_correcta: string;
+    es_multiple_choice: boolean;
+    opciones: string[];
+    pista: string;
+    concepto_principal: string;
+}
+

@@ -1,5 +1,13 @@
 import { axiosInstanceBackend_AI_Ejercicios } from '../AxiosConfig';  // Asegúrate de que axios esté correctamente configurado
-import type { TemaCreate, TemaUpdate, TemaResponse, EnrollResponse, UnenrollResponse } from '../types'; // Los tipos de datos de los temas
+import type {
+    TemaCreate,
+    TemaUpdate,
+    TemaResponse,
+    EnrollResponse,
+    UnenrollResponse,
+    UsuarioResponse,
+    UsuarioTemaUpdate
+} from '../types'; // Los tipos de datos de los temas
 
 export class TemasService {
     // **Método POST** para crear un tema
@@ -164,6 +172,35 @@ export class TemasService {
             return response.data;  // Devuelve la respuesta del backend
         } catch (error) {
             console.error('Error al obtener el usuario por ID:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * **Método PUT** para actualizar un tema dentro del array `temas` de un usuario.
+     */
+    async actualizarTemaDeUsuario(
+        usuario_id: string,
+        tema_id: string,
+        data: UsuarioTemaUpdate,
+        token: string
+    ): Promise<UsuarioResponse> {
+        try {
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }
+            };
+            // Llamada a nuestro nuevo endpoint
+            const response = await axiosInstanceBackend_AI_Ejercicios.put(
+                `/alumnos/${usuario_id}/temas/${tema_id}`,
+                data,
+                config
+            );
+            return response.data;
+        } catch (error) {
+            console.error('Error al actualizar el tema del usuario:', error);
             throw error;
         }
     }

@@ -34,7 +34,7 @@ export default function EjerciciosPage() {
             temasService.obtenerUsuarioPorId(userId, token)
                 .then(async (response) => {
                     const userTemas = response.usuario.temas || []
-
+                    console.log("Temas del usuario:", userTemas)
                     const temasConDetalles = []
 
                     for (const tema of userTemas) {
@@ -46,7 +46,7 @@ export default function EjerciciosPage() {
                                 nombre: temaDetails.nombre,
                                 description: temaDetails.descripcion ?? "Descripción no disponible",
                                 completion: 0,
-                                nivel: temaDetails.niveles[0]?.nivel || "facil",
+                                nivel: tema.nivel || "facil",
                                 points: temaDetails.puntos ?? 0,
                                 isCompleted: false,
                                 respuestasCorrectasPorNivel: {
@@ -108,7 +108,7 @@ export default function EjerciciosPage() {
     }, [])
 
     const getProgressColor = (nivel: string, completion: number) => {
-        if (completion > 100) {
+        if (completion >= 100) {
             return '#FFA000' // Si completion es mayor a 100, color naranja
         }
 
@@ -151,10 +151,11 @@ export default function EjerciciosPage() {
                                                 ? "success"
                                                 : tema.nivel === "medio"
                                                     ? "warning"
-                                                    : "destructive"
+                                                    : tema.completion >= 100 ? "completed"
+                                                        :"destructive"
                                         }
                                     >
-                                        {tema.nivel}
+                                        {tema.completion >= 100 ? "completado" : tema.nivel}
                                     </Badge>
                                     <Badge variant="outline">{tema.points} pts</Badge>
                                 </div>
@@ -178,7 +179,7 @@ export default function EjerciciosPage() {
                                         Completado
                                     </Button>
                                 ) : (
-                                    <Link to={`/ejercicios/${tema.id}`}>
+                                    <Link to={`/ejercicios/${tema.id}/${tema.nivel}`}>
                                         <Button>Continuar</Button>
                                     </Link>
                                 )}
