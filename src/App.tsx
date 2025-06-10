@@ -14,6 +14,8 @@ import Salones from "./Pages/Salones.tsx"
 import EstudiantesPage from "./Pages/Estudiantes"
 import TeacherDashboardPage from "./Pages/TeacherDashboard.tsx"
 
+
+
 export type Section = "a" | "b" | "c"
 
 function App() {
