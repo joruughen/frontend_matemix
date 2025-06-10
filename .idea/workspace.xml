@@ -5,20 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3344a45-8f40-4dc6-b17e-75a885490826" name="Changes" comment="EjerciciosPage + Axios para el Backend en Temas, Respuestas">
-      <change afterPath="$PROJECT_DIR$/src/Pages/PreguntaResolver.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Preguntas/PreguntasService.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/UI/Layout2.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/navbars/sidebar_teacher.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pages/Estudiantes.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pages/Salones.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pages/TeacherDashboard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/UI/Badge.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UI/Badge.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/UI/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UI/Layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Ejercicios.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Ejercicios.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Temas/TemasService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Temas/TemasService.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/types.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/types.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/navbars/sidebar_student.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/navbars/sidebar_student.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Analisis.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Analisis.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Ejercicios_old.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Ejercicios_old.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Home.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -42,17 +52,18 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/jorughen/Desktop/frontend_matemix/src/Service/Respuestas&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ariana&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/cmerc/.ssh/frontend_matemix&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;/home/jorughen/.nvm/versions/node/v22.16.0/bin/node&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;npm.dev.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.typescriptcompiler&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/home/jorughen/Desktop/frontend_matemix/node_modules/typescript/lib&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\cmerc\\.ssh\\frontend_matemix\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -84,7 +95,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-WS-251.26094.131" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
       </set>
     </attachedChunks>
   </component>
@@ -99,6 +111,11 @@
       <workItem from="1749227667014" duration="26146000" />
       <workItem from="1749346634938" duration="20580000" />
       <workItem from="1749440270071" duration="13108000" />
+      <workItem from="1749491741689" duration="122000" />
+      <workItem from="1749491987661" duration="4606000" />
+      <workItem from="1749502668404" duration="101000" />
+      <workItem from="1749506444409" duration="401000" />
+      <workItem from="1749512323114" duration="5132000" />
     </task>
     <task id="LOCAL-00001" summary="Start">
       <option name="closed" value="true" />
@@ -152,5 +169,9 @@
     <MESSAGE value="StudentDashboad y Fix de LocalStorage Token y Username" />
     <MESSAGE value="EjerciciosPage + Axios para el Backend en Temas, Respuestas" />
     <option name="LAST_COMMIT_MESSAGE" value="EjerciciosPage + Axios para el Backend en Temas, Respuestas" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

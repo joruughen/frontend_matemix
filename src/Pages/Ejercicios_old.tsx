@@ -272,7 +272,7 @@ export default function EjerciciosPage() {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="text-lg font-semibold">{tema.nombre}</h3>
-                      <Badge variant="secondary">
+                      <Badge variant="default">
                         {tema.completados}/{tema.ejercicios}
                       </Badge>
                     </div>

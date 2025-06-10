@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
-import {BookOpen, LayoutDashboard, LineChart, Menu, X} from "lucide-react"
+import {LayoutDashboard, Menu, Presentation, X} from "lucide-react"
 import MatemixIcon from "../../assets/Matemix_icon.svg"
 
 
@@ -16,22 +16,17 @@ interface NavItem {
 const navItems: NavItem[] = [
     {
         title: "Panel",
-        href: "/studentdashboard",
+        href: "/teacherdashboard",
         icon: <LayoutDashboard className="h-5 w-5" />,
     },
     {
-        title: "Progreso",
-        href: "/progreso",
-        icon: <LineChart className="h-5 w-5" />,
-    },
-    {
-        title: "Ejercicios",
-        href: "/ejercicios",
-        icon: <BookOpen className="h-5 w-5" />,
+        title: "Salones",
+        href: "/Salones",
+        icon: <Presentation className="h-5 w-5" />, // Cambia el icono según sea necesario
     },
 ]
 
-export function SidebarNavStudent() {
+export function SidebarNavTeacher() {
     const location = useLocation()
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -62,7 +57,7 @@ export function SidebarNavStudent() {
             >
                 <div className="flex flex-col h-full">
                     <div className="p-4 border-b border-gray-200">
-                        <Link to="/studentdashboard" className="flex items-center" onClick={toggleMobileMenu}>
+                        <Link to="/teacherdashboard" className="flex items-center" onClick={toggleMobileMenu}>
                             <div className="h-8 w-8 mr-2">
                                 <img src={MatemixIcon} alt="Icon" />
                             </div>
@@ -94,7 +89,7 @@ export function SidebarNavStudent() {
             {/* Desktop Navigation */}
             <div className="hidden md:flex flex-col border-r border-gray-200 h-screen w-[180px] fixed left-0 top-0 bg-white">
                 <div className="p-4 border-b border-gray-200">
-                    <Link to="/studentdashboard" className="flex items-center">
+                    <Link to="/teacherdashboard" className="flex items-center">
                         <div className="h-8 w-8 mr-2">
                             <img src={MatemixIcon} alt="Logo" />
                         </div>

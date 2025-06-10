@@ -75,7 +75,7 @@ export default function HomePage() {
           <div className="max-w-md mx-auto flex flex-col gap-4 bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-xl">
             <h2 className="text-2xl font-bold text-center mb-4">Comienza tu aprendizaje</h2>
             <Button
-                className="w-full py-6 text-lg bg-matemix-blue hover:bg-blue-600 text-white"
+                className="w-full py-6 text-lg bg-matemix-blue hover:bg-blue-600 text-white rounded-2xl"
                 onClick={handleNavigateToLogin}
             >
               Iniciar Sesión

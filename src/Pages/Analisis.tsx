@@ -142,7 +142,7 @@ export default function AnalisisPage() {
                     <span className="font-medium">{fortaleza.area}</span>
                     <Badge className="bg-emerald-500">{fortaleza.nivel}%</Badge>
                   </div>
-                  <Progress value={fortaleza.nivel} className="h-2" />
+                  <Progress value={fortaleza.nivel}  />
                   <p className="text-sm text-gray-600">{fortaleza.descripcion}</p>
                 </div>
               ))}
@@ -167,7 +167,7 @@ export default function AnalisisPage() {
                       {debilidad.nivel}%
                     </Badge>
                   </div>
-                  <Progress value={debilidad.nivel} className="h-2" />
+                  <Progress value={debilidad.nivel}  />
                   <p className="text-sm text-gray-600">{debilidad.descripcion}</p>
                 </div>
               ))}
@@ -239,7 +239,7 @@ export default function AnalisisPage() {
                     <div>
                       <p className="text-sm text-gray-600 mb-1">Dominio Actual</p>
                       <div className="flex items-center space-x-2">
-                        <Progress value={pred.dominioActual} className="flex-1" />
+                        <Progress value={pred.dominioActual}  />
                         <span className="text-sm font-medium">{pred.dominioActual}%</span>
                       </div>
                     </div>
@@ -247,7 +247,7 @@ export default function AnalisisPage() {
                     <div>
                       <p className="text-sm text-gray-600 mb-1">Dominio Proyectado</p>
                       <div className="flex items-center space-x-2">
-                        <Progress value={pred.dominioProyectado} className="flex-1" />
+                        <Progress value={pred.dominioProyectado}  />
                         <span className="text-sm font-medium">{pred.dominioProyectado}%</span>
                       </div>
                     </div>
