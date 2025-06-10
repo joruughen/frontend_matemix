@@ -11,7 +11,7 @@ const Salones = () => {
     }
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="overflow-hidden fixed inset-0 flex min-h-screen bg-white items-center justify-center">
             <main className="container mx-auto px-4 py-8 text-center">
                 <h1 className="text-3xl font-bold mb-2">Hola, Cordelia!</h1>
                 <p className="text-xl mb-10">¿Qué sección deseas visualizar?</p>
@@ -19,13 +19,13 @@ const Salones = () => {
                 <div className="flex flex-wrap justify-center gap-6 max-w-4xl mx-auto">
                     <button
                         onClick={() => handleSectionSelect("a")}
-                        className="w-full sm:w-64 h-40 rounded-3xl bg-emerald-500 hover:bg-emerald-600 flex flex-col items-center justify-center gap-3 p-6 text-white transition-colors"
+                        className="w-full sm:w-64 h-90 rounded-4xl bg-emerald-500 hover:bg-emerald-600 flex flex-col items-center justify-center gap-3 p-6 text-white transition-colors"
                     >
-                        <div className="bg-white rounded-full p-4 w-16 h-16 flex items-center justify-center">
+                        <div className="bg-white rounded-full p-4 w-25 h-25 flex items-center justify-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
+                                width="40"
+                                height="40"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 stroke="currentColor"
@@ -37,14 +37,14 @@ const Salones = () => {
                                 <path d="M2 16s9-15 20-4C11 23 2 8 2 8" />
                             </svg>
                         </div>
-                        <span className="text-xl font-medium">Sección A</span>
+                        <span className="text-3xl font-bold">Sección A</span>
                     </button>
 
                     <button
                         onClick={() => handleSectionSelect("b")}
-                        className="w-full sm:w-64 h-40 rounded-3xl bg-amber-500 hover:bg-amber-600 flex flex-col items-center justify-center gap-3 p-6 text-white transition-colors"
+                        className="w-full sm:w-64 h-90 rounded-4xl bg-amber-500 hover:bg-amber-600 flex flex-col items-center justify-center gap-3 p-6 text-white transition-colors"
                     >
-                        <div className="bg-white rounded-full p-4 w-16 h-16 flex items-center justify-center">
+                        <div className="bg-white rounded-full p-4 w-25 h-25 flex items-center justify-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
@@ -60,14 +60,14 @@ const Salones = () => {
                                 <path d="M2 16s9-15 20-4C11 23 2 8 2 8" />
                             </svg>
                         </div>
-                        <span className="text-xl font-medium">Sección B</span>
+                        <span className="text-3xl font-bold">Sección B</span>
                     </button>
 
                     <button
                         onClick={() => handleSectionSelect("c")}
-                        className="w-full sm:w-64 h-40 rounded-3xl bg-blue-500 hover:bg-blue-600 flex flex-col items-center justify-center gap-3 p-6 text-white transition-colors"
+                        className="w-full sm:w-64 h-90 rounded-4xl bg-blue-500 hover:bg-blue-600 flex flex-col items-center justify-center gap-3 p-6 text-white transition-colors"
                     >
-                        <div className="bg-white rounded-full p-4 w-16 h-16 flex items-center justify-center">
+                        <div className="bg-white rounded-full p-4 w-25 h-25 flex items-center justify-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
@@ -83,7 +83,7 @@ const Salones = () => {
                                 <path d="M2 16s9-15 20-4C11 23 2 8 2 8" />
                             </svg>
                         </div>
-                        <span className="text-xl font-medium">Sección C</span>
+                        <span className="text-3xl font-bold">Sección C</span>
                     </button>
                 </div>
             </main>

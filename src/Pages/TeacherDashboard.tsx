@@ -88,7 +88,7 @@ export default function TeacherDashboardPage() {
                                     <BarChart3 className="h-6 w-6 text-green-600" />
                                 </div>
                                 <div>
-                                    <p className="text-sm font-medium text-gray-600">Promedio del Salón</p>
+                                    <p className="text-sm font-medium text-gray-600">Promedio Total</p>
                                     <p className="text-3xl font-bold text-gray-900">15</p>
                                 </div>
                             </div>

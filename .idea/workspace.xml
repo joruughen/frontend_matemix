@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3344a45-8f40-4dc6-b17e-75a885490826" name="Changes" comment="Layout separados docente/alumno&#10;&#10;falta arreglar el dashboard docente">
-      <change afterPath="$PROJECT_DIR$/src/Components/UI/Avatar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Salones.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Salones.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/TeacherDashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/TeacherDashboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,6 +111,7 @@
       <workItem from="1749528302297" duration="378000" />
       <workItem from="1749529886819" duration="9890000" />
       <workItem from="1749578433554" duration="1176000" />
+      <workItem from="1749586343450" duration="1687000" />
     </task>
     <task id="LOCAL-00001" summary="Start">
       <option name="closed" value="true" />
