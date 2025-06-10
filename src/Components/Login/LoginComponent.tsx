@@ -6,14 +6,14 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@radix-ui/react-tabs'
 import { Input } from '../UI/Input'
 import { Label } from '../UI/Label'
 import { Link } from 'react-router-dom'
-import { authService } from '../../Service/Auth/AuthService.tsx' // Importa el servicio
+import { authService } from '../../Service/Auth/AuthService.tsx'
 import LogoMatemix from '../../assets/MateMix_Logo.png'
 import { useNavigate } from "react-router-dom"
 
 const LoginComponent = () => {
     const [loginData, setLoginData] = useState({ username: "", password: "" });
     const [showPassword, setShowPassword] = useState(false);
-    const [error, setError] = useState<string>("");  // Estado para manejar errores
+    const [error, setError] = useState<string>("");
     const colorHex = ["#10B981", "#3B82F6", "#D8315B", "#FFA000"];
     const [colorIndex, setColorIndex] = useState(0);
 
@@ -33,7 +33,7 @@ const LoginComponent = () => {
 
     const handleNavigateToDashboardAlumnos = () => {
         console.log("Navigating to Dashboard...");
-        navigate("/studentdashboard"); // Redirige a /dashboard
+        navigate("/studentdashboard");
     }
 
     const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,11 +41,11 @@ const LoginComponent = () => {
         console.log("Login data being sent:", loginData);
 
         try {
-            const response = await authService.login(loginData); // Llama al servicio de login
+            const response = await authService.login(loginData);
 
             if (response.status === 200) {
                 console.log('Inicio de sesión exitoso');
-                setError(""); // Reseteamos el error si el login es exitoso
+                setError("");
                 console.log(response.data.accessToken);
                 localStorage.setItem("token_matemix", response.data.accessToken);
 
@@ -74,11 +74,11 @@ const LoginComponent = () => {
                     console.error(e);
                 }
             } else {
-                setError("Nombre de usuario o contraseña incorrectos."); // Mensaje de error
+                setError("Nombre de usuario o contraseña incorrectos.");
             }
         } catch (error) {
             console.log('Error en login:', error);
-            setError("Nombre de usuario o contraseña incorrectos."); // Manejamos el error si falla la petición
+            setError("Nombre de usuario o contraseña incorrectos.");
         }
     }
 
@@ -134,15 +134,13 @@ const LoginComponent = () => {
                                                     {showPassword ? "Ocultar" : "Mostrar"}
                                                 </button>
                                             </div>
-                                            {error && <p className="text-red-500 text-sm">{error}</p>} {/* Mostrar el mensaje de error */}
+                                            {error && <p className="text-red-500 text-sm">{error}</p>}
                                             <Button variant="submit" className="w-full bg-blue-500 text-white hover:bg-blue-500 rounded-[80px]">
                                                 Iniciar sesión
                                             </Button>
                                         </div>
                                     </form>
                                 </TabsContent>
-
-                                {/* Agregar la lógica similar para el profesor aquí */}
                             </Tabs>
                         </CardContent>
                         <CardFooter className="flex flex-col gap-4">
