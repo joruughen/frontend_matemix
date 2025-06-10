@@ -1,4 +1,4 @@
-import { axiosInstanceBackend_AI_Ejercicios } from '../AxiosConfig';  // Asegúrate de que axios esté correctamente configurado
+import { axiosInstanceBackend_AI_Ejercicios } from '../AxiosConfig';
 import type {
     TemaCreate,
     TemaUpdate,
