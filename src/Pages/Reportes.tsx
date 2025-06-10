@@ -36,7 +36,6 @@ export default function ReportesPage() {
     }
   }
 
-  // Función para obtener los minutos totales del alumno
   const fetchMinutos = async (alumnoId: string) => {
     try {
       const token = localStorage.getItem("token_matemix")
@@ -61,7 +60,6 @@ export default function ReportesPage() {
     }
   }
 
-  // Función para incrementar minutos (opcional)
   const incrementarMinutos = async () => {
     try {
       const alumnoId = localStorage.getItem("userId_matemix")
@@ -75,7 +73,6 @@ export default function ReportesPage() {
       })
       if (response.ok) {
         const data = await response.json()
-        // Actualizar el estado con los nuevos minutos
         setTiempoEstudio(`${data.data} minutos`)
       }
     } catch (error) {
@@ -83,7 +80,6 @@ export default function ReportesPage() {
     }
   }
 
-  // useEffect para cargar los datos cuando el componente se monta
   useEffect(() => {
     const alumnoId = localStorage.getItem("userId_matemix")
 
@@ -101,14 +97,13 @@ export default function ReportesPage() {
     }
   }, [])
 
-  // Datos ficticios para reportes (mantenemos el resto estático como solicitaste)
   const reporteGeneral = {
     fechaGeneracion: "2024-01-15",
     periodoAnalisis: "Últimos 30 días",
     ejerciciosCompletados: 127,
     precisionPromedio: 85,
-    tiempoEstudio: tiempoEstudio, // Ahora es dinámico
-    rachaActual: rachaActual, // Ahora es dinámico
+    tiempoEstudio: tiempoEstudio,
+    rachaActual: rachaActual,
     fortalezas: ["Fracciones", "Álgebra básica"],
     debilidades: ["Geometría", "Estadística"],
     recomendaciones: [
