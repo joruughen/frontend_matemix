@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import type { Section } from "../App"
 
 interface Student {
@@ -45,7 +45,7 @@ const colorMap: Record<string, string> = {
 
 const EstudiantesPage = () => {
     const { seccion } = useParams<{ seccion: Section }>()
-    const navigate = useNavigate()
+    {/* const navigate = useNavigate() */}
     const [searchTerm, setSearchTerm] = useState("")
 
     // Filter students based on search term
@@ -56,8 +56,8 @@ const EstudiantesPage = () => {
         <div className="min-h-screen bg-white">
             <main className="p-6">
                 <div className="mb-6">
-                    <div className="flex items-center gap-4 mb-4">
-                        <button onClick={() => navigate("/studentdashboard")} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+                    {/*<div className="flex items-center gap-4 mb-4">
+                        <button onClick={() => navigate("/teacherdashboard")} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -74,7 +74,7 @@ const EstudiantesPage = () => {
                             </svg>
                             Volver
                         </button>
-                    </div>
+                    </div>*/}
                     <h1 className="text-2xl font-bold">Estudiantes - Sección {seccion?.toUpperCase()}</h1>
                     <p className="text-gray-500">Gestiona y monitorea el progreso de tus estudiantes</p>
                 </div>

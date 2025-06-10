@@ -9,6 +9,7 @@ interface LayoutProps {
 const SIDEBAR_TEACHER_ROUTES = [
     "/teacherdashboard",
     "/Salones",
+    "/estudiantes/:seccion",
 ];
 
 const shouldShowSidebar = (pathname: string): boolean => {

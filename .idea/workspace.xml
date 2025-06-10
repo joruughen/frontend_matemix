@@ -4,19 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3344a45-8f40-4dc6-b17e-75a885490826" name="Changes" comment="EjerciciosPage + Axios para el Backend en Temas, Respuestas">
-      <change afterPath="$PROJECT_DIR$/src/Components/UI/Layout2.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/navbars/sidebar_teacher.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/Estudiantes.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/Salones.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/TeacherDashboard.tsx" afterDir="false" />
+    <list default="true" id="b3344a45-8f40-4dc6-b17e-75a885490826" name="Changes" comment="Layout separados docente/alumno&#10;&#10;falta arreglar el dashboard docente">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/UI/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UI/Layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/navbars/sidebar_student.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/navbars/sidebar_student.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Analisis.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Analisis.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Ejercicios_old.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Ejercicios_old.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/UI/Layout2.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UI/Layout2.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Estudiantes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Estudiantes.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,6 +108,8 @@
       <workItem from="1749502668404" duration="101000" />
       <workItem from="1749506444409" duration="401000" />
       <workItem from="1749512323114" duration="5132000" />
+      <workItem from="1749528302297" duration="378000" />
+      <workItem from="1749529886819" duration="9232000" />
     </task>
     <task id="LOCAL-00001" summary="Start">
       <option name="closed" value="true" />
@@ -168,7 +162,8 @@
     <MESSAGE value="Home and Login -&gt; Alumnos Dashboard  Workflow" />
     <MESSAGE value="StudentDashboad y Fix de LocalStorage Token y Username" />
     <MESSAGE value="EjerciciosPage + Axios para el Backend en Temas, Respuestas" />
-    <option name="LAST_COMMIT_MESSAGE" value="EjerciciosPage + Axios para el Backend en Temas, Respuestas" />
+    <MESSAGE value="Layout separados docente/alumno&#10;&#10;falta arreglar el dashboard docente" />
+    <option name="LAST_COMMIT_MESSAGE" value="Layout separados docente/alumno&#10;&#10;falta arreglar el dashboard docente" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
