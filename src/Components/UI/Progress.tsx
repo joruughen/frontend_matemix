@@ -1,25 +1,25 @@
-// Progress.tsx
-import React from 'react';
+"use client"
 
-interface ProgressProps {
-  value: number;
-  style?: React.CSSProperties;  // Permite pasar un estilo personalizado (como el color)
-}
+import * as React from "react"
+import * as ProgressPrimitive from "@radix-ui/react-progress"
 
-const Progress: React.FC<ProgressProps> = ({ value, style }) => {
-  const progressBarStyle = {
-    width: `${value}%`,
-    height: '10px',
-    borderRadius: '5px',
-    backgroundColor: '#E5E7EB',  // Gris de fondo
-    ...style,  // Aplica el estilo pasado (como el color)
-  };
+import { cn } from "../../Lib/Util"
 
-  return (
-      <div style={{ width: '100%', backgroundColor: '#F3F4F6', borderRadius: '5px' }}>
-        <div style={progressBarStyle}></div>
-      </div>
-  );
-};
+const Progress = React.forwardRef<
+    React.ElementRef<typeof ProgressPrimitive.Root>,
+    React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>
+>(({ className, value, ...props }, ref) => (
+    <ProgressPrimitive.Root
+        ref={ref}
+        className={cn("relative h-2 w-full overflow-hidden rounded-full bg-gray-200", className)}
+        {...props}
+    >
+      <ProgressPrimitive.Indicator
+          className="h-full w-full flex-1 bg-orange-500 transition-all"
+          style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+      />
+    </ProgressPrimitive.Root>
+))
+Progress.displayName = ProgressPrimitive.Root.displayName
 
-export { Progress };
+export { Progress }

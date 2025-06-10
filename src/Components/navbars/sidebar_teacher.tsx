@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
-import {LayoutDashboard, Menu, Presentation, X} from "lucide-react"
+import {LayoutDashboard, Menu, PanelTopIcon, Presentation, X} from "lucide-react"
 import MatemixIcon from "../../assets/Matemix_icon.svg"
 
 
@@ -23,6 +23,11 @@ const navItems: NavItem[] = [
         title: "Salones",
         href: "/Salones",
         icon: <Presentation className="h-5 w-5" />, // Cambia el icono según sea necesario
+    },
+    {
+        title: "Temas",
+        href: "/temas",
+        icon: <PanelTopIcon className="h-5 w-5" />, // Cambia el icono según sea necesario
     },
 ]
 

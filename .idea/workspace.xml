@@ -4,11 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3344a45-8f40-4dc6-b17e-75a885490826" name="Changes" comment="Layout separados docente/alumno&#10;&#10;falta arreglar el dashboard docente">
+    <list default="true" id="b3344a45-8f40-4dc6-b17e-75a885490826" name="Changes" comment="mini correccción en salones">
+      <change afterPath="$PROJECT_DIR$/src/Components/UI/Dialog.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Pages/Temas.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Salones.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Salones.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/TeacherDashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/TeacherDashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/UI/Input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UI/Input.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/UI/Label.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UI/Label.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/UI/Layout2.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UI/Layout2.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/UI/Progress.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UI/Progress.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/UI/Textarea.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UI/Textarea.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/navbars/sidebar_teacher.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/navbars/sidebar_teacher.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +119,8 @@
       <workItem from="1749528302297" duration="378000" />
       <workItem from="1749529886819" duration="9890000" />
       <workItem from="1749578433554" duration="1176000" />
-      <workItem from="1749586343450" duration="1687000" />
+      <workItem from="1749586343450" duration="2762000" />
+      <workItem from="1749590089076" duration="4749000" />
     </task>
     <task id="LOCAL-00001" summary="Start">
       <option name="closed" value="true" />
@@ -161,7 +170,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749542096972</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="mini correccción en salones">
+      <option name="closed" value="true" />
+      <created>1749588339914</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1749588339914</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,7 +190,8 @@
     <MESSAGE value="StudentDashboad y Fix de LocalStorage Token y Username" />
     <MESSAGE value="EjerciciosPage + Axios para el Backend en Temas, Respuestas" />
     <MESSAGE value="Layout separados docente/alumno&#10;&#10;falta arreglar el dashboard docente" />
-    <option name="LAST_COMMIT_MESSAGE" value="Layout separados docente/alumno&#10;&#10;falta arreglar el dashboard docente" />
+    <MESSAGE value="mini correccción en salones" />
+    <option name="LAST_COMMIT_MESSAGE" value="mini correccción en salones" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

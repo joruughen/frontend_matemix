@@ -13,6 +13,7 @@ import ReportesPage from "./Pages/Reportes.tsx"
 import Salones from "./Pages/Salones.tsx"
 import EstudiantesPage from "./Pages/Estudiantes"
 import TeacherDashboardPage from "./Pages/TeacherDashboard.tsx"
+import Component from "./Pages/Temas.tsx"
 
 export type Section = "a" | "b" | "c"
 
@@ -28,9 +29,10 @@ function App() {
                     <Route path="/progreso" element={<Layout><ProgresoPage /></Layout>} />
                     <Route path="/analisis" element={<Layout><AnalisisPage /></Layout>} />
                     <Route path="/reportes" element={<Layout><ReportesPage /></Layout>} />
-                    <Route path="/Salones" element={<Layout2><Salones /></Layout2>} />
+                    <Route path="/salones" element={<Layout2><Salones /></Layout2>} />
                     <Route path="/estudiantes/:seccion" element={<Layout2><EstudiantesPage /></Layout2>} />
                     <Route path="/teacherdashboard" element={<Layout2><TeacherDashboardPage /></Layout2>} />
+                    <Route path="/temas" element={<Layout2><Component /></Layout2>} />
                 </Routes>
         </Router>
     )
