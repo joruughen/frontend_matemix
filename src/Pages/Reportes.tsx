@@ -6,16 +6,104 @@ import { Badge } from "../Components/UI/Badge.tsx"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../Components/UI/Tabs.tsx"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../Components/UI/Select.tsx"
 import { FileText, Download, TrendingUp, AlertTriangle, CheckCircle, Brain } from "lucide-react"
+import { useState, useEffect } from "react"
 
 export default function ReportesPage() {
-  // Datos ficticios para reportes
+  const [rachaActual, setRachaActual] = useState(0)
+  const [tiempoEstudio, setTiempoEstudio] = useState("0 minutos")
+  const [loading, setLoading] = useState(true)
+
+  const fetchRacha = async (alumnoId: string) => {
+    try {
+      const token = localStorage.getItem("token_matemix")
+      const response = await fetch(`http://localhost:8080/alumno/racha/${alumnoId}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      if (response.ok) {
+        const data = await response.json()
+        setRachaActual(data.racha || 0)
+      } else {
+        console.error("Error fetching racha:", response.statusText)
+        setRachaActual(0)
+      }
+    } catch (error) {
+      console.error("Error fetching racha:", error)
+      setRachaActual(0)
+    }
+  }
+
+  const fetchMinutos = async (alumnoId: string) => {
+    try {
+      const token = localStorage.getItem("token_matemix")
+      const response = await fetch(`http://localhost:8080/alumno/minutos/${alumnoId}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      if (response.ok) {
+        const data = await response.json()
+        const minutos = data.minutosTotales || 0
+        setTiempoEstudio(`${minutos} minutos`)
+      } else {
+        console.error("Error fetching minutos:", response.statusText)
+        setTiempoEstudio("0 minutos")
+      }
+    } catch (error) {
+      console.error("Error fetching minutos:", error)
+      setTiempoEstudio("0 minutos")
+    }
+  }
+
+  const incrementarMinutos = async () => {
+    try {
+      const alumnoId = localStorage.getItem("userId_matemix")
+      const token = localStorage.getItem("token_matemix")
+      const response = await fetch(`http://localhost:8080/alumno/minutos/incrementar/${alumnoId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      if (response.ok) {
+        const data = await response.json()
+        setTiempoEstudio(`${data.data} minutos`)
+      }
+    } catch (error) {
+      console.error("Error al incrementar minutos:", error)
+    }
+  }
+
+  useEffect(() => {
+    const alumnoId = localStorage.getItem("userId_matemix")
+
+    if (alumnoId) {
+      const loadData = async () => {
+        setLoading(true)
+        await Promise.all([fetchRacha(alumnoId), fetchMinutos(alumnoId)])
+        setLoading(false)
+      }
+
+      loadData()
+    } else {
+      console.error("No se encontró el ID del alumno en localStorage")
+      setLoading(false)
+    }
+  }, [])
+
   const reporteGeneral = {
     fechaGeneracion: "2024-01-15",
     periodoAnalisis: "Últimos 30 días",
     ejerciciosCompletados: 127,
     precisionPromedio: 85,
-    tiempoEstudio: "45 horas",
-    temasEstudiados: 4,
+    tiempoEstudio: tiempoEstudio,
+    rachaActual: rachaActual,
     fortalezas: ["Fracciones", "Álgebra básica"],
     debilidades: ["Geometría", "Estadística"],
     recomendaciones: [
@@ -74,6 +162,17 @@ export default function ReportesPage() {
     },
   ]
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 p-8 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Cargando datos del reporte...</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="container mx-auto">
@@ -83,11 +182,31 @@ export default function ReportesPage() {
         </div>
 
         <Tabs defaultValue="actual" className="space-y-6">
-          <TabsList>
-            <TabsTrigger value="actual">Reporte Actual</TabsTrigger>
-            <TabsTrigger value="patrones">Análisis de Patrones</TabsTrigger>
-            <TabsTrigger value="historico">Reportes Anteriores</TabsTrigger>
-            <TabsTrigger value="generar">Generar Nuevo</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4 gap-1 bg-gray-100 p-1 rounded-lg">
+            <TabsTrigger
+              value="actual"
+              className="px-4 py-3 rounded-md text-sm font-medium transition-all data-[state=active]:bg-gray-700 data-[state=active]:text-white data-[state=inactive]:bg-transparent data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:bg-gray-200"
+            >
+              Reporte Actual
+            </TabsTrigger>
+            <TabsTrigger
+              value="patrones"
+              className="px-4 py-3 rounded-md text-sm font-medium transition-all data-[state=active]:bg-gray-700 data-[state=active]:text-white data-[state=inactive]:bg-transparent data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:bg-gray-200"
+            >
+              Análisis de Patrones
+            </TabsTrigger>
+            <TabsTrigger
+              value="historico"
+              className="px-4 py-3 rounded-md text-sm font-medium transition-all data-[state=active]:bg-gray-700 data-[state=active]:text-white data-[state=inactive]:bg-transparent data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:bg-gray-200"
+            >
+              Reportes Anteriores
+            </TabsTrigger>
+            <TabsTrigger
+              value="generar"
+              className="px-4 py-3 rounded-md text-sm font-medium transition-all data-[state=active]:bg-gray-700 data-[state=active]:text-white data-[state=inactive]:bg-transparent data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:bg-gray-200"
+            >
+              Generar Nuevo
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="actual" className="space-y-6">
@@ -143,10 +262,12 @@ export default function ReportesPage() {
 
               <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-gray-600">Temas Estudiados</CardTitle>
+                  <CardTitle className="text-sm font-medium text-gray-600">Racha Actual</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-orange-600">{reporteGeneral.temasEstudiados}</div>
+                  <div className="text-2xl font-bold text-orange-600">
+                    {reporteGeneral.rachaActual} {reporteGeneral.rachaActual === 1 ? "día" : "días"}
+                  </div>
                 </CardContent>
               </Card>
             </div>

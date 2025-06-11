@@ -1,8 +1,7 @@
 import { axiosInstanceBackendUsuarios } from '../AxiosConfig';
-import type { UserLogin } from '../types'; // Importa el tipo de datos de login
+import type { UserLogin } from '../types';
 
 export class AuthService {
-    // Método para iniciar sesión
     async login(data: UserLogin) {
         try {
             return await axiosInstanceBackendUsuarios.post('/auth/login', data);
@@ -12,21 +11,17 @@ export class AuthService {
         }
     }
 
-    // Método para verificar el token
     async verifyToken(token: string) {
         try {
-            // Configuramos los headers con el Bearer Token
             const config = {
                 headers: {
-                    'Authorization': `Bearer ${token}`,  // Incluir el token en los headers
-                    'Content-Type': 'application/json',  // Tipo de contenido, si es necesario
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
                 }
             };
 
-            // Hacemos la solicitud GET con el token en los headers
             const response = await axiosInstanceBackendUsuarios.get('/auth/verify-token', config);
 
-            // Devuelve la respuesta
             return response;
         } catch (error) {
             console.error('Error durante verificación del token:', error);
@@ -35,4 +30,4 @@ export class AuthService {
     }
 }
 
-export const authService = new AuthService(); // Instancia de AuthService
+export const authService = new AuthService();
