@@ -13,6 +13,7 @@ const SIDEBAR_STUDENT_ROUTES = [
     "/progreso",
     "/ejercicios",
     "/ejercicios/:temaId/:nivel",
+    "/reportes",
 ];
 
 const shouldShowSidebar = (pathname: string): boolean => {
