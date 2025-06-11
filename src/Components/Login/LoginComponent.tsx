@@ -36,6 +36,11 @@ const LoginComponent = () => {
         navigate("/studentdashboard"); // Redirige a /dashboard
     }
 
+    const handleNavigateToDashboardProfesor = () => {
+        console.log("Navigating to Dashboard...");
+        navigate("/teacherdashboard"); // Redirige a /dashboard
+    }
+
     const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log("Login data being sent:", loginData);
@@ -65,6 +70,9 @@ const LoginComponent = () => {
 
                             if (response_user_info.data.role === "STUDENT") {
                                 handleNavigateToDashboardAlumnos();
+                            }
+                            if (response_user_info.data.role === "TEACHER") {
+                                handleNavigateToDashboardProfesor();
                             }
                         }
                     } else {

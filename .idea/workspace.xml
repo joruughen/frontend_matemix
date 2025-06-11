@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3344a45-8f40-4dc6-b17e-75a885490826" name="Changes" comment="mini correccción en salones">
-      <change afterPath="$PROJECT_DIR$/src/Components/UI/Dialog.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pages/Temas.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/UI/Input.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UI/Input.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/UI/Label.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UI/Label.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/UI/Layout2.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UI/Layout2.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/UI/Progress.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UI/Progress.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/UI/Textarea.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UI/Textarea.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/navbars/sidebar_teacher.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/navbars/sidebar_teacher.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="b3344a45-8f40-4dc6-b17e-75a885490826" name="Changes" comment="mini correccción en salones" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,7 +50,7 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;npm.dev.executor&quot;: &quot;Run&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\cmerc\\.ssh\\frontend_matemix\\node_modules\\typescript\\lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/jorughen/Desktop/frontend_matemix/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
