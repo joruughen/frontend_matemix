@@ -124,12 +124,6 @@ export interface RespuestaCorrecta {
 }
 
 
-//
-
-
-
-// Preguntas types.
-
 export interface PreguntaCreate {
     pregunta: string;
     respuesta_correcta: string;

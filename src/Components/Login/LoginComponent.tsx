@@ -1,22 +1,23 @@
 import { BookOpen, GraduationCap, School } from 'lucide-react'
 import React, { useState, useEffect } from 'react'
-import { Button } from '../UI/Buttom'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../UI/Card'
+import { Button } from '../ui/button.tsx'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card.tsx'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@radix-ui/react-tabs'
-import { Input } from '../UI/Input'
-import { Label } from '../UI/Label'
+import { Input } from '../ui/input.tsx'
+import { Label } from '../ui/label.tsx'
 import { Link } from 'react-router-dom'
-import { authService } from '../../Service/Auth/AuthService.tsx' // Importa el servicio
+import { authService } from '../../Service/Auth/AuthService.tsx' 
 import LogoMatemix from '../../assets/MateMix_Logo.png'
 import { useNavigate } from "react-router-dom"
+import { useAuth } from '../../context/authContext.tsx'
 
 const LoginComponent = () => {
     const [loginData, setLoginData] = useState({ username: "", password: "" });
     const [showPassword, setShowPassword] = useState(false);
-    const [error, setError] = useState<string>("");  // Estado para manejar errores
+    const [error, setError] = useState<string>("");  
     const colorHex = ["#10B981", "#3B82F6", "#D8315B", "#FFA000"];
     const [colorIndex, setColorIndex] = useState(0);
-
+    const {setAuth} = useAuth(); 
     useEffect(() => {
         const interval = setInterval(() => {
             setColorIndex((prev) => (prev + 1) % colorHex.length);
@@ -31,54 +32,35 @@ const LoginComponent = () => {
 
     const navigate = useNavigate()
 
-    const handleNavigateToDashboardAlumnos = () => {
-        console.log("Navigating to Dashboard...");
-        navigate("/studentdashboard"); // Redirige a /dashboard
-    }
-
+   
+    
     const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Login data being sent:", loginData);
-
+        setError("");
         try {
-            const response = await authService.login(loginData); // Llama al servicio de login
-
+            const response = await authService.login(loginData); 
             if (response.status === 200) {
-                console.log('Inicio de sesión exitoso');
-                setError(""); // Reseteamos el error si el login es exitoso
-                console.log(response.data.accessToken);
-                localStorage.setItem("token_matemix", response.data.accessToken);
+                const token = response.data.accessToken;    
+                const response_user_info = await authService.verifyToken(token);
+                if (response_user_info.status === 200) {
+                    const role = response_user_info.data.role;
+                    const username = loginData.username
+                    setAuth({ token, role, username });
 
-                try {
-                    const token = localStorage.getItem("token_matemix");
-                    if (token) {
-                        const response_user_info = await authService.verifyToken(token);
-                        console.log(response_user_info);
-                        console.log(response_user_info.status);
-
-                        if (response_user_info.status === 200) {
-                            console.log(response_user_info.data);
-                            console.log(response_user_info.data.role);
-                            console.log(response_user_info.data.username);
-                            localStorage.setItem("username_matemix", response_user_info.data.username);
-                            localStorage.setItem("userId_matemix", response_user_info.data.userId);
-
-                            if (response_user_info.data.role === "STUDENT") {
-                                handleNavigateToDashboardAlumnos();
-                            }
-                        }
-                    } else {
-                        console.error("Token not found in localStorage.");
+                    if (role === "STUDENT") {
+                        navigate("/studentdashboard");
+                    } else if (role === "TEACHER") {
+                        navigate("/profesor");
                     }
-                } catch (e) {
-                    console.error(e);
+                } else {
+                    setError("No se pudo verificar el usuario.");
                 }
             } else {
-                setError("Nombre de usuario o contraseña incorrectos."); // Mensaje de error
+                setError("Nombre de usuario o contraseña incorrectos."); 
             }
         } catch (error) {
-            console.log('Error en login:', error);
-            setError("Nombre de usuario o contraseña incorrectos."); // Manejamos el error si falla la petición
+            console.error("Error al iniciar sesión:", error);
+            setError("Nombre de usuario o contraseña incorrectos."); 
         }
     }
 
@@ -135,14 +117,13 @@ const LoginComponent = () => {
                                                 </button>
                                             </div>
                                             {error && <p className="text-red-500 text-sm">{error}</p>} {/* Mostrar el mensaje de error */}
-                                            <Button variant="submit" className="w-full bg-blue-500 text-white hover:bg-blue-500 rounded-[80px]">
+                                            <Button variant="outline" className="w-full bg-blue-500 text-white hover:bg-blue-500 rounded-[80px]">
                                                 Iniciar sesión
                                             </Button>
                                         </div>
                                     </form>
                                 </TabsContent>
 
-                                {/* Agregar la lógica similar para el profesor aquí */}
                             </Tabs>
                         </CardContent>
                         <CardFooter className="flex flex-col gap-4">

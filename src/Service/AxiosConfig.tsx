@@ -1,19 +1,15 @@
-// AxiosConfig.tsx
 import axios from 'axios';
 
-// Crea una instancia de axios con la configuración básica
 export const axiosInstanceBackendUsuarios = axios.create({
-    baseURL: 'http://localhost:8080/',  // Aquí va la URL base de tu API
-    timeout: 30000,  // Timeout en milisegundos
+    baseURL: 'http://localhost:8090/',  
     headers: {
-        'Content-Type': 'application/json',  // Tipo de contenido que estás enviando
+        'Content-Type': 'application/json',  
     },
 });
 
 export const axiosInstanceBackend_AI_Ejercicios = axios.create({
-    baseURL: 'http://localhost:8000/',  // Aquí va la URL base de tu API
-    timeout: 30000,  // Timeout en milisegundos
+    baseURL: 'http://localhost:8000/',  
     headers: {
-        'Content-Type': 'application/json',  // Tipo de contenido que estás enviando
+        'Content-Type': 'application/json', 
     },
 });
