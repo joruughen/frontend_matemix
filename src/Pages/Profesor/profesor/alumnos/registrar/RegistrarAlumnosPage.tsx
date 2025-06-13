@@ -1,64 +1,165 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
-import {Link} from "react-router-dom"
+import { useEffect, useState } from "react"
+import {Link, useNavigate, useParams} from "react-router-dom"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../../Components/ui/card"
 import { Button } from "../../../../../Components/ui/button"
 import { Input } from "../../../../../Components/ui/input"
 import { Label } from "../../../../../Components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../../../Components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../../Components/ui/tabs"
 import { ArrowLeft, Upload, FileText, Users, CheckCircle, AlertCircle } from "lucide-react"
+import  {type AlumnoRegisterRequestDTO, type AlumnoRegisterResponse, type AlumnosDTO } from "../../../../../Service/Alumnos/types"
+import { salonService } from "../../../../../Service/Salon/service"
+import type { SalonResponse } from "../../../../../Service/Salon/types"
+import { alumnosService } from "../../../../../Service/Alumnos/service"
 
 export default function RegistrarAlumnosPage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [uploadStatus, setUploadStatus] = useState<"idle" | "processing" | "success" | "error">("idle")
-  type AlumnoPreview = {
-    nombre: string
-    email: string
-    grado: string
-  }
-  const [previewData, setPreviewData] = useState<AlumnoPreview[]>([])
-  const [selectedSalon, setSelectedSalon] = useState("")
-
-  // Lista ficticia de salones
-  const salones = [
-    { id: "s1", nombre: "Matemáticas 3°A" },
-    { id: "s2", nombre: "Matemáticas 3°B" },
-    { id: "s3", nombre: "Matemáticas 2°A" },
-    { id: "s4", nombre: "Matemáticas 2°B" },
-    { id: "s5", nombre: "Matemáticas 1°A" },
-  ]
-
+  const [errorMessage, setErrorMessage] = useState<string>("")
+  
+  const [alumnosRegistrados, setAlumnosRegistrados] = useState<AlumnosDTO[]>([])
+  const navigate = useNavigate()
+  const { id: salonId } = useParams<{ id: string }>()
+  const ALLOWED_FILE_TYPES = ['text/csv', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
+  const [salonInfo, setSalonInfo] = useState<SalonResponse | null>(null)
+  const [alumnoRegister, setAlumnoRegister] = useState<AlumnoRegisterRequestDTO>({
+    nombre: "",
+    apellido: "",
+    dni: ""
+  })
+  const [registrando, setRegistrando] = useState<boolean>(false)
+  const [openModal, setOpenModal] = useState<boolean>(false)
+  const [alumnoRegistrado, setAlumnoRegistrado] = useState<AlumnoRegisterResponse | null>(null)
+  const [csvData, setCsvData] = useState<String | null>(null)
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setErrorMessage("")
     const file = e.target.files?.[0]
-    if (file) {
-      setSelectedFile(file)
-      // Simulamos la lectura del archivo para mostrar una vista previa
-      setTimeout(() => {
-        const mockData = [
-          { nombre: "Ana García", email: "ana.garcia@escuela.edu", grado: "3°" },
-          { nombre: "Carlos López", email: "carlos.lopez@escuela.edu", grado: "3°" },
-          { nombre: "María Rodríguez", email: "maria.rodriguez@escuela.edu", grado: "3°" },
-          { nombre: "Juan Pérez", email: "juan.perez@escuela.edu", grado: "3°" },
-          { nombre: "Laura Sánchez", email: "laura.sanchez@escuela.edu", grado: "3°" },
-        ]
-        setPreviewData(mockData)
-      }, 500)
+    
+    if (!file) {
+      setSelectedFile(null)
+      return
+    }
+
+    if (!ALLOWED_FILE_TYPES.includes(file.type)) {
+      setErrorMessage("Tipo de archivo no permitido. Solo se aceptan archivos CSV o Excel.")
+      setSelectedFile(null)
+      return
+    }
+
+    if (file.size > 40 * 1024 * 1024) {
+      setErrorMessage("El archivo es demasiado grande. El tamaño máximo permitido es 40MB.")
+      setSelectedFile(null)
+      return
+    }
+
+    setSelectedFile(file)
+    
+  }
+
+  const handleUpload = async () => {
+    if (!selectedFile || !salonId) return;
+  
+    setUploadStatus("processing");
+    setErrorMessage("");
+  
+    try {
+      const formData = new FormData();
+
+      formData.append("file", selectedFile); 
+      console.log("Datos del formulario:", formData.get("file"));
+      const response = await alumnosService.registrarAlumnosMasivos(
+        formData,
+        localStorage.getItem("token_matemix") || "",
+        salonId
+      );
+      console.log("Respuesta del servidor:", response);
+      setCsvData(response)
+      setUploadStatus("success");
+    } catch (error) {
+      console.error("Error al registrar los alumnos:", error);
+      setErrorMessage("Error al registrar los alumnos. Verifica el archivo e intenta nuevamente.");
+      setUploadStatus("error");
+    }
+  };
+
+  const triggerFileInput = () => {
+    const fileInput = document.getElementById('file-upload') as HTMLInputElement
+    fileInput?.click()
+  }
+
+  const handleGetAlumnos = async() => {
+    try{
+      if (!salonId) {
+        alert("Ups! este salon no existe, Regresa al dashboard.")
+        navigate("/profesor")
+        return;
+      }else{
+        const response = await salonService.getAlumnosBySalonId(salonId, localStorage.getItem("token_matemix") || "")
+        setAlumnosRegistrados(response)
+        console.log("Alumnos registrados en el salón:", response)
+      }
+    }catch (error) {
+      console.error("Error al obtener los alumnos del salón:", error)
+      setErrorMessage("No se pudieron obtener los alumnos del salón. Intenta nuevamente más tarde.")
+    }
+
+  }
+  const handleGetSalonInfo = async () => {
+    try {
+      if (!salonId) {
+        alert("Ups! este salón no existe, Regresa al dashboard.")
+        navigate("/profesor")
+        return;
+      } else {
+        const response = await salonService.getSalonById(salonId, localStorage.getItem("token_matemix") || "")
+        setSalonInfo(response)
+        console.log("Información del salón:", response)
+      }
+    } catch (error) {
+      alert("Ups! este salón no existe, Regresa al dashboard.")
+      console.error("Error al obtener la información del salón:", error)
+      setErrorMessage("No se pudo obtener la información del salón. Intenta nuevamente más tarde.")
     }
   }
+  useEffect(() => {
+    handleGetAlumnos()
+    handleGetSalonInfo()
+  }, [salonId])
 
-  const handleUpload = () => {
-    if (!selectedFile || !selectedSalon) return
-
-    setUploadStatus("processing")
-
-    // Simulamos el proceso de carga
-    setTimeout(() => {
-      setUploadStatus("success")
-    }, 2000)
+  const handleRegisterAlumno = async () => {
+    try {
+      if (!salonId) {
+        alert("Ups! este salón no existe, Regresa al dashboard.")
+        navigate("/profesor")
+        return;
+      }
+      if (!alumnoRegister.nombre || !alumnoRegister.apellido || !alumnoRegister.dni) {
+        setErrorMessage("Por favor completa todos los campos del formulario.")
+        return
+      }
+      setRegistrando(true)
+      
+      const response = await alumnosService.registrarAlumno(alumnoRegister, localStorage.getItem("token_matemix") || "", salonId)
+      
+      console.log("Alumno registrado:", response)
+      setAlumnoRegistrado(response)
+      setAlumnosRegistrados(prev => [...prev, {
+        id: response.id,
+        nombre: response.nombre,
+        apellido: response.apellido,
+        dni: response.dni,
+        username: response.username
+      }])
+      setOpenModal(true)
+    } catch (error) {
+      console.error("Error al registrar el alumno:", error)
+      setErrorMessage("No se pudo registrar el alumno. Intenta nuevamente más tarde.")
+      alert("No se pudo registrar el alumno. Intenta nuevamente más tarde.")
+    } finally {
+      setRegistrando(false)
+    }
   }
 
   const renderUploadStatus = () => {
@@ -75,26 +176,49 @@ export default function RegistrarAlumnosPage() {
           <div className="text-center p-6">
             <CheckCircle className="h-16 w-16 text-green-600 mx-auto mb-4" />
             <h3 className="text-2xl font-bold text-green-600 mb-2">¡Registro Exitoso!</h3>
-            <p className="text-gray-600 mb-6">Se han registrado 5 alumnos correctamente en el salón seleccionado.</p>
-            <div className="flex justify-center space-x-4">
-              <Link to="/profesor/alumnos">
-                <Button>Ver Todos los Alumnos</Button>
-              </Link>
-              <Link to="/profesor/salones">
-                <Button variant="outline">Ver Salones</Button>
-              </Link>
+            <p className="text-gray-600 mb-6">Se han registrado alumnos correctamente en el salón seleccionado.</p>
+            <div className="flex flex-col items-center space-y-4">
+              {csvData && (
+                <Button
+                  onClick={() => {
+                    const blob = new Blob([csvData], { type: "text/csv" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = "credenciales_alumnos.csv";
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                  }}
+                  variant="outline"
+                >
+                  Descargar credenciales (.csv)
+                </Button>
+              )}
+              <div className="flex space-x-4">
+                <Link to="/profesor/alumnos">
+                  <Button>Ver Todos los Alumnos</Button>
+                </Link>
+                <Link to="/profesor/salones">
+                  <Button variant="outline">Ver Salones</Button>
+                </Link>
+              </div>
             </div>
           </div>
-        )
+        );
       case "error":
         return (
           <div className="text-center p-6">
             <AlertCircle className="h-16 w-16 text-red-600 mx-auto mb-4" />
             <h3 className="text-2xl font-bold text-red-600 mb-2">Error en el Registro</h3>
             <p className="text-gray-600 mb-6">
-              Ocurrió un problema al procesar el archivo. Por favor verifica el formato e intenta nuevamente.
+              {errorMessage || "Ocurrió un problema al procesar el archivo. Por favor verifica el formato e intenta nuevamente."}
             </p>
-            <Button onClick={() => setUploadStatus("idle")}>Intentar Nuevamente</Button>
+            <Button onClick={() => {
+              setUploadStatus("idle")
+              setErrorMessage("")
+            }}>Intentar Nuevamente</Button>
           </div>
         )
       default:
@@ -114,16 +238,26 @@ export default function RegistrarAlumnosPage() {
 
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Registrar Alumnos</h1>
-          <p className="text-gray-600">Añade nuevos alumnos a tus salones de clase</p>
+          <p className="text-gray-600">Añade nuevos alumnos a tu salon {salonInfo?.nombre}</p>
         </div>
 
         {uploadStatus !== "idle" ? (
           <Card>{renderUploadStatus()}</Card>
         ) : (
-          <Tabs defaultValue="archivo" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="archivo">Cargar Archivo</TabsTrigger>
-              <TabsTrigger value="manual">Registro Manual</TabsTrigger>
+          <Tabs defaultValue="archivo" className="space-y-6 bg-white p-6 rounded-lg shadow-md">
+            <TabsList className="grid w-full grid-cols-2 border-b">
+              <TabsTrigger
+                value="archivo"
+                className="data-[state=active]:bg-gray-500 data-[state=active]:text-white"
+              >
+                Cargar Archivo
+              </TabsTrigger>
+              <TabsTrigger
+                value="manual"
+                className="data-[state=active]:bg-gray-500 data-[state=active]:text-white"
+              >
+                Registro Manual
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="archivo">
@@ -138,10 +272,13 @@ export default function RegistrarAlumnosPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                  <div 
+                    className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors cursor-pointer"
+                    onClick={triggerFileInput}
+                  >
                     <Upload className="h-8 w-8 text-gray-400 mx-auto mb-4" />
                     <p className="text-sm text-gray-600 mb-4">
-                      Arrastra y suelta tu archivo aquí, o haz clic para seleccionarlo
+                      Haz clic para seleccionar un archivo (CSV o Excel)
                     </p>
                     <Input
                       id="file-upload"
@@ -150,72 +287,26 @@ export default function RegistrarAlumnosPage() {
                       className="hidden"
                       onChange={handleFileChange}
                     />
-                    <label htmlFor="file-upload">
-                      <Button variant="outline" className="cursor-pointer" onClick={() => {}}>
-                        Seleccionar Archivo
-                      </Button>
-                    </label>
+                    <Button variant="outline" className="cursor-pointer">
+                      Seleccionar Archivo
+                    </Button>
                     {selectedFile && (
                       <p className="mt-4 text-sm text-gray-600">
                         Archivo seleccionado: <span className="font-medium">{selectedFile.name}</span>
+                        <span className="block text-xs text-green-600 mt-1">Tipo válido: {selectedFile.type}</span>
                       </p>
+                    )}
+                    {errorMessage && (
+                      <p className="mt-2 text-sm text-red-600">{errorMessage}</p>
                     )}
                   </div>
 
-                  {previewData.length > 0 && (
-                    <div>
-                      <h3 className="font-medium mb-2">Vista previa:</h3>
-                      <div className="border rounded-lg overflow-hidden">
-                        <table className="min-w-full divide-y divide-gray-200">
-                          <thead className="bg-gray-50">
-                            <tr>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Nombre
-                              </th>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Email
-                              </th>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Grado
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody className="bg-white divide-y divide-gray-200">
-                            {previewData.map((alumno, index) => (
-                              <tr key={index}>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                  {alumno.nombre}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{alumno.email}</td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{alumno.grado}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  )}
-
-                  <div>
-                    <Label htmlFor="salon">Seleccionar Salón</Label>
-                    <Select value={selectedSalon} onValueChange={setSelectedSalon}>
-                      <SelectTrigger className="mt-1">
-                        <SelectValue placeholder="Selecciona un salón" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {salones.map((salon) => (
-                          <SelectItem key={salon.id} value={salon.id}>
-                            {salon.nombre}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
+                         
 
                   <div className="flex justify-end">
                     <Button
                       onClick={handleUpload}
-                      disabled={!selectedFile || !selectedSalon}
+                      disabled={!selectedFile }
                       className="flex items-center"
                     >
                       <Upload className="h-4 w-4 mr-2" />
@@ -239,62 +330,95 @@ export default function RegistrarAlumnosPage() {
                   <div className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <Label htmlFor="nombre">Nombre Completo</Label>
-                        <Input id="nombre" placeholder="Ej: Ana García" />
+                        <Label htmlFor="nombre">Nombre</Label>
+                        <Input 
+                        id="nombre" 
+                        placeholder="Ej: Ana García" 
+                        value={alumnoRegister.nombre}
+                        onChange={(e) => setAlumnoRegister(prev => ({ ...prev, nombre: e.target.value }))}
+                        />
                       </div>
                       <div>
-                        <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" placeholder="Ej: ana.garcia@escuela.edu" />
+                        <Label htmlFor="apellido">Apellido</Label>
+                        <Input 
+                        id="apellido" 
+                        type="text" 
+                        placeholder="Ej: García" 
+                        value={alumnoRegister.apellido}
+                        onChange={(e) => setAlumnoRegister(prev => ({ ...prev, apellido: e.target.value }))}
+                        />
                       </div>
-                    </div>
+                      <div>
+                        <Label htmlFor="dni">DNI</Label>
+                        <Input 
+                        id="dni" 
+                        type="text" 
+                        placeholder="Ej: 12345678" 
+                        value={alumnoRegister.dni}
+                        onChange={(e) => setAlumnoRegister(prev => ({ ...prev, dni: e.target.value }))}
+                        />
+                      </div>
+                      </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <Label htmlFor="salon-manual">Salón</Label>
-                        <Select>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Selecciona un salón" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {salones.map((salon) => (
-                              <SelectItem key={salon.id} value={salon.id}>
-                                {salon.nombre}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                    <div>
+                      {!registrando && (
+                        <div className="flex justify-end ">
+                          <Button
+                            variant="outline"
+                            className="flex items-center cursor-pointer"
+                            onClick={handleRegisterAlumno}
+                          >
+                            Registrar Alumno
+                          </Button>
+                        </div>
+                      )}
+                      {registrando && (
+                        <div className="flex justify-center items-center py-8">
+                          <span className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mr-2"></span>
+                          <span className="text-blue-600 font-medium">Registrando Alumno...</span>
+                        </div>
+                      )}
+                      {openModal && alumnoRegistrado && !registrando && (
+                      <div className="flex justify-center">
+                        <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-xl mx-auto my-8">
+                          <h2 className="text-2xl font-bold mb-4 text-center">Alumno registrado exitosamente</h2>
+                          <div className="space-y-2">
+                            <div><b>Nombre:</b> {alumnoRegistrado.nombre} {alumnoRegistrado.apellido}</div>
+                            <div><b>DNI:</b> {alumnoRegistrado.dni}</div>
+                            <div><b>Usuario:</b> {alumnoRegistrado.username}</div>
+                            <div><b>Contraseña:</b> {alumnoRegistrado.contraseña}</div>
+                          </div>
+                          <button
+                            className="mt-6 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+                            onClick={() => setOpenModal(false)}
+                          >
+                            Cerrar
+                          </button>
+                        </div>
                       </div>
-                      <div>
-                        <Label htmlFor="password">Contraseña Temporal</Label>
-                        <Input id="password" type="password" placeholder="Contraseña inicial" />
-                      </div>
-                    </div>
-
-                    <div className="flex justify-end">
-                      <Button>Registrar Alumno</Button>
+                    )}
                     </div>
 
                     <div className="border-t pt-6 mt-6">
-                      <h3 className="font-medium mb-4">Alumnos Registrados Recientemente</h3>
+                      <h3 className="font-medium mb-4">Alumnos Registrados Recientemente {salonInfo?.cantidadAlumnos}</h3>
                       <div className="space-y-2">
-                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                          <div>
-                            <p className="font-medium">Laura Sánchez</p>
-                            <p className="text-sm text-gray-600">laura.sanchez@escuela.edu • 3°A</p>
-                          </div>
-                          <Button variant="outline" size="sm">
-                            Editar
-                          </Button>
-                        </div>
-                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                          <div>
-                            <p className="font-medium">Pedro Gómez</p>
-                            <p className="text-sm text-gray-600">pedro.gomez@escuela.edu • 3°B</p>
-                          </div>
-                          <Button variant="outline" size="sm">
-                            Editar
-                          </Button>
-                        </div>
+                        {alumnosRegistrados.length === 0 ? (
+                          <p className="text-gray-500">No hay alumnos registrados.</p>
+                        ) : (
+                          alumnosRegistrados.map(alumno => (
+                            <div
+                              key={alumno.id}
+                              className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                            >
+                              <div>
+                                <p className="font-medium">{alumno.nombre} {alumno.apellido}</p>
+                                <p className="text-sm text-gray-600">
+                                  Usuario: {alumno.username} &bull; DNI: {alumno.dni}
+                                </p>
+                              </div>
+                            </div>
+                          ))
+                        )}
                       </div>
                     </div>
                   </div>

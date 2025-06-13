@@ -1,4 +1,3 @@
-"use client"
 
 import { useState } from "react"
 import {Link} from "react-router-dom"
@@ -12,7 +11,6 @@ import { ArrowLeft, Search, Users, BookOpen, Plus, School } from "lucide-react"
 export default function SalonesPage() {
   const [searchQuery, setSearchQuery] = useState("")
 
-  // Datos ficticios de salones
   const salones = [
     {
       id: "s1",

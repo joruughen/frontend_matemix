@@ -1,3 +1,4 @@
+import type { AlumnosDTO } from "../Alumnos/types";
 import { axiosInstanceBackendUsuarios } from "../AxiosConfig";
 import type { SalonRequestDTO, SalonResponse } from "./types";
 
@@ -32,6 +33,71 @@ export class SalonService {
             return response.data.data;
         } catch (error) {
             console.error("Error al obtener los salones:", error);
+            throw error;
+        }
+    }
+
+    async deleteSalon(salonId: string, token: string) {
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+            const response = await axiosInstanceBackendUsuarios.delete(`/salon/${salonId}`, config);
+            console.log(`Salón con ID ${salonId} eliminado exitosamente.`);
+            console.log("Respuesta del servidor:", response);
+            return response;
+        } catch (error) {
+            console.error("Error al eliminar el salón:", error);
+            throw error;
+        }
+    }
+
+    async searchSalonByName(name: string, token: string): Promise<SalonResponse[]> {
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+            const response = await axiosInstanceBackendUsuarios.get(`/salon/search/${name}`, config);
+            console.log("Respuesta del servidor:", response.data);
+            return response.data.data;
+        } catch (error) {
+            console.error("Error al buscar el salón por nombre:", error);
+            throw error;
+        }
+    }
+
+    async getSalonById(salonId: string, token: string): Promise<SalonResponse> {
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+            const response = await axiosInstanceBackendUsuarios.get(`/salon/${salonId}`, config);
+            console.log("Respuesta del servidor:", response.data);
+            return response.data.data;
+        } catch (error) {
+            console.error("Error al obtener el salón por ID:", error);
+            throw error;
+        }
+    }
+
+    async getAlumnosBySalonId(salonId: string, token: string): Promise<AlumnosDTO[]> {
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+            const response = await axiosInstanceBackendUsuarios.get(`/salon/alumnos/${salonId}`, config);
+            console.log("Respuesta del servidor:", response.data);
+            return response.data.data;
+        } catch (error) {
+            console.error("Error al obtener los alumnos por ID de salón:", error);
             throw error;
         }
     }
