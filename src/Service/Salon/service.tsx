@@ -1,6 +1,6 @@
 import type { AlumnosDTO } from "../Alumnos/types";
-import { axiosInstanceBackendUsuarios } from "../AxiosConfig";
-import type { SalonRequestDTO, SalonResponse } from "./types";
+import { axiosInstanceBackendUsuarios, axiosInstanceBackend_AI_Ejercicios } from "../AxiosConfig";
+import type { InfoOfSalonesByProfesor, SalonRequestDTO, salonResponInfo, SalonResponse } from "./types";
 
 export class SalonService {
 
@@ -22,15 +22,16 @@ export class SalonService {
         }
     }
 
-    async obtenerSalones(token: string): Promise<SalonResponse[]> {
+    async obtenerSalones(token: string): Promise<salonResponInfo[]> {
         try {
             const config = {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             };
-            const response = await axiosInstanceBackendUsuarios.get("/salon/profesor/my-salons", config);
-            return response.data.data;
+            const response = await axiosInstanceBackend_AI_Ejercicios.get("/topics/info/salones/profesor", config);
+            console.log("Respuesta del servidor:", response.data.salones);
+            return response.data.salones;
         } catch (error) {
             console.error("Error al obtener los salones:", error);
             throw error;
@@ -86,6 +87,8 @@ export class SalonService {
         }
     }
 
+
+
     async getAlumnosBySalonId(salonId: string, token: string): Promise<AlumnosDTO[]> {
         try {
             const config = {
@@ -98,6 +101,22 @@ export class SalonService {
             return response.data.data;
         } catch (error) {
             console.error("Error al obtener los alumnos por ID de salón:", error);
+            throw error;
+        }
+    }
+
+    async getInfoOfProfesorSalones(token:string): Promise<InfoOfSalonesByProfesor> {
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+            const response = await axiosInstanceBackend_AI_Ejercicios.get("/topics/info/profesor", config);
+            console.log("Respuesta del servidor:", response.data);
+            return response.data;
+        } catch (error) {
+            console.error("Error al obtener la información de los salones del profesor:", error);
             throw error;
         }
     }
