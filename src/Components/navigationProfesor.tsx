@@ -33,7 +33,8 @@ export function NavigationProfesor() {
     <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center">
+         
+          <Link to="/profesor" className="flex items-center">
             <div className="h-8 w-8 mr-2">
               <img src={MatemixIcon || "/placeholder.svg"} alt="Icon" />
             </div>

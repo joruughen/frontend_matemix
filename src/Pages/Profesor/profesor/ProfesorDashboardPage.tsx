@@ -247,25 +247,25 @@ export default function ProfesorDashboardPage() {
           {/* Columna derecha */}
           <div className="space-y-6">
             {/* Acciones rápidas */}
-            <Card>
+            <Card >
               <CardHeader>
                 <CardTitle>Acciones Rápidas</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <Link to="/profesor/alumnos/registrar">
-                  <Button className="w-full">
+              <CardContent className="space-y-6">
+                <Link to="/profesor/registro/:id/alumnos">
+                  <Button variant="outline" className="mb-2 w-full">
                     <Users className="h-4 w-4 mr-2" />
                     Registrar Alumnos
                   </Button>
                 </Link>
-                <Link to="/profesor/temas/crear">
-                  <Button variant="outline" className="w-full">
+                <Link to="/profesor/salones/:id/temas">
+                  <Button variant="outline" className="mb-2 w-full">
                     <BookOpen className="h-4 w-4 mr-2" />
                     Crear Nuevo Tema
                   </Button>
                 </Link>
                 <Link to="/profesor/salones/crear">
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" className="mb-2 w-full">
                     <School className="h-4 w-4 mr-2" />
                     Crear Nuevo Salón
                   </Button>
