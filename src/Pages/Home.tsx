@@ -1,7 +1,7 @@
 "use client"
 
-import { Button } from "../Components/UI/Button.tsx"
-import { Card, CardContent, CardHeader, CardTitle } from "../Components/UI/Card.tsx"
+import { Button } from "../Components/ui/button.tsx"
+import { Card, CardContent, CardHeader, CardTitle } from "../Components/ui/card.tsx"
 import { BookOpen, TrendingUp, Users } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import logotipo from "../assets/Matemix_icon.svg"
