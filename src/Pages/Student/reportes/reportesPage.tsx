@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../Components/ui
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../Components/ui/select"
 import { FileText, Download, TrendingUp, AlertTriangle, CheckCircle, Brain } from "lucide-react"
 import { useState, useEffect } from "react"
+import { axiosInstanceBackendUsuarios } from "../../../Service/AxiosConfig" 
 
 export default function ReportesPage() {
   const [rachaActual, setRachaActual] = useState(0)
@@ -16,20 +17,12 @@ export default function ReportesPage() {
   const fetchRacha = async (alumnoId: string) => {
     try {
       const token = localStorage.getItem("token_matemix")
-      const response = await fetch(`http://localhost:8080/alumno/racha/${alumnoId}`, {
-        method: "GET",
+      const response = await axiosInstanceBackendUsuarios.get(`alumno/racha/${alumnoId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
       })
-      if (response.ok) {
-        const data = await response.json()
-        setRachaActual(data.racha || 0)
-      } else {
-        console.error("Error fetching racha:", response.statusText)
-        setRachaActual(0)
-      }
+      setRachaActual(response.data.racha || 0)
     } catch (error) {
       console.error("Error fetching racha:", error)
       setRachaActual(0)
@@ -39,21 +32,13 @@ export default function ReportesPage() {
   const fetchMinutos = async (alumnoId: string) => {
     try {
       const token = localStorage.getItem("token_matemix")
-      const response = await fetch(`http://localhost:8080/alumno/minutos/${alumnoId}`, {
-        method: "GET",
+      const response = await axiosInstanceBackendUsuarios.get(`alumno/minutos/${alumnoId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
       })
-      if (response.ok) {
-        const data = await response.json()
-        const minutos = data.minutosTotales || 0
-        setTiempoEstudio(`${minutos} minutos`)
-      } else {
-        console.error("Error fetching minutos:", response.statusText)
-        setTiempoEstudio("0 minutos")
-      }
+      const minutos = response.data.minutosTotales || 0
+      setTiempoEstudio(`${minutos} minutos`)
     } catch (error) {
       console.error("Error fetching minutos:", error)
       setTiempoEstudio("0 minutos")
@@ -64,17 +49,12 @@ export default function ReportesPage() {
     try {
       const alumnoId = localStorage.getItem("userId_matemix")
       const token = localStorage.getItem("token_matemix")
-      const response = await fetch(`http://localhost:8080/alumno/minutos/incrementar/${alumnoId}`, {
-        method: "PUT",
+      const response = await axiosInstanceBackendUsuarios.put(`alumno/minutos/incrementar/${alumnoId}`, 1, {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
       })
-      if (response.ok) {
-        const data = await response.json()
-        setTiempoEstudio(`${data.data} minutos`)
-      }
+      setTiempoEstudio(`${response.data.data} minutos`)
     } catch (error) {
       console.error("Error al incrementar minutos:", error)
     }
