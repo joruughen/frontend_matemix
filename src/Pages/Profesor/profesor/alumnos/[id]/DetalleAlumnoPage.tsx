@@ -1,6 +1,6 @@
 "use client"
 
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../../Components/ui/card"
 import { Button } from "../../../../../Components/ui/button"
 import { Badge } from "../../../../../Components/ui/badge"
@@ -8,10 +8,11 @@ import { Progress } from "../../../../../Components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../../Components/ui/tabs"
 import { ArrowLeft, User, TrendingUp, BookOpen, Clock, Mail, MessageSquare, FileText } from "lucide-react"
 
-export default function DetalleAlumnoPage({ params }: { params: { id: string } }) {
+export default function DetalleAlumnoPage() {
+  const { id } = useParams<{ id: string }>();
   // Datos ficticios del alumno
   const alumno = {
-    id: params.id,
+    id,
     nombre: "Ana García",
     email: "ana.garcia@escuela.edu",
     salon: "Matemáticas 3°A",

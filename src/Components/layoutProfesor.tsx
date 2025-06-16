@@ -8,7 +8,7 @@ export default function LayoutProfesor() {
     <div lang="es" style={{ minHeight: '100vh' }}>
       <ThemeProvider>
         <NavigationProfesor />
-        <main style={{ paddingTop: '1rem' }}>
+        <main style={{ paddingTop: '' }}>
           <Outlet />
         </main>
       </ThemeProvider>

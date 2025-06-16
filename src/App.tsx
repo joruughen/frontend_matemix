@@ -20,6 +20,7 @@ import EjerciciosPage from "./Pages/Student/ejercicios/ejerciciosPage.tsx"
 import ProgresoPage from "./Pages/Student/progreso/progresoPage.tsx"
 import ReportesPage from "./Pages/Student/reportes/reportesPage.tsx"
 import DashboardPage from "./Pages/Student/dashboardPage.tsx"
+import DetalleAlumnoPage  from "./Pages/Profesor/profesor/alumnos/[id]/DetalleAlumnoPage.tsx";
 
 function App() {
     return (
@@ -33,6 +34,7 @@ function App() {
                     <Route path="alumnos" element={<AlumnosPage />} />
                     <Route path="temas" element={<TemasPage />} />
                     <Route path="reportes" element={<ReportesProfesorPage />} />
+                    <Route path="/profesor/alumnos/:id" element={<DetalleAlumnoPage />} />
                     <Route path="/profesor/salones/crear" element = {<CrearSalonPage />} />
                     <Route path="/profesor/registro/:id/alumnos" element={<RegistrarAlumnosPage />} />                
                     <Route path="/profesor/salones/:id/temas" element={<CrearTemaPage />} />
@@ -45,7 +47,7 @@ function App() {
                 </Route>
                 <Route path="/alumno" element={<LayoutAlumno />}>
                     <Route index element={<DashboardPage />} />
-                    <Route path="ejercicios" element={<EjerciciosPage />} />  
+                    <Route path="ejercicios" element={<EjerciciosPage />} />
                     <Route path="progreso" element={<ProgresoPage />} />
                     <Route path="reportes" element={<ReportesPage />} />
                     <Route path="analisis" element={<ReportesPage />} />

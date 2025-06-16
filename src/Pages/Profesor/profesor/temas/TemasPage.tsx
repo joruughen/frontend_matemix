@@ -60,7 +60,7 @@ export default function TemasPage() {
             <p className="text-gray-600">Administra los temas y subtemas</p>
           </div>
           <div className="flex gap-4">
-            <Link to="/profesor/temas/crear">
+            <Link to="/profesor/salones/:id/temas">
               <Button className="flex items-center">
                 <Plus className="h-4 w-4 mr-2" />
                 Crear Tema

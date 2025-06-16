@@ -8,7 +8,7 @@ export default function LayoutAlumno() {
     <div lang="es" style={{ minHeight: '100vh' }}>
       <ThemeProvider>
         <NavigationAlumno />
-        <main style={{ paddingTop: '1rem' }}>
+        <main style={{ paddingTop: '' }}>
           <Outlet />
         </main>
       </ThemeProvider>
