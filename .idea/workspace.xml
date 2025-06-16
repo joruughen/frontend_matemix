@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3344a45-8f40-4dc6-b17e-75a885490826" name="Changes" comment="sidebar reportes icon">
+    <list default="true" id="b3344a45-8f40-4dc6-b17e-75a885490826" name="Changes" comment="correccion path">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/layoutAlumno.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/layoutAlumno.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/layoutProfesor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/layoutProfesor.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/navigationAlumno.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/navigationAlumno.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/navigationProfesor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/navigationProfesor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/Profesor/profesor/ProfesorDashboardPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Profesor/profesor/ProfesorDashboardPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Profesor/profesor/alumnos/AlumnosPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Profesor/profesor/alumnos/AlumnosPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Profesor/profesor/temas/TemasPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Profesor/profesor/temas/TemasPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Profesor/profesor/alumnos/[id]/DetalleAlumnoPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Profesor/profesor/alumnos/[id]/DetalleAlumnoPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +107,7 @@
       <workItem from="1749227667014" duration="26146000" />
       <workItem from="1749346634938" duration="20580000" />
       <workItem from="1749440270071" duration="13108000" />
-      <workItem from="1750088464269" duration="8333000" />
+      <workItem from="1750088464269" duration="12942000" />
     </task>
     <task id="LOCAL-00001" summary="Start">
       <option name="closed" value="true" />
@@ -153,7 +149,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749367622947</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="correccion path">
+      <option name="closed" value="true" />
+      <created>1750103006470</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1750103006470</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -175,6 +179,7 @@
     <MESSAGE value="Home and Login -&gt; Alumnos Dashboard  Workflow" />
     <MESSAGE value="StudentDashboad y Fix de LocalStorage Token y Username" />
     <MESSAGE value="EjerciciosPage + Axios para el Backend en Temas, Respuestas" />
-    <option name="LAST_COMMIT_MESSAGE" value="EjerciciosPage + Axios para el Backend en Temas, Respuestas" />
+    <MESSAGE value="correccion path" />
+    <option name="LAST_COMMIT_MESSAGE" value="correccion path" />
   </component>
 </project>
