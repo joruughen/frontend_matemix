@@ -1,13 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { Button } from "../../Components/ui/button.tsx"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../Components/ui/card.tsx"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../Components/ui/select.tsx"
-import { Badge } from "../../Components/ui/badge.tsx"
-import { Input } from "../../Components/ui/input.tsx"
-import { Label } from "../../Components/ui/label.tsx"
-import { Textarea } from "../../Components/ui/textarea.tsx"
+import { Button } from "../../../Components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../Components/ui/card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../Components/ui/select"
+import { Badge } from "../../../Components/ui/badge"
+import { Input } from "../../../Components/ui/input"
+import { Label } from "../../../Components/ui/label"
+import { Textarea } from "../../../Components/ui/textarea"
 import { ArrowLeft, Calculator, CheckCircle, XCircle, RefreshCw, Target } from "lucide-react"
 
 export default function EjerciciosPage() {
@@ -89,7 +89,7 @@ export default function EjerciciosPage() {
           <div className="container mx-auto max-w-2xl">
             <Card>
               <CardHeader className="text-center">
-                <CheckCircle className="h-16 w-16 text-emerald-500 mx-auto mb-4" />
+                <CheckCircle className="h-16 w-16 text-green-600 mx-auto mb-4" />
                 <CardTitle>¡Felicitaciones!</CardTitle>
                 <CardDescription>Has completado todos los ejercicios de este nivel</CardDescription>
               </CardHeader>
@@ -284,7 +284,7 @@ export default function EjerciciosPage() {
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
                         <div
-                          className="bg-blue-500 h-2 rounded-full"
+                          className="bg-blue-600 h-2 rounded-full"
                           style={{ width: `${(tema.completados / tema.ejercicios) * 100}%` }}
                         ></div>
                       </div>
@@ -292,7 +292,7 @@ export default function EjerciciosPage() {
 
                     <div className="flex gap-2">
                       <Button
-                        className="text-sm"
+                        size="sm"
                         onClick={() => {
                           setSelectedTema(tema.id)
                           setSelectedNivel("facil")
@@ -303,7 +303,7 @@ export default function EjerciciosPage() {
                         Fácil
                       </Button>
                       <Button
-                        className="text-sm"
+                        size="sm"
                         variant="outline"
                         onClick={() => {
                           setSelectedTema(tema.id)
@@ -315,7 +315,7 @@ export default function EjerciciosPage() {
                         Intermedio
                       </Button>
                       <Button
-                        className="text-sm"
+                        size="sm"
                         variant="outline"
                         onClick={() => {
                           setSelectedTema(tema.id)

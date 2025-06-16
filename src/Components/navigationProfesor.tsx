@@ -13,7 +13,7 @@ const navigation = [
   { name: "Reportes", href: "/profesor/reportes", icon: FileText },
 ]
 
-export function Navigation() {
+export function NavigationProfesor() {
   const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
 
@@ -28,8 +28,8 @@ export function Navigation() {
          
           <Link to="/" className="flex items-center">
             <div className="h-8 w-8 mr-2">
-                                <img src={MatemixIcon} alt="Icon" />
-                            </div>
+              <img src={MatemixIcon} alt="Icon" />
+              </div>
             <span className="text-xl font-bold">Matemix</span>
           </Link>
 

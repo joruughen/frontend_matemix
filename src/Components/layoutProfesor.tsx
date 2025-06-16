@@ -1,13 +1,13 @@
 import React from "react"
 import { Outlet } from "react-router-dom"
 import { ThemeProvider } from "./theme-provider"
-import { Navigation } from "./navigation"
+import {  NavigationProfesor } from "./navigationProfesor"
 
-export default function Layout() {
+export default function LayoutProfesor() {
   return (
     <div lang="es" style={{ minHeight: '100vh' }}>
       <ThemeProvider>
-        <Navigation />
+        <NavigationProfesor />
         <main style={{ paddingTop: '1rem' }}>
           <Outlet />
         </main>

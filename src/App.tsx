@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import HomePage from "./Pages/Home.tsx"
 import LoginPage from "./Pages/Login.tsx"
-import Layout from "./Components/layout.tsx"
 import ProfesorDashboardPage from "./Pages/Profesor/profesor/ProfesorDashboardPage.tsx"
 import SalonesPage from "./Pages/Profesor/profesor/salones/SalonesPage.tsx"
 import AlumnosPage from "./Pages/Profesor/profesor/alumnos/AlumnosPage.tsx"
@@ -15,6 +14,12 @@ import DetalleTemaPage from "./Pages/Profesor/profesor/temas/[id]/DetalleTemaPag
 import CrearSubtemaPage from "./Pages/Profesor/profesor/temas/crear/CrearSubtemaPage.tsx"
 import SubtemasPorTemaPage from "./Pages/Profesor/profesor/temas/subtemas/SubtemasPorTemaPage.tsx"
 import EjerciciosSubtemaPage from "./Pages/Profesor/profesor/temas/crear/CrearEjerciciosPage.tsx"
+import LayoutProfesor from "./Components/layoutProfesor.tsx"
+import LayoutAlumno from "./Components/layoutAlumno.tsx"
+import EjerciciosPage from "./Pages/Student/ejercicios/ejerciciosPage.tsx"
+import ProgresoPage from "./Pages/Student/progreso/progresoPage.tsx"
+import ReportesPage from "./Pages/Student/reportes/reportesPage.tsx"
+import DashboardPage from "./Pages/Student/dashboardPage.tsx"
 
 function App() {
     return (
@@ -22,7 +27,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/profesor" element={<Layout />}>
+                <Route path="/profesor" element={<LayoutProfesor />}>
                     <Route index element={<ProfesorDashboardPage />} />
                     <Route path="salones" element={<SalonesPage />} />
                     <Route path="alumnos" element={<AlumnosPage />} />
@@ -37,6 +42,13 @@ function App() {
                     <Route path="/profesor/tema/subtemas/:id" element={<SubtemasPorTemaPage />} />
                     <Route path="/profesor/subtemas/:id/ejercicios" element={<EjerciciosSubtemaPage />} />
                     <Route path="/profesor/salones/temas/:id" element={<DetalleTemaPage />} />
+                </Route>
+                <Route path="/alumno" element={<LayoutAlumno />}>
+                    <Route index element={<DashboardPage />} />
+                    <Route path="ejercicios" element={<EjerciciosPage />} />  
+                    <Route path="progreso" element={<ProgresoPage />} />
+                    <Route path="reportes" element={<ReportesPage />} />
+                    <Route path="analisis" element={<ReportesPage />} />
                 </Route>
             </Routes>
         </Router>
