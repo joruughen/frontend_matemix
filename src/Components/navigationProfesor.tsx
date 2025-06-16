@@ -26,7 +26,7 @@ export function NavigationProfesor() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
          
-          <Link to="/" className="flex items-center">
+          <Link to="/profesor" className="flex items-center">
             <div className="h-8 w-8 mr-2">
               <img src={MatemixIcon} alt="Icon" />
               </div>

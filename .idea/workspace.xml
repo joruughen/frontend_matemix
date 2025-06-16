@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3344a45-8f40-4dc6-b17e-75a885490826" name="Changes" comment="EjerciciosPage + Axios para el Backend en Temas, Respuestas">
-      <change afterPath="$PROJECT_DIR$/src/Pages/PreguntaResolver.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Preguntas/PreguntasService.tsx" afterDir="false" />
+    <list default="true" id="b3344a45-8f40-4dc6-b17e-75a885490826" name="Changes" comment="sidebar reportes icon">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/UI/Badge.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UI/Badge.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/UI/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UI/Layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Ejercicios.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Ejercicios.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Temas/TemasService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Temas/TemasService.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/types.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/types.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/layoutAlumno.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/layoutAlumno.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/layoutProfesor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/layoutProfesor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/navigationAlumno.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/navigationAlumno.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/navigationProfesor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/navigationProfesor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Profesor/profesor/ProfesorDashboardPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Profesor/profesor/ProfesorDashboardPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Profesor/profesor/alumnos/AlumnosPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Profesor/profesor/alumnos/AlumnosPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Profesor/profesor/temas/TemasPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Profesor/profesor/temas/TemasPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,11 +22,23 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="zamir" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Linn0001"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:joruughen/frontend_matemix.git",
+    "accountId": "b6ef838f-de46-4dea-954b-2140722f3c96"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -36,26 +47,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/jorughen/Desktop/frontend_matemix/src/Service/Respuestas&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;/home/jorughen/.nvm/versions/node/v22.16.0/bin/node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.typescriptcompiler&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/home/jorughen/Desktop/frontend_matemix/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "ariana2",
+    "last_opened_file_path": "/home/jorughen/Desktop/frontend_matemix/src/Service/Respuestas",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "npm",
+    "npm.dev.executor": "Run",
+    "settings.editor.selected.configurable": "settings.typescriptcompiler",
+    "ts.external.directory.path": "C:\\Users\\cmerc\\.ssh\\frontend_matemix\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/Service/Respuestas" />
@@ -84,7 +95,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-WS-251.26094.131" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
       </set>
     </attachedChunks>
   </component>
@@ -99,6 +111,7 @@
       <workItem from="1749227667014" duration="26146000" />
       <workItem from="1749346634938" duration="20580000" />
       <workItem from="1749440270071" duration="13108000" />
+      <workItem from="1750088464269" duration="8333000" />
     </task>
     <task id="LOCAL-00001" summary="Start">
       <option name="closed" value="true" />
@@ -145,6 +158,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Start" />

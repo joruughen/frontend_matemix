@@ -252,13 +252,13 @@ export default function ProfesorDashboardPage() {
                 <CardTitle>Acciones Rápidas</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <Link to="/profesor/alumnos/registrar">
+                <Link to="/profesor/registro/:id/alumnos">
                   <Button className="w-full">
                     <Users className="h-4 w-4 mr-2" />
                     Registrar Alumnos
                   </Button>
                 </Link>
-                <Link to="/profesor/temas/crear">
+                <Link to="/profesor/salones/:id/temas">
                   <Button variant="outline" className="w-full">
                     <BookOpen className="h-4 w-4 mr-2" />
                     Crear Nuevo Tema
