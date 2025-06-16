@@ -1,10 +1,58 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { Button } from "../../Components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../Components/ui/card"
 import { BookOpen, Calculator, TrendingUp, Users } from "lucide-react"
+import { axiosInstanceBackendUsuarios } from "../../Service/AxiosConfig"
 
 export default function DashboardPage() {
+  const [rachaActual, setRachaActual] = useState(0)
+  const [loading, setLoading] = useState(true)
+
+  const fetchRacha = async (alumnoId: string) => {
+    try {
+      const token = localStorage.getItem("token_matemix")
+      const response = await axiosInstanceBackendUsuarios.get(`alumno/racha/${alumnoId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      setRachaActual(response.data.racha || 0)
+    } catch (error) {
+      console.error("Error fetching racha:", error)
+      setRachaActual(0)
+    }
+  }
+
+  useEffect(() => {
+    const alumnoId = localStorage.getItem("userId_matemix")
+
+    if (alumnoId) {
+      const loadData = async () => {
+        setLoading(true)
+        await fetchRacha(alumnoId)
+        setLoading(false)
+      }
+
+      loadData()
+    } else {
+      console.error("No se encontró el ID del alumno en localStorage")
+      setLoading(false)
+    }
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">Cargando datos del dashboard...</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
@@ -45,7 +93,7 @@ export default function DashboardPage() {
               <CardTitle className="text-sm font-medium text-gray-600">Racha Actual</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-orange-600">7</div>
+              <div className="text-2xl font-bold text-orange-600">{rachaActual}</div>
               <p className="text-xs text-gray-500">días consecutivos</p>
             </CardContent>
           </Card>
