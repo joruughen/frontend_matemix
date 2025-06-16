@@ -22,6 +22,9 @@ import ReportesPage from "./Pages/Student/reportes/reportesPage.tsx"
 import DashboardPage from "./Pages/Student/dashboardPage.tsx"
 import DetalleAlumnoPage  from "./Pages/Profesor/profesor/alumnos/[id]/DetalleAlumnoPage.tsx";
 
+
+
+
 function App() {
     return (
         <Router>
