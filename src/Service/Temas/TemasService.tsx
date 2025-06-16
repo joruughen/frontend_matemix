@@ -32,7 +32,7 @@ export class TemasService {
                 }
             };
 
-            const response = await axiosInstanceBackend_AI_Ejercicios.get(`/tetopics/${salon_id}`, config);
+            const response = await axiosInstanceBackend_AI_Ejercicios.get(`/topics/${salon_id}`, config);
 
             return response.data;  
         } catch (error) {
@@ -75,6 +75,23 @@ export class TemasService {
             return response.data;  
         } catch (error) {
             console.error('Error al eliminar el tema:', error);
+            throw error;
+        }
+    }
+    async updateTemaOrden(tema_id:string, orden:number, token:string){
+        try{
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }
+            };
+
+            const response = await axiosInstanceBackend_AI_Ejercicios.put(`/topics/update/orden/${tema_id}/${orden}`, config);
+
+            return response.data;
+        } catch (error) {
+            console.error('Error al actualizar el orden del tema:', error);
             throw error;
         }
     }

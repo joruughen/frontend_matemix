@@ -1,3 +1,6 @@
+import type { AlumnosDTO } from "../Alumnos/types";
+import type { ResponseTema } from "../Temas/types";
+
 export interface SalonRequestDTO {
     seccion: string;
     grado: number;
@@ -15,14 +18,18 @@ export interface SalonResponse{
     cantidadAlumnos: number;
     descripcion: string;
 }
-export interface InfoOfSalonesByProfesor {
-   totalTemas: number;
+export interface info {
+    totalTemas: number;
     totalSubtemas: number;
+}
+
+
+export interface InfoOfSalonesByProfesor extends info {
     totalAlumnos: number;
     totalSalones: number;
 }
 
-export interface salonResponInfo {
+export interface salonResponInfo extends info {
     nombre: string;
     id: string;
     grado: number;
@@ -30,6 +37,19 @@ export interface salonResponInfo {
     turno: string;
     descripcion: string;
     totalAlumnos: number;
-    totalTemas: number;
-    totalSubtemas: number;
 }
+
+export interface infoSalon extends salonResponInfo{
+    temas: ResponseTema[];
+    alumnos: AlumnosDTO[];
+}
+export interface temaPage extends ResponseTema{
+    totalSubtemas: number;
+    totalAlumnos: number;
+}
+
+export interface responseTema extends info{
+    totalSalones: number;
+    temas: temaPage[];
+}
+

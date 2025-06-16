@@ -59,10 +59,9 @@ export class SubtemaService {
         console.log("Guardando videos:", videos);
         console.log("Subtema ID:", subtema_id);
         try {
-            // Envía { videos: [...] } en vez de solo el array
             const res = await axiosInstanceBackend_AI_Ejercicios.post(
                 `${BASE_URL}/videos/save/${subtema_id}`,
-                { videos }, // <-- aquí el cambio
+                { videos }, 
                 {
                     headers: { Authorization: `Bearer ${token}` }
                 }
@@ -87,6 +86,41 @@ export class SubtemaService {
         throw error;
         }
     }
+  async deleteSubtemaById(subtema_id: string, token: string) {
+    try {
+      const res = await axiosInstanceBackend_AI_Ejercicios.delete(`${BASE_URL}/delete/${subtema_id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return res;
+    } catch (error) {
+      console.error("Error al eliminar subtema:", error);
+      throw error;
+    }
+  }
+
+  async deleteVideoById(subtema_id: string, video_id: string, token: string) {
+    try {
+      const res = await axiosInstanceBackend_AI_Ejercicios.delete(`${BASE_URL}/video/delete/${subtema_id}/${video_id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return res;
+    } catch (error) {
+      console.error("Error al eliminar video:", error);
+      throw error;
+    }
+  }
+
+  async updateSubtemaOrden(subtema_id: string, orden: number, token: string) {
+    try {
+      const res = await axiosInstanceBackend_AI_Ejercicios.put(`${BASE_URL}/update/orden/${subtema_id}/${orden}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return res.data;
+    } catch (error) {
+      console.error("Error al actualizar el orden del subtema:", error);
+      throw error;
+    }
+  }
 
   
 }

@@ -6,7 +6,7 @@ import { Input } from "../../../../../Components/ui/input"
 import { Textarea } from "../../../../../Components/ui/textarea"
 import { ArrowLeft, Check, Play} from "lucide-react"
 import { useParams } from "react-router-dom"
-import {  VideoPlayer } from "./videos"
+import {  getYoutubeId, VideoPlayer } from "./videos"
 import type { Tema } from "../../../../../Service/Temas/types"
 import { temasService } from "../../../../../Service/Temas/TemasService"
 import  { type subtemaResponse, type SubtemaConVideos, type subtemaIdeas, type videoResponse } from "../../../../../Service/Subtema/types"
@@ -14,7 +14,6 @@ import { subtemaService } from "../../../../../Service/Subtema/subtemaService"
   
 export default function CrearTemaPage() {
     const { id: salonId } = useParams<{ id: string }>()
-    console.log("ID del salón:", salonId)
     const [temaSeleccionado, setTemaSeleccionado] = useState<string | null>(null)
     const [temasDisponibles, setTemasDisponibles] = useState([
       { id: "t1", nombre: "Fracciones", descripcion: "Operaciones con fracciones y sus propiedades" },
@@ -23,6 +22,7 @@ export default function CrearTemaPage() {
       { id: "t4", nombre: "Estadística", descripcion: "Conceptos básicos de estadística" },
       { id: "t5", nombre: "Trigonometría", descripcion: "Funciones trigonométricas y aplicaciones" }
     ])
+    let orden  = 1;
     const navigate = useNavigate()
     const [mostrarPersonalizado, setMostrarPersonalizado] = useState(false)
     const [temaPersonalizado, setTemaPersonalizado] = useState({ titulo: "", descripcion: "" })
@@ -139,7 +139,6 @@ export default function CrearTemaPage() {
         return;
       }
     
-      // Prepara la lista de videos a guardar en el formato que espera tu backend
       const videosParaGuardar = [
         ...videosSugeridos.filter(v => videosSeleccionados.includes(v.id)).map(v => ({
           id: v.id,
@@ -161,7 +160,6 @@ export default function CrearTemaPage() {
           return;
         }
     
-        // Envía la lista de videos al backend
         const response = await subtemaService.guardarVideos(
           subtemaActual._id,
           videosParaGuardar,
@@ -173,7 +171,6 @@ export default function CrearTemaPage() {
           return;
         }
     
-        // Solo si el guardado fue exitoso, agrega el subtema a la lista local y márcalo como confirmado
         setSubtemas(prev => [
           ...prev,
           {
@@ -219,10 +216,7 @@ export default function CrearTemaPage() {
       setNuevoVideo({ titulo: "", url: "" });
     };
 
-    function getYoutubeId(url: string) {
-      const match = url.match(/(?:v=|\/embed\/|\.be\/)([a-zA-Z0-9_-]{11})/);
-      return match ? match[1] : "";
-    }
+    
       
     const handleToggleVideo = (videoId: string) => {
       setVideosSeleccionados(prev => {
@@ -257,9 +251,10 @@ export default function CrearTemaPage() {
             titulo: edicionSubtema.titulo,
             descripcion: edicionSubtema.descripcion,
             tema_id: temaId,
+            orden: orden,
           }
           const response = await subtemaService.createSubtema(createSubtema, localStorage.getItem("token_matemix") || "")
-          console.log("Subtema guardado:", response)
+          orden += 1;
           setSubtemaActual(response);
           setSubtemasSugeridos(prev => prev.map((s, i) =>
             i === idx ? { ...s, _id: response._id } : s

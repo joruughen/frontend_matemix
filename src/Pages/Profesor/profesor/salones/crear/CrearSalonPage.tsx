@@ -132,8 +132,8 @@ export default function CrearSalonPage() {
                       <SelectValue placeholder="Selecciona el turno" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="mañana">Mañana</SelectItem>
-                      <SelectItem value="tarde">Tarde</SelectItem>
+                      <SelectItem value="Mañana">Mañana</SelectItem>
+                      <SelectItem value="Tarde">Tarde</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

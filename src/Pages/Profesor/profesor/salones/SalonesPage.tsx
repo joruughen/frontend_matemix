@@ -69,7 +69,7 @@ export default function SalonesPage() {
           </div>
           <div className="flex gap-4">
             <Link to="/profesor/salones/crear">
-              <Button className="flex items-center">
+              <Button className="flex items-center" variant="link">
                 <Plus className="h-4 w-4 mr-2" />
                 Nuevo Salón
               </Button>
@@ -165,12 +165,12 @@ export default function SalonesPage() {
                       Ver Detalles
                     </Button>
                   </Link>
-                  <Link to={`/profesor/salones/${salon.id}/alumnos`}>
+                  <Link to={`/profesor/registro/${salon.id}/alumnos`}>
                     <Button variant="outline" size="sm">
                       Ver Alumnos
                     </Button>
                   </Link>
-                  <Link to={`/profesor/salones/${salon.id}/temas`}>
+                  <Link to={`/profesor/salones/temas/${salon.id}/`}>
                     <Button variant="outline" size="sm">
                       Gestionar Temas
                     </Button>

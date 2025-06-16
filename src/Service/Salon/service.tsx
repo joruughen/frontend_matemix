@@ -1,6 +1,6 @@
 import type { AlumnosDTO } from "../Alumnos/types";
 import { axiosInstanceBackendUsuarios, axiosInstanceBackend_AI_Ejercicios } from "../AxiosConfig";
-import type { InfoOfSalonesByProfesor, SalonRequestDTO, salonResponInfo, SalonResponse } from "./types";
+import type { InfoOfSalonesByProfesor, infoSalon, responseTema, SalonRequestDTO, salonResponInfo, SalonResponse } from "./types";
 
 export class SalonService {
 
@@ -117,6 +117,38 @@ export class SalonService {
             return response.data;
         } catch (error) {
             console.error("Error al obtener la información de los salones del profesor:", error);
+            throw error;
+        }
+    }
+
+    async getInfoSalon(salonId: string, token: string): Promise<infoSalon> {
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+            const response = await axiosInstanceBackend_AI_Ejercicios.get(`/topics/info/salon/${salonId}`, config);
+            console.log("Respuesta del servidor:", response.data);
+            return response.data;
+        } catch (error) {
+            console.error("Error al obtener la información del salón:", error);
+            throw error;
+        }
+    }
+
+    async getAllInfoOfTemas(token:string):Promise<responseTema>{
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+            const response = await axiosInstanceBackend_AI_Ejercicios.get("/topics/info/all", config);
+            console.log("Respuesta del servidor:", response.data);
+            return response.data;
+        } catch (error) {
+            console.error("Error al obtener toda la información de los temas:", error);
             throw error;
         }
     }

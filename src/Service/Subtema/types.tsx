@@ -2,6 +2,7 @@ export interface CreateSubtema {
     titulo: string
     descripcion: string | null
     tema_id: string
+    orden: number
 }
 
 export interface ListYoutubeTemasCreation {
@@ -18,6 +19,7 @@ export interface subtemaResponse{
     video_url?: videoResponse[]
     preguntas?: Record<string, string[]>
     tema_id: string
+    orden?: number
 }
 export interface subtemaIdeas {
     titulo: string;

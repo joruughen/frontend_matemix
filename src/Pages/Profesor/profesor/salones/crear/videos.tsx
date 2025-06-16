@@ -6,14 +6,11 @@ import { useRef, useState } from "react"
 
 
 
-function getYoutubeId(url: string) {
-  // Si ya es un embed, extrae el ID
+export function getYoutubeId(url: string) {
   const embedMatch = url.match(/\/embed\/([a-zA-Z0-9_-]{11})/)
   if (embedMatch) return embedMatch[1]
-  // Si es watch?v=...
   const watchMatch = url.match(/v=([a-zA-Z0-9_-]{11})/)
   if (watchMatch) return watchMatch[1]
-  // Si es youtu.be/...
   const shortMatch = url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/)
   if (shortMatch) return shortMatch[1]
   return ""

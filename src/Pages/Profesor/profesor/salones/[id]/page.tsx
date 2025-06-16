@@ -1,43 +1,47 @@
 "use client"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../../Components/ui/card"
 import { Button } from "../../../../../Components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../../Components/ui/tabs"
 import { Badge } from "../../../../../Components/ui/badge"
 import { Progress } from "../../../../../Components/ui/progress"
-import { ArrowLeft, Users, BookOpen, TrendingUp, Clock, Settings } from "lucide-react"
+import { ArrowLeft, Users, BookOpen, TrendingUp, Settings } from "lucide-react"
+import { useEffect, useState } from "react"
+import type { infoSalon } from "../../../../../Service/Salon/types"
+import { salonService } from "../../../../../Service/Salon/service"
 
-export default function DetallesSalonPage({ params }: { params: { id: string } }) {
-  // Datos ficticios del salón
-  const salon = {
-    id: params.id,
-    nombre: "Matemáticas 3°A",
-    alumnos: 28,
-    avance: 75,
-    fechaCreacion: "15 de enero, 2024",
-    ultimaActividad: "Hace 2 horas",
-    profesor: "Prof. Martínez",
+export default function DetallesSalonPage() {
+  const { id: salonId } = useParams<{ id: string }>()
+  const [salon, setSalon] = useState<infoSalon>({
+    id: salonId || "",
+    nombre:"",
+    grado: 0,
+    seccion: "",
+    turno: "",
+    descripcion: "",
+    totalAlumnos: 0,
+    totalTemas: 0,
+    totalSubtemas: 0,
+    temas: [],
+    alumnos:[]
+  })
+
+  const handleGetSalonInfo = async () => {
+    try{
+      const response = await salonService.getInfoSalon(salonId || "", localStorage.getItem("token_matemix") || "")
+      if (response) {
+        setSalon(response)
+      }
+    } catch (error) {
+      console.error("Error al obtener la información del salón:", error)
+    }
   }
 
-  // Datos ficticios de temas
-  const temas = [
-    { id: "t1", nombre: "Fracciones", avance: 92, subtemas: 5, completados: 4 },
-    { id: "t2", nombre: "Álgebra Básica", avance: 78, subtemas: 6, completados: 4 },
-    { id: "t3", nombre: "Geometría", avance: 65, subtemas: 4, completados: 2 },
-    { id: "t4", nombre: "Estadística", avance: 45, subtemas: 3, completados: 1 },
-    { id: "t5", nombre: "Trigonometría", avance: 20, subtemas: 5, completados: 1 },
-  ]
+  useEffect(() => {
+    handleGetSalonInfo()
+  }, [salonId, localStorage.getItem("token_matemix")])
 
-  // Datos ficticios de alumnos
-  const alumnos = [
-    { id: "a1", nombre: "Ana García", avance: 95, ultimaActividad: "Hace 1 hora", temaActual: "Álgebra" },
-    { id: "a2", nombre: "Carlos López", avance: 88, ultimaActividad: "Hace 3 horas", temaActual: "Fracciones" },
-    { id: "a3", nombre: "María Rodríguez", avance: 82, ultimaActividad: "Ayer", temaActual: "Geometría" },
-    { id: "a4", nombre: "Juan Pérez", avance: 75, ultimaActividad: "Hace 2 días", temaActual: "Fracciones" },
-    { id: "a5", nombre: "Laura Sánchez", avance: 68, ultimaActividad: "Hoy", temaActual: "Álgebra" },
-  ]
 
-  // Datos ficticios de actividad reciente
   const actividades = [
     {
       fecha: "Hoy, 10:30 AM",
@@ -75,7 +79,7 @@ export default function DetallesSalonPage({ params }: { params: { id: string } }
           <div>
             <h1 className="text-3xl font-bold mb-2">{salon.nombre}</h1>
             <p className="text-gray-600">
-              {salon.alumnos} alumnos • {salon.avance}% avance promedio
+              {salon.totalAlumnos} alumnos  • 80% avance promedio
             </p>
           </div>
           <div className="flex gap-2">
@@ -95,7 +99,7 @@ export default function DetallesSalonPage({ params }: { params: { id: string } }
         </div>
 
         {/* Métricas principales */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
+        <div className="grid md:grid-cols-3 gap-6 mb-8">
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
@@ -104,7 +108,7 @@ export default function DetallesSalonPage({ params }: { params: { id: string } }
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-blue-600">{salon.alumnos}</div>
+              <div className="text-3xl font-bold text-blue-600">{salon.totalAlumnos}</div>
               <p className="text-sm text-gray-500">Activos en el salón</p>
             </CardContent>
           </Card>
@@ -117,36 +121,24 @@ export default function DetallesSalonPage({ params }: { params: { id: string } }
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-green-600">{temas.length}</div>
+              <div className="text-3xl font-bold text-green-600">{salon.totalTemas}</div>
               <p className="text-sm text-gray-500">En desarrollo</p>
             </CardContent>
           </Card>
 
-          <Card>
+           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
-                <TrendingUp className="h-4 w-4 mr-2" />
-                Avance Promedio
+                <BookOpen className="h-4 w-4 mr-2" />
+                Subtemas Asignados
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-purple-600">{salon.avance}%</div>
-              <Progress value={salon.avance} className="mt-2" />
+              <div className="text-3xl font-bold text-green-600">{salon.totalSubtemas}</div>
+              <p className="text-sm text-gray-500">En desarrollo</p>
             </CardContent>
           </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
-                <Clock className="h-4 w-4 mr-2" />
-                Última Actividad
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-xl font-bold text-orange-600">{salon.ultimaActividad}</div>
-              <p className="text-sm text-gray-500">Actividad reciente</p>
-            </CardContent>
-          </Card>
+        
         </div>
 
         <Tabs defaultValue="temas" className="space-y-6">
@@ -164,7 +156,7 @@ export default function DetallesSalonPage({ params }: { params: { id: string } }
                   <CardTitle>Temas del Salón</CardTitle>
                   <CardDescription>Temas asignados y su progreso</CardDescription>
                 </div>
-                <Link to={`/profesor/salones/${salon.id}/temas`}>
+                <Link to={`/profesor/salones/gestion/temas/${salon.id}`}>
                   <Button variant="outline" size="sm">
                     Gestionar Temas
                   </Button>
@@ -172,21 +164,22 @@ export default function DetallesSalonPage({ params }: { params: { id: string } }
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {temas.map((tema) => (
-                    <div key={tema.id} className="p-4 bg-gray-50 rounded-lg">
+                  {salon.temas.map((tema) => (
+                    <div key={tema._id} className="p-4 bg-gray-50 rounded-lg">
                       <div className="flex justify-between items-center mb-2">
-                        <Link to={`/profesor/temas/${tema.id}`}>
+                        <Link to={`/profesor/tema/subtemas/${tema._id}`}>
                           <h3 className="font-medium text-blue-600 hover:underline">{tema.nombre}</h3>
                         </Link>
                         <Badge variant="outline">
-                          {tema.completados}/{tema.subtemas} subtemas
+                          {tema.subtema_id?.length} subtemas
                         </Badge>
                       </div>
-                      <div className="flex justify-between text-sm text-gray-600 mb-1">
+                       <div className="flex justify-between text-sm text-gray-600 mb-1">
                         <span>Avance promedio</span>
-                        <span>{tema.avance}%</span>
+                        <span>80%</span>
                       </div>
-                      <Progress value={tema.avance} />
+                      <Progress value={80} />
+
                     </div>
                   ))}
                 </div>
@@ -198,7 +191,7 @@ export default function DetallesSalonPage({ params }: { params: { id: string } }
             <Card>
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <div>
-                  <CardTitle>Alumnos del Salón</CardTitle>
+                  <CardTitle>Alumnos del Salón {salon.nombre}</CardTitle>
                   <CardDescription>Lista de alumnos y su progreso</CardDescription>
                 </div>
                 <Link to={`/profesor/salones/${salon.id}/alumnos`}>
@@ -209,19 +202,19 @@ export default function DetallesSalonPage({ params }: { params: { id: string } }
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {alumnos.map((alumno) => (
+                  {salon.alumnos.map((alumno) => (
                     <div key={alumno.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                       <div>
                         <Link to={`/profesor/alumnos/${alumno.id}`}>
-                          <h3 className="font-medium text-blue-600 hover:underline">{alumno.nombre}</h3>
+                          <h3 className="font-medium text-blue-600 hover:underline">{alumno.nombre} {alumno.apellido}</h3>
                         </Link>
                         <div className="text-sm text-gray-600">
-                          Tema actual: {alumno.temaActual} • {alumno.ultimaActividad}
+                          Tema actual: Algebra • Hoy
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-lg font-bold">{alumno.avance}%</div>
-                        <Progress value={alumno.avance} className="w-24" />
+                        <div className="text-lg font-bold">80%</div>
+                        <Progress value={80} className="w-24" />
                       </div>
                     </div>
                   ))}
@@ -318,17 +311,16 @@ export default function DetallesSalonPage({ params }: { params: { id: string } }
                       La mayoría de los alumnos (55%) tienen un avance superior al 60%
                     </p>
                   </div>
-
-                  <div>
+                   <div>
                     <h3 className="font-medium mb-3">Rendimiento por Tema</h3>
                     <div className="space-y-3">
-                      {temas.map((tema) => (
-                        <div key={tema.id}>
+                      {salon.temas.map((tema) => (
+                        <div key={tema._id}>
                           <div className="flex justify-between text-sm mb-1">
                             <span>{tema.nombre}</span>
-                            <span>{tema.avance}%</span>
+                            <span>70%</span>
                           </div>
-                          <Progress value={tema.avance} />
+                          <Progress value={70} />
                         </div>
                       ))}
                     </div>

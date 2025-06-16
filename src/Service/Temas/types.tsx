@@ -3,6 +3,7 @@ export interface Tema {
     descripcion: string;
     classroom_id: string;
     subtema_id?: string[];
+    orden?:number
 }
 
 export interface ResponseTema {
@@ -10,6 +11,7 @@ export interface ResponseTema {
     nombre: string;
     descripcion: string;
     classroom_id: string;
+    orden?:number
     subtema_id?: string[];
 }
-
+ 
