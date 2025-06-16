@@ -19,7 +19,6 @@ export default function EjerciciosPage() {
   const [showResult, setShowResult] = useState(false)
   const [isCorrect, setIsCorrect] = useState(false)
 
-  // Datos ficticios
   const temas = [
     { id: "fracciones", nombre: "Fracciones", ejercicios: 45, completados: 38 },
     { id: "algebra", nombre: "Álgebra Básica", ejercicios: 32, completados: 23 },

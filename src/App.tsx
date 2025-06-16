@@ -21,6 +21,9 @@ import ProgresoPage from "./Pages/Student/progreso/progresoPage.tsx"
 import ReportesPage from "./Pages/Student/reportes/reportesPage.tsx"
 import DashboardPage from "./Pages/Student/dashboardPage.tsx"
 
+
+
+
 function App() {
     return (
         <Router>
@@ -45,7 +48,7 @@ function App() {
                 </Route>
                 <Route path="/alumno" element={<LayoutAlumno />}>
                     <Route index element={<DashboardPage />} />
-                    <Route path="ejercicios" element={<EjerciciosPage />} />  
+                    <Route path="ejercicios" element={<EjerciciosPage />} />
                     <Route path="progreso" element={<ProgresoPage />} />
                     <Route path="reportes" element={<ReportesPage />} />
                     <Route path="analisis" element={<ReportesPage />} />

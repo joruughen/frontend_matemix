@@ -6,11 +6,11 @@ import { cn } from "../Lib/Util"
 import MatemixIcon from "../assets/Matemix_icon.svg"
 
 const navigation = [
-  { name: "Dashboard", href: "/", icon: Home },
-  { name: "Ejercicios", href: "/ejercicios", icon: BookOpen },
-  { name: "Mi Progreso", href: "/progreso", icon: TrendingUp },
-  { name: "Reportes", href: "/reportes", icon: FileText },
-  { name: "Análisis IA", href: "/analisis", icon: Brain },
+  { name: "Dashboard", href: "/alumno", icon: Home },
+  { name: "Ejercicios", href: "/alumno/ejercicios", icon: BookOpen },
+  { name: "Mi Progreso", href: "/alumno/progreso", icon: TrendingUp },
+  { name: "Reportes", href: "/alumno/reportes", icon: FileText },
+  { name: "Análisis IA", href: "/alumno/analisis", icon: Brain },
 ]
 
 export function NavigationAlumno() {

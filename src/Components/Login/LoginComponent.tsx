@@ -48,7 +48,7 @@ const LoginComponent = () => {
                     setAuth({ token, role, username });
 
                     if (role === "STUDENT") {
-                        navigate("/studentdashboard");
+                        navigate("/alumno");
                     } else if (role === "TEACHER") {
                         navigate("/profesor");
                     }
