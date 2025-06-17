@@ -1,43 +1,147 @@
 "use client"
-import {Link} from "react-router-dom"
+import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../Components/ui/card"
 import { Button } from "../../../Components/ui/button"
 import { Badge } from "../../../Components/ui/badge"
 import { Progress } from "../../../Components/ui/progress"
 import { Users, BookOpen, School, TrendingUp, Clock, AlertCircle } from "lucide-react"
 
+interface Salon {
+  id: string
+  nombre: string
+  grado: number
+  seccion: string
+  turno: string
+  cantidadAlumnos: number
+  descripcion: string
+}
+
 export default function ProfesorDashboardPage() {
-  // Datos ficticios para el dashboard
-  const resumenSalones = {
-    totalSalones: 5,
-    totalAlumnos: 127,
-    promedioAvance: 68,
-    salonesActivos: 5,
+  const [currentDate, setCurrentDate] = useState(new Date())
+  const [salones, setSalones] = useState<Salon[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const getAuthToken = () => {
+    return localStorage.getItem("token_matemix")  
   }
 
-  const salonesRecientes = [
-    {
-      id: "s1",
-      nombre: "Matemáticas 3°A",
-      alumnos: 28,
-      avance: 75,
-      ultimaActividad: "Hace 2 horas",
-    },
-    {
-      id: "s2",
-      nombre: "Matemáticas 3°B",
-      alumnos: 26,
-      avance: 62,
-      ultimaActividad: "Hace 5 horas",
-    },
-    {
-      id: "s3",
-      nombre: "Matemáticas 2°A",
-      alumnos: 30,
-      avance: 58,
-      ultimaActividad: "Ayer",
-    },
-  ]
+  // Función para obtener los salones del backend
+  const fetchSalones = async () => {
+    try {
+      setLoading(true)
+      const token = getAuthToken()
+
+      if (!token) {
+        throw new Error("No se encontró token de autenticación")
+      }
+
+      const response = await fetch("http://localhost:8090/salon/profesor/my-salons", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${response.statusText}`)
+      }
+
+      const data: Salon[] = await response.json()
+      setSalones(data)
+      setError(null)
+    } catch (err) {
+      console.error("Error fetching salones:", err)
+      setError(err instanceof Error ? err.message : "Error desconocido")
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Cargar salones al montar el componente
+  useEffect(() => {
+    fetchSalones()
+  }, [])
+
+  // Actualizar la fecha cada minuto
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentDate(new Date())
+    }, 60000) // Actualiza cada minuto
+
+    return () => clearInterval(timer)
+  }, [])
+
+  // Función para obtener el nombre del mes
+  const getMonthName = (date: Date) => {
+    const months = [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre",
+    ]
+    return months[date.getMonth()]
+  }
+
+  // Función para obtener los días del mes
+  const getDaysInMonth = (date: Date) => {
+    const year = date.getFullYear()
+    const month = date.getMonth()
+    const firstDay = new Date(year, month, 1)
+    const lastDay = new Date(year, month + 1, 0)
+    const daysInMonth = lastDay.getDate()
+    const startingDayOfWeek = firstDay.getDay()
+
+    const days = []
+
+    // Agregar días vacíos al inicio
+    for (let i = 0; i < startingDayOfWeek; i++) {
+      days.push(null)
+    }
+
+    // Agregar los días del mes
+    for (let day = 1; day <= daysInMonth; day++) {
+      days.push(day)
+    }
+
+    return days
+  }
+
+  const today = currentDate.getDate()
+  const currentMonth = getMonthName(currentDate)
+  const currentYear = currentDate.getFullYear()
+  const daysInCurrentMonth = getDaysInMonth(currentDate)
+
+  // Calcular métricas dinámicas basadas en los datos del backend
+  const totalSalones = salones.length
+  const totalAlumnos = salones.reduce((total, salon) => total + salon.cantidadAlumnos, 0)
+  const salonesActivos = salones.length // Asumiendo que todos los salones devueltos están activos
+
+  const resumenSalones = {
+    totalSalones,
+    totalAlumnos,
+    promedioAvance: 68, // Mantener estático por ahora
+    salonesActivos,
+  }
+
+  // Convertir salones del backend a formato para mostrar (los 3 más recientes)
+  const salonesRecientes = salones.slice(0, 3).map((salon) => ({
+    id: salon.id,
+    nombre: salon.nombre,
+    alumnos: salon.cantidadAlumnos,
+    avance: Math.floor(Math.random() * 40) + 60, // Avance aleatorio entre 60-100%
+    ultimaActividad: "Hace " + Math.floor(Math.random() * 24) + " horas",
+  }))
 
   const temasPopulares = [
     { nombre: "Fracciones", alumnos: 85, avance: 72 },
@@ -80,6 +184,16 @@ export default function ProfesorDashboardPage() {
           <p className="text-gray-600">Bienvenido de nuevo, Prof. Martínez</p>
         </div>
 
+        {/* Mostrar error si existe */}
+        {error && (
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <p className="text-red-600">Error al cargar los datos: {error}</p>
+            <Button onClick={fetchSalones} variant="outline" size="sm" className="mt-2">
+              Reintentar
+            </Button>
+          </div>
+        )}
+
         {/* Métricas principales */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card>
@@ -90,7 +204,7 @@ export default function ProfesorDashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-blue-600">{resumenSalones.totalSalones}</div>
+              <div className="text-3xl font-bold text-blue-600">{loading ? "..." : resumenSalones.totalSalones}</div>
               <p className="text-sm text-gray-500">Todos activos</p>
             </CardContent>
           </Card>
@@ -103,7 +217,7 @@ export default function ProfesorDashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-green-600">{resumenSalones.totalAlumnos}</div>
+              <div className="text-3xl font-bold text-green-600">{loading ? "..." : resumenSalones.totalAlumnos}</div>
               <p className="text-sm text-gray-500">En todos los salones</p>
             </CardContent>
           </Card>
@@ -153,28 +267,38 @@ export default function ProfesorDashboardPage() {
                 </Link>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {salonesRecientes.map((salon) => (
-                    <div key={salon.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                      <div>
-                        <Link to={`/profesor/salones/${salon.id}`}>
-                          <h3 className="font-medium text-blue-600 hover:underline">{salon.nombre}</h3>
-                        </Link>
-                        <div className="flex items-center text-sm text-gray-600 mt-1">
-                          <Users className="h-3.5 w-3.5 mr-1" />
-                          <span>{salon.alumnos} alumnos</span>
-                          <span className="mx-2">•</span>
-                          <Clock className="h-3.5 w-3.5 mr-1" />
-                          <span>{salon.ultimaActividad}</span>
+                {loading ? (
+                  <div className="text-center py-4">
+                    <p className="text-gray-500">Cargando salones...</p>
+                  </div>
+                ) : salonesRecientes.length > 0 ? (
+                  <div className="space-y-4">
+                    {salonesRecientes.map((salon) => (
+                      <div key={salon.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div>
+                          <Link to={`/profesor/salones/${salon.id}`}>
+                            <h3 className="font-medium text-blue-600 hover:underline">{salon.nombre}</h3>
+                          </Link>
+                          <div className="flex items-center text-sm text-gray-600 mt-1">
+                            <Users className="h-3.5 w-3.5 mr-1" />
+                            <span>{salon.alumnos} alumnos</span>
+                            <span className="mx-2">•</span>
+                            <Clock className="h-3.5 w-3.5 mr-1" />
+                            <span>{salon.ultimaActividad}</span>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="font-medium mb-1">{salon.avance}%</div>
+                          <Progress value={salon.avance} className="w-24 h-2" />
                         </div>
                       </div>
-                      <div className="text-right">
-                        <div className="font-medium mb-1">{salon.avance}%</div>
-                        <Progress value={salon.avance} className="w-24 h-2" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-4">
+                    <p className="text-gray-500">No hay salones disponibles</p>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -247,7 +371,7 @@ export default function ProfesorDashboardPage() {
           {/* Columna derecha */}
           <div className="space-y-6">
             {/* Acciones rápidas */}
-            <Card >
+            <Card>
               <CardHeader>
                 <CardTitle>Acciones Rápidas</CardTitle>
               </CardHeader>
@@ -342,14 +466,16 @@ export default function ProfesorDashboardPage() {
               </CardContent>
             </Card>
 
-            {/* Calendario */}
+            {/* Calendario actualizado */}
             <Card>
               <CardHeader>
                 <CardTitle>Calendario</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <p className="text-lg font-medium mb-2">Mayo 2024</p>
+                  <p className="text-lg font-medium mb-2">
+                    {currentMonth} {currentYear}
+                  </p>
                   <div className="grid grid-cols-7 gap-1 mb-2">
                     <div className="text-xs text-gray-500">D</div>
                     <div className="text-xs text-gray-500">L</div>
@@ -360,25 +486,23 @@ export default function ProfesorDashboardPage() {
                     <div className="text-xs text-gray-500">S</div>
                   </div>
                   <div className="grid grid-cols-7 gap-1">
-                    {Array.from({ length: 31 }, (_, i) => (
+                    {daysInCurrentMonth.map((day, index) => (
                       <div
-                        key={i}
+                        key={index}
                         className={`text-sm p-1 rounded-full ${
-                          i + 1 === 15 ? "bg-blue-600 text-white" : i + 1 === 10 || i + 1 === 20 ? "bg-blue-100" : ""
+                          day === today ? "bg-blue-600 text-white font-bold" : day ? "hover:bg-gray-200" : ""
                         }`}
                       >
-                        {i + 1}
+                        {day || ""}
                       </div>
                     ))}
                   </div>
                   <div className="mt-4 text-sm text-gray-600">
                     <div className="flex items-center justify-center">
                       <div className="w-3 h-3 bg-blue-600 rounded-full mr-2"></div>
-                      <span>Hoy</span>
-                    </div>
-                    <div className="flex items-center justify-center mt-1">
-                      <div className="w-3 h-3 bg-blue-100 rounded-full mr-2"></div>
-                      <span>Eventos programados</span>
+                      <span>
+                        Hoy ({today} de {currentMonth})
+                      </span>
                     </div>
                   </div>
                 </div>
