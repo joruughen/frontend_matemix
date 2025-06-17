@@ -167,7 +167,7 @@ export default function SalonesPage() {
                   </Link>
                   <Link to={`/profesor/registro/${salon.id}/alumnos`}>
                     <Button variant="outline" size="sm">
-                      Ver Alumnos
+                      Registrar Alumnos
                     </Button>
                   </Link>
                   <Link to={`/profesor/salones/temas/${salon.id}/`}>

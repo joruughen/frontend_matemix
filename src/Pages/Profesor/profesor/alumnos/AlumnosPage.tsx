@@ -142,18 +142,6 @@ export default function AlumnosPage() {
             <h1 className="text-3xl font-bold mb-2">Gestión de Alumnos</h1>
             <p className="text-gray-600">Administra todos tus alumnos y su progreso</p>
           </div>
-          <div className="flex gap-4">
-            <Link to="/profesor/registro/:id/alumnos">
-              <Button className="flex items-center">
-                <Plus className="h-4 w-4 mr-2" />
-                Registrar Alumno
-              </Button>
-            </Link>
-            <Button variant="outline" className="flex items-center">
-              <Download className="h-4 w-4 mr-2" />
-              Exportar Lista
-            </Button>
-          </div>
         </div>
 
         {/* Resumen */}

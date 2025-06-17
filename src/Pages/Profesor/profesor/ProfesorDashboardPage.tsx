@@ -6,6 +6,8 @@ import { Button } from "../../../Components/ui/button"
 import { Badge } from "../../../Components/ui/badge"
 import { Progress } from "../../../Components/ui/progress"
 import { Users, BookOpen, School, TrendingUp, Clock, AlertCircle } from "lucide-react"
+import type { responseTema, temaPage } from "../../../Service/Salon/types"
+import { salonService } from "../../../Service/Salon/service"
 
 interface Salon {
   id: string
@@ -22,9 +24,17 @@ export default function ProfesorDashboardPage() {
   const [salones, setSalones] = useState<Salon[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [temas, setTemas] = useState<temaPage[]>([])
+  const [respuestaBackendTemas, setRespuestaBackendTemas] = useState<responseTema>({
+    totalSalones: 0,
+    totalTemas: 0,
+    totalSubtemas: 0,
+    temas: [],
+  })
+  const [loadingTemas, setLoadingTemas] = useState(true)
 
   const getAuthToken = () => {
-    return localStorage.getItem("token_matemix")  
+    return localStorage.getItem("token_matemix")
   }
 
   const fetchSalones = async () => {
@@ -59,9 +69,36 @@ export default function ProfesorDashboardPage() {
     }
   }
 
+  const fetchTemas = async () => {
+    try {
+      setLoadingTemas(true)
+      const token = getAuthToken()
+
+      if (!token) {
+        throw new Error("No se encontró token de autenticación")
+      }
+
+      const response = await salonService.getAllInfoOfTemas(token)
+      if (!response || !response.temas) {
+        console.error("No se recibieron temas del backend")
+        return
+      }
+      console.log("Temas obtenidos:", response)
+      // Ordenar temas por número de alumnos (de mayor a menor)
+      const temasOrdenados = response.temas.sort((a, b) => b.totalAlumnos - a.totalAlumnos)
+      setTemas(temasOrdenados)
+      setRespuestaBackendTemas(response)
+    } catch (error) {
+      console.error("Error al obtener temas:", error)
+    } finally {
+      setLoadingTemas(false)
+    }
+  }
+
   // Cargar salones al montar el componente
   useEffect(() => {
     fetchSalones()
+    fetchTemas()
   }, [])
 
   // Actualizar la fecha cada minuto
@@ -142,12 +179,6 @@ export default function ProfesorDashboardPage() {
     ultimaActividad: "Hace " + Math.floor(Math.random() * 24) + " horas",
   }))
 
-  const temasPopulares = [
-    { nombre: "Fracciones", alumnos: 85, avance: 72 },
-    { nombre: "Álgebra Básica", alumnos: 64, avance: 58 },
-    { nombre: "Geometría", alumnos: 45, avance: 43 },
-  ]
-
   const alumnosDestacados = [
     { nombre: "Ana García", salon: "3°A", avance: 95, tema: "Fracciones" },
     { nombre: "Carlos López", salon: "3°B", avance: 92, tema: "Álgebra" },
@@ -194,7 +225,7 @@ export default function ProfesorDashboardPage() {
         )}
 
         {/* Métricas principales */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
@@ -224,25 +255,14 @@ export default function ProfesorDashboardPage() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
-                <TrendingUp className="h-4 w-4 mr-2" />
-                Avance Promedio
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-purple-600">{resumenSalones.promedioAvance}%</div>
-              <p className="text-sm text-gray-500">En todos los temas</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-gray-600 flex items-center">
                 <BookOpen className="h-4 w-4 mr-2" />
                 Temas Activos
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-orange-600">12</div>
+              <div className="text-3xl font-bold text-orange-600">
+                {loadingTemas ? "..." : respuestaBackendTemas.totalTemas}
+              </div>
               <p className="text-sm text-gray-500">En desarrollo</p>
             </CardContent>
           </Card>
@@ -306,7 +326,7 @@ export default function ProfesorDashboardPage() {
               <CardHeader className="flex flex-row items-center justify-between pb-2">
                 <div>
                   <CardTitle className="text-xl">Temas Populares</CardTitle>
-                  <CardDescription>Temas con mayor actividad</CardDescription>
+                  <CardDescription>Ordenados por número de alumnos</CardDescription>
                 </div>
                 <Link to="/profesor/temas">
                   <Button variant="outline" size="sm">
@@ -315,21 +335,27 @@ export default function ProfesorDashboardPage() {
                 </Link>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {temasPopulares.map((tema, index) => (
-                    <div key={index} className="p-4 bg-gray-50 rounded-lg">
-                      <div className="flex justify-between items-center mb-2">
-                        <h3 className="font-medium">{tema.nombre}</h3>
-                        <Badge variant="outline">{tema.alumnos} alumnos</Badge>
+                {loadingTemas ? (
+                  <div className="text-center py-4">
+                    <p className="text-gray-500">Cargando temas...</p>
+                  </div>
+                ) : temas.length > 0 ? (
+                  <div className="space-y-4">
+                    {temas.slice(0, 3).map((tema) => (
+                      <div key={tema._id} className="p-4 bg-gray-50 rounded-lg">
+                        <div className="flex justify-between items-center mb-2">
+                          <h3 className="font-medium">{tema.nombre}</h3>
+                          <Badge variant="outline">{tema.totalAlumnos} alumnos</Badge>
+                        </div>
+                        <p className="text-sm text-gray-600">{tema.descripcion}</p>
                       </div>
-                      <div className="flex justify-between text-sm text-gray-600 mb-1">
-                        <span>Avance promedio</span>
-                        <span>{tema.avance}%</span>
-                      </div>
-                      <Progress value={tema.avance} />
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-4">
+                    <p className="text-gray-500">No hay temas disponibles</p>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
