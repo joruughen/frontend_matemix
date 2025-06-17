@@ -122,7 +122,7 @@ export default function TemasPage() {
               <CardContent className="p-6">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                   <div className="flex-grow">
-                    <Link to={`/profesor/temas/${tema._id}`}>
+                    <Link to={`/profesor/tema/subtemas/${tema._id}`}>
                       <h2 className="text-xl font-bold text-blue-600 hover:underline">{tema.nombre}</h2>
                     </Link>
                     <p className="text-gray-600 mt-1">{tema.descripcion}</p>

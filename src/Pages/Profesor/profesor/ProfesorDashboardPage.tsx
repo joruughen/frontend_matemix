@@ -27,7 +27,6 @@ export default function ProfesorDashboardPage() {
     return localStorage.getItem("token_matemix")  
   }
 
-  // Función para obtener los salones del backend
   const fetchSalones = async () => {
     try {
       setLoading(true)

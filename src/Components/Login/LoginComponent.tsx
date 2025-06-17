@@ -50,6 +50,7 @@ const LoginComponent = () => {
                     if (role === "STUDENT") {
                         navigate("/alumno");
                     } else if (role === "TEACHER") {
+                        console.log(token)
                         navigate("/profesor");
                     }
                 } else {
@@ -104,7 +105,7 @@ const LoginComponent = () => {
                                         <div className="grid gap-4">
                                             <div className="grid gap-2 relative">
                                                 <Label htmlFor="username">Nombre de usuario</Label>
-                                                <Input id="username" type="text" name="username" placeholder="usuario@ejemplo.com" onChange={handleLoginChange} className="rounded-[80px]" />
+                                                <Input id="username" type="text" name="username" placeholder="nombre.apellido" onChange={handleLoginChange} className="rounded-[80px]" />
                                             </div>
                                             <div className="grid gap-2 relative">
                                                 <div className="flex items-center justify-between">
@@ -128,7 +129,7 @@ const LoginComponent = () => {
                                         <div className="grid gap-4">
                                             <div className="grid gap-2 relative">
                                                 <Label htmlFor="username">Nombre de usuario</Label>
-                                                <Input id="username" type="text" name="username" placeholder="usuario@ejemplo.com" onChange={handleLoginChange} className="rounded-[80px]" />
+                                                <Input id="username" type="text" name="username" placeholder="nombre.apellido" onChange={handleLoginChange} className="rounded-[80px]" />
                                             </div>
                                             <div className="grid gap-2 relative">
                                                 <div className="flex items-center justify-between">
@@ -150,10 +151,6 @@ const LoginComponent = () => {
                             </Tabs>
                         </CardContent>
                         <CardFooter className="flex flex-col gap-4">
-                            <div className="text-center text-sm text-gray-600">
-                                ¿No tienes una cuenta?{" "}
-                                <Link to="#" className="text-blue-500 hover:underline">Regístrate aquí</Link>
-                            </div>
                             <div className="text-center text-xs text-gray-500">
                                 Al iniciar sesión, aceptas nuestros{" "}
                                 <Link to="#" className="text-blue-500 hover:underline">Términos de servicio</Link> y{" "}
