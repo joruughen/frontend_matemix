@@ -402,10 +402,6 @@ export default function ProfesorDashboardPage() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <Link to="/profesor/registro/:id/alumnos">
-                  <Button variant="outline" className="mb-2 w-full">
-                    <Users className="h-4 w-4 mr-2" />
-                    Registrar Alumnos
-                  </Button>
                 </Link>
                 <Link to="/profesor/salones/:id/temas">
                   <Button variant="outline" className="mb-2 w-full">
