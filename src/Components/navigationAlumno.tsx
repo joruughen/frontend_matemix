@@ -1,8 +1,11 @@
+"use client"
+
 import { useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { Button } from "./ui/button"
-import {  BookOpen, TrendingUp, FileText, Brain, Home, Menu, X } from "lucide-react"
+import { BookOpen, TrendingUp, FileText, Brain, Home, Menu, X } from "lucide-react"
 import { cn } from "../Lib/Util"
+import { useAuth } from "../context/authContext" 
 import MatemixIcon from "../assets/Matemix_icon.svg"
 
 const navigation = [
@@ -16,8 +19,15 @@ const navigation = [
 export function NavigationAlumno() {
   const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
+  const { username, logout } = useAuth()
 
   const pathname = location.pathname
+
+  const handleLogout = () => {
+    logout()
+    navigate("/login") // Redirige a la página de login después del logout
+  }
 
   return (
       <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
@@ -51,13 +61,13 @@ export function NavigationAlumno() {
               })}
             </div>
 
-            {/* User Menu */}
-            <div className="hidden md:flex items-center space-x-4">
-              <span className="text-gray-600">¡Hola, Juan!</span>
-              <Button variant="outline" size="sm">
-                Cerrar Sesión
-              </Button>
-            </div>
+          {/* User Menu */}
+          <div className="hidden md:flex items-center space-x-4">
+            <span className="text-gray-600">¡Hola, {username || "Usuario"}!</span>
+            <Button variant="outline" size="sm" onClick={handleLogout}>
+              Cerrar Sesión
+            </Button>
+          </div>
 
             {/* Mobile menu button */}
             <div className="md:hidden">
@@ -75,31 +85,31 @@ export function NavigationAlumno() {
                     const Icon = item.icon
                     const isActive = pathname === item.href
 
-                    return (
-                        <Link key={item.name} to={item.href}>
-                          <Button
-                              variant={isActive ? "default" : "ghost"}
-                              className={cn(
-                                  "w-full justify-start flex items-center space-x-2",
-                                  isActive && "bg-blue-600 text-white",
-                              )}
-                              onClick={() => setIsOpen(false)}
-                          >
-                            <Icon className="h-4 w-4" />
-                            <span>{item.name}</span>
-                          </Button>
-                        </Link>
-                    )
-                  })}
-                  <div className="pt-4 border-t">
-                    <Button variant="outline" size="sm" className="w-full">
-                      Cerrar Sesión
+                return (
+                  <Link key={item.name} to={item.href}>
+                    <Button
+                      variant={isActive ? "default" : "ghost"}
+                      className={cn(
+                        "w-full justify-start flex items-center space-x-2",
+                        isActive && "bg-blue-600 text-white",
+                      )}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <Icon className="h-4 w-4" />
+                      <span>{item.name}</span>
                     </Button>
-                  </div>
-                </div>
+                  </Link>
+                )
+              })}
+              <div className="pt-4 border-t">
+                <Button variant="outline" size="sm" className="w-full" onClick={handleLogout}>
+                  Cerrar Sesión
+                </Button>
               </div>
-          )}
-        </div>
-      </nav>
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
   )
 }

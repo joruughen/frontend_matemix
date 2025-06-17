@@ -1,8 +1,11 @@
+"use client"
+
 import { useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { Button } from "./ui/button"
-import {  BookOpen, Home, Menu, X, Users, School, FileText } from "lucide-react"
+import { BookOpen, Home, Menu, X, Users, School, FileText } from "lucide-react"
 import { cn } from "../Lib/Util"
+import { useAuth } from "../context/authContext"
 import MatemixIcon from "../assets/Matemix_icon.svg"
 
 const navigation = [
@@ -16,10 +19,15 @@ const navigation = [
 export function NavigationProfesor() {
   const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
-
- 
+  const navigate = useNavigate()
+  const { username, logout } = useAuth()
 
   const pathname = location.pathname
+
+  const handleLogout = () => {
+    logout()
+    navigate("/login") // Redirige a la página de login después del logout
+  }
 
   return (
     <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
@@ -28,8 +36,8 @@ export function NavigationProfesor() {
          
           <Link to="/profesor" className="flex items-center">
             <div className="h-8 w-8 mr-2">
-              <img src={MatemixIcon} alt="Icon" />
-              </div>
+              <img src={MatemixIcon || "/placeholder.svg"} alt="Icon" />
+            </div>
             <span className="text-xl font-bold">Matemix</span>
           </Link>
 
@@ -54,8 +62,8 @@ export function NavigationProfesor() {
 
           {/* User Menu */}
           <div className="hidden md:flex items-center space-x-4">
-            <span className="text-gray-600">¡Hola, Juan!</span>
-            <Button variant="outline" size="sm">
+            <span className="text-gray-600">¡Hola, {username || "Profesor"}!</span>
+            <Button variant="outline" size="sm" onClick={handleLogout}>
               Cerrar Sesión
             </Button>
           </div>
@@ -93,7 +101,7 @@ export function NavigationProfesor() {
                 )
               })}
               <div className="pt-4 border-t">
-                <Button variant="outline" size="sm" className="w-full">
+                <Button variant="outline" size="sm" className="w-full" onClick={handleLogout}>
                   Cerrar Sesión
                 </Button>
               </div>

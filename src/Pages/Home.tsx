@@ -17,7 +17,6 @@ export default function HomePage() {
 
   return (
       <div className="min-h-screen bg-white overflow-hidden relative">
-        {/* Colorful background elements */}
         <div className="absolute top-0 left-0 w-32 h-32 rounded-full bg-purple-500 opacity-80 -translate-x-1/2 -translate-y-1/2"></div>
         <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-red-500 opacity-80 translate-x-1/4 -translate-y-1/4"></div>
         <div className="absolute top-40 left-40 w-48 h-48 rounded-full bg-blue-500 opacity-70"></div>
@@ -71,7 +70,7 @@ export default function HomePage() {
             </Card>
           </div>
 
-          {/* Auth Buttons */}
+          {/* BOTONES para Auth  */}
           <div className="max-w-md mx-auto flex flex-col gap-4 bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-xl">
             <h2 className="text-2xl font-bold text-center mb-4">Comienza tu aprendizaje</h2>
             <Button
@@ -83,10 +82,6 @@ export default function HomePage() {
 
           </div>
 
-          {/*/!* Footer *!/*/}
-          {/*<div className="text-center mt-20 text-gray-600 bg-white/70 backdrop-blur-sm py-4 rounded-lg">*/}
-          {/*  <p>&copy; 2024 MathLearn. Todos los derechos reservados.</p>*/}
-          {/*</div>*/}
         </div>
       </div>
   )

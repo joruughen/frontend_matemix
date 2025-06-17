@@ -2,6 +2,65 @@
 
 @theme {  --color-matemix-blue: #3B82F6}
 
+button {
+  cursor: pointer !important;
+}
+
+button:disabled {
+  cursor: not-allowed !important;
+}
+
+/* Todos los links */
+a {
+  cursor: pointer !important;
+}
+
+/* Elementos con role button */
+[role="button"] {
+  cursor: pointer !important;
+}
+
+[role="button"]:disabled,
+[role="button"][aria-disabled="true"] {
+  cursor: not-allowed !important;
+}
+
+/* Inputs de tipo button */
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  cursor: pointer !important;
+}
+
+input[type="button"]:disabled,
+input[type="submit"]:disabled,
+input[type="reset"]:disabled {
+  cursor: not-allowed !important;
+}
+
+/* Elementos clickeables comunes */
+[onclick] {
+  cursor: pointer !important;
+}
+
+/* Elementos de shadcn/ui y Radix */
+[data-radix-collection-item] {
+  cursor: pointer !important;
+}
+
+/* Elementos con estados interactivos */
+[data-state="open"],
+[data-state="closed"] {
+  cursor: pointer !important;
+}
+
+/* Elementos deshabilitados */
+[data-disabled="true"],
+[aria-disabled="true"],
+[disabled] {
+  cursor: not-allowed !important;
+}
+
 /*:root {*/
 /*  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;*/
 /*  line-height: 1.5;*/
