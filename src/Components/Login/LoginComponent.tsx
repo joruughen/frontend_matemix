@@ -123,7 +123,30 @@ const LoginComponent = () => {
                                         </div>
                                     </form>
                                 </TabsContent>
-
+                                <TabsContent value="profesor">
+                                    <form onSubmit={handleLoginSubmit}>
+                                        <div className="grid gap-4">
+                                            <div className="grid gap-2 relative">
+                                                <Label htmlFor="username">Nombre de usuario</Label>
+                                                <Input id="username" type="text" name="username" placeholder="usuario@ejemplo.com" onChange={handleLoginChange} className="rounded-[80px]" />
+                                            </div>
+                                            <div className="grid gap-2 relative">
+                                                <div className="flex items-center justify-between">
+                                                    <Label htmlFor="password">Contraseña</Label>
+                                                    <Link to="#" className="text-sm text-blue-500 hover:underline">¿Olvidaste tu contraseña?</Link>
+                                                </div>
+                                                <Input id="password" type={showPassword ? "text" : "password"} name="password" onChange={handleLoginChange} className="rounded-[80px]" />
+                                                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute top-2/3 right-3 w-16 -translate-y-1/2 flex items-center justify-center text-sm text-blue-500 hover:underline">
+                                                    {showPassword ? "Ocultar" : "Mostrar"}
+                                                </button>
+                                            </div>
+                                            {error && <p className="text-red-500 text-sm">{error}</p>} {/* Mostrar el mensaje de error */}
+                                            <Button variant="outline" className="w-full bg-blue-500 text-white hover:bg-blue-500 rounded-[80px]">
+                                                Iniciar sesión
+                                            </Button>
+                                        </div>
+                                    </form>
+                                </TabsContent>
                             </Tabs>
                         </CardContent>
                         <CardFooter className="flex flex-col gap-4">
