@@ -31,3 +31,13 @@ export interface EjerciciosSubtemaResponse {
   total_ejercicios_por_subtema: number;
   total_por_nivel: TotalesPorNivel;
 }
+
+export interface ejerciciosAlumno {
+  ejercicios: ejercicio[];
+  total_ejercicios: number;
+  total_resueltos: number; 
+}
+export interface requestEjerciciosStudent {
+  subtema_id: string;
+  nivel: Nivel;
+}

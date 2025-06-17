@@ -1,5 +1,5 @@
 import { axiosInstanceBackend_AI_Ejercicios } from "../AxiosConfig";
-import type { CreateSubtema, subtemaResponse, ListYoutubeTemasCreation,subtemaIdeas, videoResponse } from "./types";
+import type { CreateSubtema, subtemaResponse, ListYoutubeTemasCreation,subtemaIdeas, videoResponse, subtemaResponseStudent } from "./types";
 
 const BASE_URL = "/subtopics";
 
@@ -122,7 +122,19 @@ export class SubtemaService {
     }
   }
 
-  
+  async getAllSubtemasForStudent(tema_id:string, token:string):Promise<subtemaResponseStudent[]>{
+    try {
+      const res = await axiosInstanceBackend_AI_Ejercicios.get(`${BASE_URL}/student/${tema_id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      console.log("Respuesta al obtener todos los subtemas para el estudiante:", res.data);
+      return res.data.subtemas;
+    } catch (error) {
+      console.error("Error al obtener todos los subtemas para el estudiante:", error);
+      throw error;      
+    }
+  }
+
 }
 
 export const subtemaService = new SubtemaService();

@@ -42,3 +42,33 @@ export type SubtemaConVideos = {
   descripcion: string, 
   videos: videoResponse[] 
 }
+
+
+export interface PreguntasPorNivel {
+  facil?: string[];
+  medio?: string[];
+  dificil?: string[];
+}
+
+export interface CantidadEjerciciosPorNivel {
+  facil: number;
+  medio: number;
+  dificil: number;
+}
+
+export interface SubtemaBase {
+  titulo: string;
+  descripcion: string | null;
+  tema_id: string;
+  orden: number;
+}
+
+
+export interface subtemaResponseStudent extends SubtemaBase {
+  _id: string;
+  video_url?: videoResponse[];
+  preguntas?: PreguntasPorNivel;
+  orden: number;
+  cantidad_ejercicios_por_nivel: CantidadEjerciciosPorNivel;
+
+}

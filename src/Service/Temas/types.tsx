@@ -14,4 +14,16 @@ export interface ResponseTema {
     orden?:number
     subtema_id?: string[];
 }
+
+export interface responseTemaStudent extends ResponseTema {
+    cantidadSubtemas: number;
+
+}
+
+export interface temasForStudent {
+    salon_id: string;
+    temas: responseTemaStudent[];
+    totalTemas: number;
+
+}
  

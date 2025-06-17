@@ -1,5 +1,5 @@
 import { axiosInstanceBackend_AI_Ejercicios } from "../AxiosConfig";
-import type {  ejercicio, ejercicioCreate, EjerciciosSubtemaResponse } from "./types";
+import type {  ejercicio, ejercicioCreate, ejerciciosAlumno, EjerciciosSubtemaResponse, requestEjerciciosStudent } from "./types";
 
 const BASE_URL = "/exercises";
 
@@ -62,6 +62,19 @@ export class EjercicioService {
             return res.data;
         } catch (error) {
             console.error("Error al crear el ejercicio manualmente:", error);
+            throw error;
+        }
+    }
+
+    async getEjerciciosForStudent(re:requestEjerciciosStudent, token: string) :Promise<ejerciciosAlumno> {
+        try {
+            const res = await axiosInstanceBackend_AI_Ejercicios.post(`${BASE_URL}/student/info`, re, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            console.log("Ejercicios obtenidos para el alumno:", res.data);
+            return res.data;
+        } catch (error) {
+            console.error("Error al obtener ejercicios para el alumno:", error);
             throw error;
         }
     }

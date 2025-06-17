@@ -2,7 +2,7 @@ import { axiosInstanceBackend_AI_Ejercicios } from '../AxiosConfig';
 
 
 
-import type { ResponseTema, Tema } from './types';
+import type { ResponseTema, Tema, temasForStudent } from './types';
 
 export class TemasService {
     async crearTema(data: Tema, token: string): Promise<ResponseTema> {
@@ -92,6 +92,23 @@ export class TemasService {
             return response.data;
         } catch (error) {
             console.error('Error al actualizar el orden del tema:', error);
+            throw error;
+        }
+    }
+    async getAllTemasForStudent(token:string):Promise<temasForStudent>{
+        try {
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }
+            };
+
+            const response = await axiosInstanceBackend_AI_Ejercicios.get(`/topics/info/student`, config);
+
+            return response.data;
+        } catch (error) {
+            console.error('Error al obtener todos los temas para el estudiante:', error);
             throw error;
         }
     }

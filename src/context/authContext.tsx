@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     localStorage.setItem("token_matemix", token)
     localStorage.setItem("username_matemix", username)
-    localStorage.setItem("userId_matemix", userId) // Ahora usa el ID real del JWT
+    localStorage.setItem("userId_matemix", userId) 
     localStorage.setItem("role_matemix", role)
     localStorage.setItem("loginDate_matemix", currentLoginDate)
     localStorage.removeItem("logoutDate_matemix")
