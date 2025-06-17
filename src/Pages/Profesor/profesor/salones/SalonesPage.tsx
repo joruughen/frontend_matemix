@@ -104,11 +104,11 @@ export default function SalonesPage() {
                 <p className="text-sm text-purple-600">Temas</p>
               </div>
               <div className="bg-orange-50 p-4 rounded-lg text-center">
-                <BookOpen className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-                <div className="text-2xl font-bold text-purple-600">
+                <BookOpen className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
+                <div className="text-2xl font-bold text-yellow-600">
                   {ProfesorSalonInfo.totalSubtemas}
                 </div>
-                <p className="text-sm text-purple-600">Subtemas</p>
+                <p className="text-sm text-yellow-600">Subtemas</p>
               </div>
             </div>
           </CardContent>

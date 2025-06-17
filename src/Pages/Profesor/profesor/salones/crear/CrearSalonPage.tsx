@@ -90,16 +90,16 @@ export default function CrearSalonPage() {
                       onChange={e => setData(prev => ({ ...prev, grado: parseInt(e.target.value) }))}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Selecciona el grado" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1">1° Grado</SelectItem>
-                      <SelectItem value="2">2° Grado</SelectItem>
-                      <SelectItem value="3">3° Grado</SelectItem>
-                      <SelectItem value="4">4° Grado</SelectItem>
-                      <SelectItem value="5">5° Grado</SelectItem>
-                      <SelectItem value="6">6° Grado</SelectItem>
-                    </SelectContent>
+                          <SelectValue placeholder="Selecciona el grado" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">1° Grado</SelectItem>
+                        <SelectItem value="2">2° Grado</SelectItem>
+                        <SelectItem value="3">3° Grado</SelectItem>
+                        <SelectItem value="4">4° Grado</SelectItem>
+                        <SelectItem value="5">5° Grado</SelectItem>
+                        <SelectItem value="6">6° Grado</SelectItem>
+                      </SelectContent>
                   </Select>
                 </div>
               </div>
