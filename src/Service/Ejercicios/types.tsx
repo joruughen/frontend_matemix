@@ -40,4 +40,5 @@ export interface ejerciciosAlumno {
 export interface requestEjerciciosStudent {
   subtema_id: string;
   nivel: Nivel;
+  alumno_id: string;
 }

@@ -87,8 +87,7 @@ export default function EjerciciosSubtemaPage() {
   const handleCreateEjercicio = async () => {
     if (!subtemaId || !token) return
     try {
-      const created = await ejercicioService.createEjericioManual({ ...nuevoEjercicio }, token)
-      
+      await ejercicioService.createEjericioManual({ ...nuevoEjercicio }, token, subtemaId)
       setNuevoEjercicio({
         pregunta: "",
         respuesta_correcta: "",
@@ -99,52 +98,46 @@ export default function EjerciciosSubtemaPage() {
         concepto_principal: null,
         nivel: "facil",
       })
-      setEjercicios(prev => {
-        const updated = { ...prev }
-        updated[created.nivel].push(created)
-        return updated
-      })
+      await fetchEjercicios() 
       setTotalPorSubtema(prev => prev + 1)
       setTotalPorNivel(prev => ({
         ...prev,
-        [created.nivel]: prev[created.nivel] + 1,
+        [nuevoEjercicio.nivel]: prev[nuevoEjercicio.nivel] + 1,
       }))
-      console.log("Ejercicio creado:", created)
-
     } catch (error) {
       console.error("Error al crear el ejercicio:", error)
     }
   }
 
-  const handleDeleteEjercicio = async (ejercicioId: string) => {
-    if (!token) return
+    const handleDeleteEjercicio = async (ejercicioId: string) => {
+    if (!token) return;
     try {
-      await ejercicioService.deleteEjercicio(ejercicioId, token)
+      await ejercicioService.deleteEjercicio(ejercicioId, token, subtemaId || "");
       let deletedNivel: Nivel | null = null;
       setEjercicios(prev => {
-        const updated = { ...prev }
-        (Object.keys(updated) as Nivel[]).forEach(nivel => {
-          if (updated[nivel].some(ej => ej._id === ejercicioId)) {
-            deletedNivel = nivel
+        const next = { ...prev };
+        (Object.keys(next) as Nivel[]).forEach(nivel => {
+          if (next[nivel].some(ej => ej._id === ejercicioId)) {
+            deletedNivel = nivel;
           }
-          updated[nivel] = updated[nivel].filter(ej => ej._id !== ejercicioId)
-        })
-        return updated
-      })
-      setTotalPorSubtema(prev => prev - 1)
+          next[nivel] = next[nivel].filter(ej => ej._id !== ejercicioId);
+        });
+        return next;
+      });
+      setTotalPorSubtema(prev => prev - 1);
       setTotalPorNivel(prev => {
         if (deletedNivel) {
           return {
             ...prev,
             [deletedNivel]: Math.max(0, prev[deletedNivel] - 1)
-          }
+          };
         }
-        return prev
-      })
+        return prev;
+      });
     } catch (error) {
-      console.error("Error al eliminar el ejercicio:", error)
+      console.log("Error al eliminar el ejercicio:", error);
     }
-  }
+  };
 
   const [editNivel, setEditNivel] = useState<Nivel | null>(null);
   
@@ -159,7 +152,8 @@ export default function EjerciciosSubtemaPage() {
       const updated = await ejercicioService.updateEjercicio(ejercicioId, editData, token);
       setEjercicios(prev => {
         const updatedNivel = [...prev[editNivel]];
-        updatedNivel[editIndex] = updated;
+        // Solo actualiza los campos editados, mantiene los demás
+        updatedNivel[editIndex] = { ...updatedNivel[editIndex], ...editData };
         return { ...prev, [editNivel]: updatedNivel };
       });
       setEditIndex(null);
@@ -350,9 +344,9 @@ export default function EjerciciosSubtemaPage() {
                   onChange={e => setNuevoEjercicio({ ...nuevoEjercicio, nivel: e.target.value as Nivel })}
                   className="border rounded px-2 py-1"
                 >
-                  <option value="facil">Fácil</option>
-                  <option value="medio">Medio</option>
-                  <option value="dificil">Difícil</option>
+                  <option value="facil">facil</option>
+                  <option value="medio">medio</option>
+                  <option value="dificil">dificil</option>
                 </select>
                 <Input
                   placeholder="Concepto principal (opcional)"
