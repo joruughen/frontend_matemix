@@ -43,9 +43,9 @@ export class EjercicioService {
             throw error;
         }
     }
-    async deleteEjercicio(ejercicioId: string, token: string): Promise<void> {
+    async deleteEjercicio(ejercicioId: string, token: string, subtema_id:string): Promise<void> {
         try {
-            await axiosInstanceBackend_AI_Ejercicios.delete(`${BASE_URL}/delete/${ejercicioId}`, {
+            await axiosInstanceBackend_AI_Ejercicios.delete(`${BASE_URL}/delete/${ejercicioId}/${subtema_id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
         } catch (error) {
@@ -54,9 +54,9 @@ export class EjercicioService {
         }
     }
 
-    async createEjericioManual(data: ejercicioCreate, token: string): Promise<ejercicio> {
+    async createEjericioManual(data: ejercicioCreate, token: string, subtema_id: string): Promise<ejercicio> {
         try {
-            const res = await axiosInstanceBackend_AI_Ejercicios.post(`${BASE_URL}/create`, data, {
+            const res = await axiosInstanceBackend_AI_Ejercicios.post(`${BASE_URL}/manual/${subtema_id}`, data, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             return res.data;
