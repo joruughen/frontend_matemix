@@ -150,7 +150,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const toggleChat = () => setIsOpen(!isOpen);
 
-  // Si cierras el chat, resetea la conversación
+
   useEffect(() => {
     if (!isOpen) {
       setConversationId(null);
