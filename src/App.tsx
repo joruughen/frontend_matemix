@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom"
 import HomePage from "./Pages/Home.tsx"
 import LoginPage from "./Pages/Login.tsx"
 import ProfesorDashboardPage from "./Pages/Profesor/profesor/ProfesorDashboardPage.tsx"
@@ -21,43 +21,58 @@ import ProgresoPage from "./Pages/Student/progreso/progresoPage.tsx"
 import ReportesPage from "./Pages/Student/reportes/reportesPage.tsx"
 import DashboardPage from "./Pages/Student/dashboardPage.tsx"
 import DetalleAlumnoPage  from "./Pages/Profesor/profesor/alumnos/[id]/DetalleAlumnoPage.tsx";
-
-
-
+import { useAuth } from "./context/authContext.tsx"
+import { ChatProvider } from "./context/chatContext.tsx"
+import { ChatModal } from "./Pages/Chat/ChatModal.tsx"
+import ConversationHistoryPage from "./Pages/Chat/ConversationHistoryPage.tsx"
 
 function App() {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/profesor" element={<LayoutProfesor />}>
-                    <Route index element={<ProfesorDashboardPage />} />
-                    <Route path="salones" element={<SalonesPage />} />
-                    <Route path="alumnos" element={<AlumnosPage />} />
-                    <Route path="temas" element={<TemasPage />} />
-                    <Route path="reportes" element={<ReportesProfesorPage />} />
-                    <Route path="/profesor/alumnos/:id" element={<DetalleAlumnoPage />} />
-                    <Route path="/profesor/salones/crear" element = {<CrearSalonPage />} />
-                    <Route path="/profesor/registro/:id/alumnos" element={<RegistrarAlumnosPage />} />                
-                    <Route path="/profesor/salones/:id/temas" element={<CrearTemaPage />} />
-                    <Route path="/profesor/salones/:id" element= {<DetallesSalonPage />} />
-                    <Route path="/profesor/tema/:id" element={<DetalleTemaPage />} />
-                    <Route path="/profesor/temas/:id/subtemas/crear" element={<CrearSubtemaPage />} />
-                    <Route path="/profesor/tema/subtemas/:id" element={<SubtemasPorTemaPage />} />
-                    <Route path="/profesor/subtemas/:id/ejercicios" element={<EjerciciosSubtemaPage />} />
-                    <Route path="/profesor/salones/temas/:id" element={<DetalleTemaPage />} />
-                </Route>
-                <Route path="/alumno" element={<LayoutAlumno />}>
-                    <Route index element={<DashboardPage />} />
-                    <Route path="ejercicios" element={<EjerciciosPage />} />
-                    <Route path="progreso" element={<ProgresoPage />} />
-                    <Route path="reportes" element={<ReportesPage />} />
-                    <Route path="analisis" element={<ReportesPage />} />
-                </Route>
-            </Routes>
-        </Router>
-    )
+  return (
+    <ChatProvider>
+      <Router>
+        <AppRoutes />
+      </Router>
+    </ChatProvider>
+  );
 }
 
-export default App
+function AppRoutes() {
+  const { role } = useAuth();
+  
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/profesor" element={<LayoutProfesor />}>
+          <Route index element={<ProfesorDashboardPage />} />
+          <Route path="salones" element={<SalonesPage />} />
+          <Route path="alumnos" element={<AlumnosPage />} />
+          <Route path="temas" element={<TemasPage />} />
+          <Route path="reportes" element={<ReportesProfesorPage />} />
+          <Route path="/profesor/alumnos/:id" element={<DetalleAlumnoPage />} />
+          <Route path="/profesor/salones/crear" element = {<CrearSalonPage />} />
+          <Route path="/profesor/registro/:id/alumnos" element={<RegistrarAlumnosPage />} />                
+          <Route path="/profesor/salones/:id/temas" element={<CrearTemaPage />} />
+          <Route path="/profesor/salones/:id" element= {<DetallesSalonPage />} />
+          <Route path="/profesor/tema/:id" element={<DetalleTemaPage />} />
+          <Route path="/profesor/temas/:id/subtemas/crear" element={<CrearSubtemaPage />} />
+          <Route path="/profesor/tema/subtemas/:id" element={<SubtemasPorTemaPage />} />
+          <Route path="/profesor/subtemas/:id/ejercicios" element={<EjerciciosSubtemaPage />} />
+          <Route path="/profesor/salones/temas/:id" element={<DetalleTemaPage />} />
+        </Route>
+        <Route path="/alumno" element={<LayoutAlumno />}>
+          <Route index element={<DashboardPage />} />
+          <Route path="ejercicios" element={<EjerciciosPage />} />
+          <Route path="progreso" element={<ProgresoPage />} />
+          <Route path="reportes" element={<ReportesPage />} />
+          <Route path="analisis" element={<ReportesPage />} />
+          <Route path="chat" element={<ConversationHistoryPage />} />
+        </Route>
+      </Routes>
+      {role === "STUDENT" && <ChatModal />}
+    </>
+  );
+}
+
+export default App;

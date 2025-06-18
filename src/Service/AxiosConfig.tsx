@@ -13,3 +13,10 @@ export const axiosInstanceBackend_AI_Ejercicios = axios.create({
         'Content-Type': 'application/json', 
     },
 });
+
+export const axiosInstanceChat = axios.create({
+    baseURL: 'http://localhost:8030/',  
+    headers: {
+        'Content-Type': 'application/json', 
+    },
+})

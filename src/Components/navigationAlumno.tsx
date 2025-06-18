@@ -14,6 +14,7 @@ const navigation = [
   { name: "Mi Progreso", href: "/alumno/progreso", icon: TrendingUp },
   { name: "Reportes", href: "/alumno/reportes", icon: FileText },
   { name: "Análisis IA", href: "/alumno/analisis", icon: Brain },
+  { name: "Chat", href: "/alumno/chat", icon: FileText },
 ]
 
 export function NavigationAlumno() {
