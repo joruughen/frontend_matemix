@@ -25,10 +25,8 @@ const ChatSidebar = () => {
     setOpen(false);
   };
 
-  // Sidebar para desktop, drawer para mobile
   return (
     <>
-      {/* Botón para abrir sidebar en mobile */}
       <button
         className="md:hidden fixed top-20 left-4 z-30 bg-blue-600 text-white p-2 rounded-full shadow-lg"
         onClick={() => setOpen(true)}
