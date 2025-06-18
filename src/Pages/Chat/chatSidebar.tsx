@@ -86,7 +86,6 @@ const ChatSidebar = () => {
         </div>
       </div>
 
-      {/* Sidebar normal en desktop */}
       <div className="hidden md:flex flex-col w-80 h-[calc(100vh-4rem)] bg-white border-r border-gray-200 shadow-xl">
         <div className="p-5 border-b border-gray-200 flex justify-between items-center bg-gradient-to-br from-blue-600 to-purple-600 rounded-tl-2xl">
           <h2 className="text-lg font-bold text-white">Conversaciones</h2>
