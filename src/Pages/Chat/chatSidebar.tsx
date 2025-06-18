@@ -35,7 +35,6 @@ const ChatSidebar = () => {
         <Bars3Icon className="h-6 w-6" />
       </button>
 
-      {/* Sidebar drawer en mobile */}
       <div className={`fixed inset-0 z-40 bg-black/40 transition-opacity md:hidden ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
         <div className={`absolute top-0 left-0 h-full w-72 bg-white border-r border-gray-200 shadow-xl transform transition-transform ${open ? 'translate-x-0' : '-translate-x-full'}`}>
           <div className="flex justify-between items-center p-5 border-b bg-gradient-to-br from-blue-600 to-purple-600 rounded-tl-2xl">
