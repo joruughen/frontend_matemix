@@ -173,7 +173,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
       loadConversations,
       areConversationsLoaded,
       setCurrentConversation, 
-      setMessages             // <-- Añade esto
+      setMessages             
       }}>
     {children}
   </ChatContext.Provider>
