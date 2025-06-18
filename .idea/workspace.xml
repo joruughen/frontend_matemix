@@ -4,37 +4,47 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3344a45-8f40-4dc6-b17e-75a885490826" name="Changes" comment="correccion path">
+    <list default="true" id="b3344a45-8f40-4dc6-b17e-75a885490826" name="Changes" comment="porfin se puede acceder al perfil de alumnos">
+      <change afterPath="$PROJECT_DIR$/src/Service/Profesor/service.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Profesor/types.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Profesor/profesor/ProfesorDashboardPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Profesor/profesor/ProfesorDashboardPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Profesor/profesor/alumnos/[id]/DetalleAlumnoPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Profesor/profesor/alumnos/[id]/DetalleAlumnoPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Profesor/profesor/salones/SalonesPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Profesor/profesor/salones/SalonesPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Profesor/profesor/salones/crear/CrearSalonPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Profesor/profesor/salones/crear/CrearSalonPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/AxiosConfig.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/AxiosConfig.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Profesor/ProfesorService.tsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="zamir" />
+        <entry key="$PROJECT_DIR$" value="ariana2" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Linn0001"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Linn0001&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:joruughen/frontend_matemix.git",
-    "accountId": "b6ef838f-de46-4dea-954b-2140722f3c96"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:joruughen/frontend_matemix.git&quot;,
+    &quot;accountId&quot;: &quot;b6ef838f-de46-4dea-954b-2140722f3c96&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -49,7 +59,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "ariana2",
+    "git-widget-placeholder": "zamir",
     "last_opened_file_path": "/home/jorughen/Desktop/frontend_matemix/src/Service/Respuestas",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
