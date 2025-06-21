@@ -265,7 +265,11 @@ export default function SubtemasPorTemaPage() {
                                       if (subtema && subtema._id) {
                                         const sugeridos = await subtemaService.generateVideosBySubTemaId(subtema._id, localStorage.getItem("token_matemix") || "");
                                         console.log("Videos sugeridos:", sugeridos);
-                                        const videos = Array.isArray(sugeridos) ? sugeridos : (sugeridos?.videos || []);
+                                        const videos = Array.isArray(sugeridos)
+                                          ? sugeridos
+                                          : (typeof sugeridos === "object" && sugeridos !== null && "videos" in sugeridos && Array.isArray((sugeridos as { videos: videoResponse[] }).videos)
+                                              ? (sugeridos as { videos: videoResponse[] }).videos
+                                              : []);
                                         if (!videos || videos.length === 0) {
                                           setNoVideos(true);
                                           setVideosSugeridos([]);

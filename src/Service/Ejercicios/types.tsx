@@ -42,3 +42,11 @@ export interface requestEjerciciosStudent {
   nivel: Nivel;
   alumno_id: string;
 }
+export interface EjercicioResueltoCreate{
+  alumno_id: string;
+  salon_id: string;
+  ejercicio_id: string;
+  respuesta_usuario: string;
+  subtema_id: string;
+}
+ 

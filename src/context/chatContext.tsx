@@ -36,12 +36,10 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [messages, setMessages] = useState<Message[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [conversationId, setConversationId] = useState<string | null>(null);
   const conversationIdRef = useRef<string | null>(null); // para acceso en el stream
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [currentConversation, setCurrentConversation] = useState<string | null>(null);
   const [areConversationsLoaded, setAreConversationsLoaded] = useState(false);
-  const eventSourceRef = useRef<EventSource | null>(null);
     const userId = localStorage.getItem('userId_matemix') || 'default_user';
   const loadConversations = async () => {
     if (areConversationsLoaded) return;
@@ -67,7 +65,6 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         setIsLoading(true);
         const response = await chatService.getConversationById(userId, id);
-        setConversationId(id);
         console.log('Fetching conversation:', response);
         console.log('Conversation loaded:', response);
         setMessages(response.messages || []);
@@ -85,7 +82,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setMessages(prev => [...prev, { role: 'user', content: message }]);
 
     try {
-    const response = await fetch('http://localhost:8030/chat-stream', {
+    const response = await fetch('http://math-tutor-elb-494669186.us-east-1.elb.amazonaws.com:8030/chat-stream', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -113,7 +110,6 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         // Detecta si se creó una nueva conversación
         if (data.conversation_id && !conversationIdRef.current) {
-        setConversationId(data.conversation_id);
         conversationIdRef.current = data.conversation_id;
         newConversationCreated = true;
         }
@@ -153,7 +149,6 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     if (!isOpen) {
-      setConversationId(null);
       conversationIdRef.current = null;
       setMessages([]);
     }

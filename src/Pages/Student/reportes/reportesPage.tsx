@@ -45,7 +45,7 @@ export default function ReportesPage() {
     }
   }
 
-  const incrementarMinutos = async () => {
+ /* const incrementarMinutos = async () => {
     try {
       const alumnoId = localStorage.getItem("userId_matemix")
       const token = localStorage.getItem("token_matemix")
@@ -59,7 +59,7 @@ export default function ReportesPage() {
       console.error("Error al incrementar minutos:", error)
     }
   }
-
+*/
   useEffect(() => {
     const alumnoId = localStorage.getItem("userId_matemix")
 

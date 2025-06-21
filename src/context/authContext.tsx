@@ -87,7 +87,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const currentLogoutDate = new Date().toISOString()
     const currentToken = token
     const currentRole = role
-    const currentUsername = username
 
     const sessionMinutes = getSessionDurationMinutes()
 

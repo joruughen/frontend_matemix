@@ -6,7 +6,7 @@ import {  cva } from "class-variance-authority"
 import { PanelLeft } from "lucide-react"
 import type { VariantProps } from "class-variance-authority"
 
-import { useIsMobile } from "../../Hooks/use-mobile"
+import { useMobile } from "../../Hooks/use-mobile"
 import { cn } from "../../Lib/Util"
 import { Button } from "./button"
 import { Input } from "./input"
@@ -68,7 +68,7 @@ const SidebarProvider = React.forwardRef<
     },
     ref
   ) => {
-    const isMobile = useIsMobile()
+    const isMobile = useMobile()
     const [openMobile, setOpenMobile] = React.useState(false)
 
     // This is the internal state of the sidebar.

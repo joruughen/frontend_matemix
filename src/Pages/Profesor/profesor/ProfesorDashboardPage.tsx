@@ -46,7 +46,7 @@ export default function ProfesorDashboardPage() {
         throw new Error("No se encontró token de autenticación")
       }
 
-      const response = await fetch("http://localhost:8090/salon/profesor/my-salons", {
+      const response = await fetch("http://math-tutor-elb-494669186.us-east-1.elb.amazonaws.com:8090/salon/profesor/my-salons", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

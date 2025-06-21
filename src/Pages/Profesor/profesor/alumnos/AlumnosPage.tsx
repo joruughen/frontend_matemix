@@ -8,7 +8,7 @@ import { Input } from "../../../../Components/ui/input"
 import { Badge } from "../../../../Components/ui/badge"
 import { Progress } from "../../../../Components/ui/progress"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../../Components/ui/select"
-import { ArrowLeft, Search, Users, Plus, Download } from "lucide-react"
+import { ArrowLeft, Search, Users, Plus } from "lucide-react"
 
 export default function AlumnosPage() {
   const [searchQuery, setSearchQuery] = useState("")

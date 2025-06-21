@@ -24,7 +24,6 @@ export default function CrearSubtemaPage() {
   const [novideosSugeridos, setNoVideosSugeridos] = useState(false)
   const [subtemaActual, setSubtemaActual] = useState<subtemaResponse | null>(null)
   const [paso, setPaso] = useState<"form" | "videos" | "confirmado">("form")
-  const [mostrar, setMostrar] = useState(false)
   // Crear subtema y obtener videos sugeridos
   const handleCrearSubtema = async () => {
     if (!subtema.nombre || !subtema.descripcion) {
@@ -54,7 +53,11 @@ export default function CrearSubtemaPage() {
       // Obtener videos sugeridos
       try {
         const sugeridos = await subtemaService.generateVideosBySubTemaId(response._id, localStorage.getItem("token_matemix") || "")
-        const vi = Array.isArray(sugeridos) ? sugeridos : (sugeridos?.videos || []);
+        const vi = Array.isArray(sugeridos)
+          ? sugeridos
+          : (typeof sugeridos === "object" && sugeridos !== null && "videos" in sugeridos && Array.isArray((sugeridos as { videos: unknown }).videos)
+              ? (sugeridos as { videos: videoResponse[] }).videos
+              : []);
         console.log("videos ", vi)
                         
         if (!vi || vi.length === 0) {          
@@ -63,7 +66,6 @@ export default function CrearSubtemaPage() {
         } else {
           setVideosSugeridos(vi)
           setNoVideosSugeridos(false)
-          setMostrar(true)
         }
         setPaso("videos")
       } catch (error) {
@@ -229,13 +231,16 @@ export default function CrearSubtemaPage() {
                         if (subtemaActual && subtemaActual._id) {
                           const sugeridos = await subtemaService.generateVideosBySubTemaId(subtemaActual._id, localStorage.getItem("token_matemix") || "")
                           console.log("videos sugeridos se obtuvieron ", sugeridos)
-                          const videos = Array.isArray(sugeridos) ? sugeridos : (sugeridos?.videos || []);
+                          const videos = Array.isArray(sugeridos)
+                            ? sugeridos
+                            : (typeof sugeridos === "object" && sugeridos !== null && "videos" in sugeridos && Array.isArray((sugeridos as { videos: unknown }).videos)
+                                ? (sugeridos as { videos: videoResponse[] }).videos
+                                : []);
                           console.log("videos ", videos)
                           if (!videos || videos.length === 0) {
                            setVideosSugeridos([])
                             setNoVideosSugeridos(true)  
                           } else {
-                            setMostrar(true);
                              setVideosSugeridos(videos)
                             console.log("aca")
                             setNoVideosSugeridos(false)

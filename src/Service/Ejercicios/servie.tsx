@@ -1,22 +1,25 @@
 import { axiosInstanceBackend_AI_Ejercicios } from "../AxiosConfig";
-import type {  ejercicio, ejercicioCreate, ejerciciosAlumno, EjerciciosSubtemaResponse, requestEjerciciosStudent } from "./types";
+import type {  ejercicio, ejercicioCreate, EjercicioResueltoCreate, ejerciciosAlumno, EjerciciosSubtemaResponse, requestEjerciciosStudent } from "./types";
 
 const BASE_URL = "/exercises";
 
 export class EjercicioService {
   
   async generateEjerciciosBySubtemaId(subtema_id: string, token: string): Promise<EjerciciosSubtemaResponse> {
-    try{
-        const res = await axiosInstanceBackend_AI_Ejercicios.get(`${BASE_URL}/generar/${subtema_id}`, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
-        return res.data;    
+    try {
+    const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+      console.log("token", token);
+      const res = await axiosInstanceBackend_AI_Ejercicios.get(`${BASE_URL}/generar/${subtema_id}`, config);
+      return res.data;
+    } catch (error) {
+      console.error("Error al generar ejercicios:", error);
+      throw error;
     }
-    catch (error) {
-        console.error("Error al generar ejercicios:", error);
-        throw error;
-        }
-    }
+  }
 
     async getEjerciciosBySubtemaId(subtema_id: string, token: string): Promise<EjerciciosSubtemaResponse> {
         try {
@@ -75,6 +78,18 @@ export class EjercicioService {
             return res.data;
         } catch (error) {
             console.error("Error al obtener ejercicios para el alumno:", error);
+            throw error;
+        }
+    }
+
+    async createEjercicioResuelto(data:EjercicioResueltoCreate, tema_id: string, token: string){
+        try {
+            const res = await axiosInstanceBackend_AI_Ejercicios.post(`${BASE_URL}/resuelto/${tema_id}`, data, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            return res.data;
+        } catch (error) {
+            console.error("Error al crear el ejercicio resuelto:", error);
             throw error;
         }
     }

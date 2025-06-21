@@ -112,6 +112,7 @@ export class SalonService {
                     Authorization: `Bearer ${token}`
                 }
             };
+            console.log("Token en getInfoOfProfesorSalones:", token);
             const response = await axiosInstanceBackend_AI_Ejercicios.get("/topics/info/profesor", config);
             console.log("Respuesta del servidor:", response.data);
             return response.data;

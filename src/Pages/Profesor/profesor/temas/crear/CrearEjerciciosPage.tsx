@@ -4,9 +4,8 @@ import { Input } from "../../../../../Components/ui/input"
 import { useNavigate, useParams } from "react-router-dom"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../../../../../Components/ui/card"
 import { ArrowLeft, Trash2, Pencil } from "lucide-react"
-import { type TotalesPorNivel, type ejercicioCreate, type ejercicioNivel, type Nivel } from "../../../../../Service/Ejercicios/types"
+import {  type ejercicioCreate, type ejercicioNivel, type Nivel } from "../../../../../Service/Ejercicios/types"
 import { ejercicioService } from "../../../../../Service/Ejercicios/servie"
-import { set } from "react-hook-form"
 
 export default function EjerciciosSubtemaPage() {
   const { id: subtemaId } = useParams<{ id: string }>()
@@ -16,12 +15,7 @@ export default function EjerciciosSubtemaPage() {
     medio: [],
     dificil: [],
   });
-  const [totalPorSubtema, setTotalPorSubtema] = useState(0);
-  const [totalPorNivel, setTotalPorNivel] = useState<TotalesPorNivel>({
-    facil: 0,
-    medio: 0,
-    dificil: 0,
-  });
+ 
   const [loading, setLoading] = useState(false)
   const [editIndex, setEditIndex] = useState<number | null>(null)
   const [editData, setEditData] = useState<ejercicioCreate | null>(null)
@@ -44,13 +38,9 @@ export default function EjerciciosSubtemaPage() {
   try {
     const data = await ejercicioService.getEjerciciosBySubtemaId(subtemaId, token)
     setEjercicios(data.ejercicios)
-    setTotalPorSubtema(data.total_ejercicios_por_subtema)
-    setTotalPorNivel(data.total_por_nivel)
   } catch (error) {
     console.error("Error al obtener ejercicios:", error)
     setEjercicios({ facil: [], medio: [], dificil: [] })
-    setTotalPorSubtema(0)
-    setTotalPorNivel({ facil: 0, medio: 0, dificil: 0 })
   } finally {
     setLoading(false)
   }
@@ -69,12 +59,8 @@ export default function EjerciciosSubtemaPage() {
       console.log("Respuesta del backend al generar ejercicios:", data)
       if (!data) {
         setEjercicios({ facil: [], medio: [], dificil: [] })
-        setTotalPorSubtema(0)
-        setTotalPorNivel({ facil: 0, medio: 0, dificil: 0 })
       } else {
         setEjercicios(data.ejercicios)
-        setTotalPorSubtema(data.total_ejercicios_por_subtema)
-        setTotalPorNivel(data.total_por_nivel)
       }
     } catch (error) {
       console.error("Error al generar ejercicios:", error)
@@ -99,11 +85,7 @@ export default function EjerciciosSubtemaPage() {
         nivel: "facil",
       })
       await fetchEjercicios() 
-      setTotalPorSubtema(prev => prev + 1)
-      setTotalPorNivel(prev => ({
-        ...prev,
-        [nuevoEjercicio.nivel]: prev[nuevoEjercicio.nivel] + 1,
-      }))
+     
     } catch (error) {
       console.error("Error al crear el ejercicio:", error)
     }
@@ -124,16 +106,7 @@ export default function EjerciciosSubtemaPage() {
         });
         return next;
       });
-      setTotalPorSubtema(prev => prev - 1);
-      setTotalPorNivel(prev => {
-        if (deletedNivel) {
-          return {
-            ...prev,
-            [deletedNivel]: Math.max(0, prev[deletedNivel] - 1)
-          };
-        }
-        return prev;
-      });
+      console.log("elimnado nivel", deletedNivel);
     } catch (error) {
       console.log("Error al eliminar el ejercicio:", error);
     }
@@ -149,7 +122,7 @@ export default function EjerciciosSubtemaPage() {
   const handleSaveEdit = async (ejercicioId: string) => {
     if (!editData || !token || editNivel === null || editIndex === null) return;
     try {
-      const updated = await ejercicioService.updateEjercicio(ejercicioId, editData, token);
+      await ejercicioService.updateEjercicio(ejercicioId, editData, token);
       setEjercicios(prev => {
         const updatedNivel = [...prev[editNivel]];
         // Solo actualiza los campos editados, mantiene los demás
@@ -261,9 +234,10 @@ export default function EjerciciosSubtemaPage() {
                               key={i}
                               value={op}
                               onChange={e => {
+                                if (!editData) return;
                                 const nuevas = [...(editData.pistas || [])]
                                 nuevas[i] = e.target.value
-                                setEditData(d => ({ ...d!, pistas: nuevas }))
+                                setEditData(d => d ? { ...d, pistas: nuevas } : d)
                               }}
                               placeholder={`Pista ${i + 1}`}
                             />
@@ -282,9 +256,10 @@ export default function EjerciciosSubtemaPage() {
                               key={i}
                               value={op}
                               onChange={e => {
+                                if (!editData) return;
                                 const nuevas = [...(editData.solucion || [])]
                                 nuevas[i] = e.target.value
-                                setEditData(d => ({ ...d!, solucion: nuevas }))
+                                setEditData(d => d ? { ...d, solucion: nuevas } : d)
                               }}
                               placeholder={`Paso ${i + 1}`}
                             />

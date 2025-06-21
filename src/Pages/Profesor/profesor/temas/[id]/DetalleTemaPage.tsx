@@ -20,7 +20,7 @@ export default function DetallesTemaPage() {
       setLoading(true)
       try {
         const res = await temasService.obtenerTemas(
-          salonId,
+          salonId ? salonId : "",
           localStorage.getItem("token_matemix") || ""
         )
         // Si la respuesta es un array
