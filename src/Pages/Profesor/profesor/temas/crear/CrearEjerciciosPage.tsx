@@ -35,8 +35,11 @@ export default function EjerciciosSubtemaPage() {
   const fetchEjercicios = async () => {
   if (!subtemaId || !token) return
   setLoading(true)
+  console.log("Obteniendo ejercicios para subtema:", subtemaId)
   try {
+
     const data = await ejercicioService.getEjerciciosBySubtemaId(subtemaId, token)
+    console.log("Respuesta del backend:", data)
     setEjercicios(data.ejercicios)
   } catch (error) {
     console.error("Error al obtener ejercicios:", error)
@@ -161,7 +164,7 @@ export default function EjerciciosSubtemaPage() {
             {!loading && Object.values(ejercicios).flat().length === 0 && (
               <div className="flex flex-col items-center gap-4 my-8">
                 <p className="text-gray-500">No hay ejercicios aún.</p>
-                <Button onClick={handleGenerateEjercicios} variant="default">
+                <Button onClick={handleGenerateEjercicios} variant="outline">
                   Generar ejercicios automáticamente
                 </Button>
               </div>
