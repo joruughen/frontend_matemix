@@ -46,7 +46,7 @@ export default function ProfesorDashboardPage() {
         throw new Error("No se encontró token de autenticación")
       }
 
-      const response = await fetch("http://math-tutor-elb-494669186.us-east-1.elb.amazonaws.com:8090/salon/profesor/my-salons", {
+      const response = await fetch("http://localhost:8090/salon/profesor/my-salons", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -211,7 +211,7 @@ export default function ProfesorDashboardPage() {
       <div className="container mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Dashboard del Profesor</h1>
-          <p className="text-gray-600">Bienvenido de nuevo, Prof. Martínez</p>
+          <p className="text-gray-600">Bienvenido de nuevo</p>
         </div>
 
         {/* Mostrar error si existe */}

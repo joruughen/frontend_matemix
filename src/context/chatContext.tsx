@@ -82,7 +82,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setMessages(prev => [...prev, { role: 'user', content: message }]);
 
     try {
-    const response = await fetch('http://math-tutor-elb-494669186.us-east-1.elb.amazonaws.com:8030/chat-stream', {
+    const response = await fetch('http://localhost:8030/chat-stream', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
