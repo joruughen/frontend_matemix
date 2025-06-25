@@ -24,6 +24,7 @@ import DetalleAlumnoPage  from "./Pages/Profesor/profesor/alumnos/[id]/DetalleAl
 import { useAuth } from "./context/authContext.tsx"
 import { ChatProvider } from "./context/chatContext.tsx"
 import { ChatModal } from "./Pages/Chat/ChatModal.tsx"
+import AnalisisPage from "./Pages/Student/analisis/analisisPage.tsx"
 import ConversationHistoryPage from "./Pages/Chat/ConversationHistoryPage.tsx"
 
 function App() {
@@ -66,7 +67,7 @@ function AppRoutes() {
           <Route path="ejercicios" element={<EjerciciosPage />} />
           <Route path="progreso" element={<ProgresoPage />} />
           <Route path="reportes" element={<ReportesPage />} />
-          <Route path="analisis" element={<ReportesPage />} />
+          <Route path="analisis" element={<AnalisisPage />} />
           <Route path="chat" element={<ConversationHistoryPage />} />
         </Route>
       </Routes>
