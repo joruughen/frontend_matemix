@@ -82,7 +82,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setMessages(prev => [...prev, { role: 'user', content: message }]);
 
     try {
-    const response = await fetch('http://localhost:8030/chat-stream', {
+    const response = await fetch('http://52.206.13.161:8030/chat-stream', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
