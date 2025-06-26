@@ -11,10 +11,10 @@ import MatemixIcon from "../assets/Matemix_icon.svg"
 const navigation = [
   { name: "Dashboard", href: "/alumno", icon: Home },
   { name: "Ejercicios", href: "/alumno/ejercicios", icon: BookOpen },
-  { name: "Mi Progreso", href: "/alumno/progreso", icon: TrendingUp },
+  /*{ name: "Mi Progreso", href: "/alumno/progreso", icon: TrendingUp },
   { name: "Reportes", href: "/alumno/reportes", icon: FileText },
   { name: "Análisis IA", href: "/alumno/analisis", icon: Brain },
-  { name: "Chat", href: "/alumno/chat", icon: FileText },
+  */{ name: "Chat", href: "/alumno/chat", icon: FileText },
 ]
 
 export function NavigationAlumno() {

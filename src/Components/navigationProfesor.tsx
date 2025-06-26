@@ -11,7 +11,7 @@ import MatemixIcon from "../assets/Matemix_icon.svg"
 const navigation = [
   { name: "Dashboard", href: "/profesor", icon: Home },
   { name: "Salones", href: "/profesor/salones", icon: School },
-  { name: "Alumnos", href: "/profesor/alumnos", icon: Users },
+  //{ name: "Alumnos", href: "/profesor/alumnos", icon: Users },
   { name: "Temas", href: "/profesor/temas", icon: BookOpen },
   { name: "Reportes", href: "/profesor/reportes", icon: FileText },
 ]
