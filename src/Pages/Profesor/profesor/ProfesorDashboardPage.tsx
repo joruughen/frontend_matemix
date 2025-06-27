@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../..
 import { Button } from "../../../Components/ui/button"
 import { Badge } from "../../../Components/ui/badge"
 import { Progress } from "../../../Components/ui/progress"
-import { Users, BookOpen, School, TrendingUp, Clock, AlertCircle } from "lucide-react"
+import { Users, BookOpen, School, TrendingUp, Clock, /*AlertCircle*/ } from "lucide-react"
 import type { responseTema, temaPage } from "../../../Service/Salon/types"
 import { salonService } from "../../../Service/Salon/service"
 
@@ -179,27 +179,6 @@ export default function ProfesorDashboardPage() {
   }))
 
  
-
-  const alertas = [
-    {
-      tipo: "Bajo rendimiento",
-      descripcion: "5 alumnos en 3°B tienen dificultades con fracciones mixtas",
-      fecha: "Hoy",
-      prioridad: "alta",
-    },
-    {
-      tipo: "Tema pendiente",
-      descripcion: "El tema de Estadística aún no ha sido iniciado en 2°A",
-      fecha: "Ayer",
-      prioridad: "media",
-    },
-    {
-      tipo: "Inactividad",
-      descripcion: "8 alumnos no han ingresado en la última semana",
-      fecha: "Hace 3 días",
-      prioridad: "baja",
-    },
-  ]
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
@@ -388,7 +367,7 @@ export default function ProfesorDashboardPage() {
               </CardContent>
             </Card>
 
-            {/* Alertas */}
+         {  /* {/* Alertas }
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center">
@@ -451,7 +430,7 @@ export default function ProfesorDashboardPage() {
               </CardContent>
             </Card>
 
-            {/* Calendario actualizado */}
+                  */}  {/* Calendario actualizado */}
             <Card>
               <CardHeader>
                 <CardTitle>Calendario</CardTitle>

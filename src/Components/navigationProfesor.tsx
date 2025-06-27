@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { Button } from "./ui/button"
-import { BookOpen, Home, Menu, X, Users, School, FileText } from "lucide-react"
+import { BookOpen, Home, Menu, X, /*Users,*/ School,/* FileText*/ } from "lucide-react"
 import { cn } from "../Lib/Util"
 import { useAuth } from "../context/authContext"
 import MatemixIcon from "../assets/Matemix_icon.svg"
@@ -13,7 +13,7 @@ const navigation = [
   { name: "Salones", href: "/profesor/salones", icon: School },
   //{ name: "Alumnos", href: "/profesor/alumnos", icon: Users },
   { name: "Temas", href: "/profesor/temas", icon: BookOpen },
-  { name: "Reportes", href: "/profesor/reportes", icon: FileText },
+ // { name: "Reportes", href: "/profesor/reportes", icon: FileText },
 ]
 
 export function NavigationProfesor() {
