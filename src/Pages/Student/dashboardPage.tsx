@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Button } from "../../Components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../Components/ui/card"
-import { BookOpen, Calculator, TrendingUp, Users } from "lucide-react"
+import { BookOpen /*, Calculator, TrendingUp, Users */} from "lucide-react"
 import { axiosInstanceBackendUsuarios } from "../../Service/AxiosConfig"
 
 export default function DashboardPage() {
@@ -64,7 +64,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-blue-600">127</div>
-              <p className="text-xs text-gray-500">+12 esta semana</p>
+              <p className="text-xs text-gray-500">+0 esta semana</p>
             </CardContent>
           </Card>
 
@@ -74,7 +74,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-600">85%</div>
-              <p className="text-xs text-gray-500">+5% vs mes anterior</p>
+              <p className="text-xs text-gray-500">0% vs mes anterior</p>
             </CardContent>
           </Card>
 
@@ -84,7 +84,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-purple-600">3</div>
-              <p className="text-xs text-gray-500">de 8 temas</p>
+              <p className="text-xs text-gray-500">de 1 temas</p>
             </CardContent>
           </Card>
 
@@ -115,18 +115,7 @@ export default function DashboardPage() {
                     <BookOpen className="h-6 w-6 mb-2" />
                     Practicar Fracciones
                   </Button>
-                  <Button variant="outline" className="h-20 flex-col">
-                    <TrendingUp className="h-6 w-6 mb-2" />
-                    Ver Mi Progreso
-                  </Button>
-                  <Button variant="outline" className="h-20 flex-col">
-                    <Calculator className="h-6 w-6 mb-2" />
-                    Ejercicios Personalizados
-                  </Button>
-                  <Button variant="outline" className="h-20 flex-col">
-                    <Users className="h-6 w-6 mb-2" />
-                    Reportes de Análisis
-                  </Button>
+                 
                 </div>
               </CardContent>
             </Card>
@@ -141,26 +130,12 @@ export default function DashboardPage() {
                   <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
                     <div>
                       <p className="font-medium">Fracciones - Nivel Intermedio</p>
-                      <p className="text-sm text-gray-600">8/10 ejercicios correctos</p>
+                      <p className="text-sm text-gray-600">6 ejercicios para resolver</p>
                     </div>
-                    <div className="text-green-600 font-bold">80%</div>
+                    <div className="text-green-600 font-bold">0%</div>
                   </div>
 
-                  <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                    <div>
-                      <p className="font-medium">Álgebra Básica - Nivel Fácil</p>
-                      <p className="text-sm text-gray-600">9/10 ejercicios correctos</p>
-                    </div>
-                    <div className="text-blue-600 font-bold">90%</div>
-                  </div>
-
-                  <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
-                    <div>
-                      <p className="font-medium">Geometría - Nivel Intermedio</p>
-                      <p className="text-sm text-gray-600">6/10 ejercicios correctos</p>
-                    </div>
-                    <div className="text-yellow-600 font-bold">60%</div>
-                  </div>
+                
                 </div>
               </CardContent>
             </Card>
@@ -177,40 +152,10 @@ export default function DashboardPage() {
                 <div>
                   <div className="flex justify-between text-sm mb-1">
                     <span>Fracciones</span>
-                    <span>85%</span>
+                    <span>0%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-blue-600 h-2 rounded-full" style={{ width: "85%" }}></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span>Álgebra</span>
-                    <span>72%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-green-600 h-2 rounded-full" style={{ width: "72%" }}></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span>Geometría</span>
-                    <span>45%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-yellow-600 h-2 rounded-full" style={{ width: "45%" }}></div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span>Estadística</span>
-                    <span>30%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className="bg-red-600 h-2 rounded-full" style={{ width: "30%" }}></div>
+                    <div className="bg-blue-600 h-2 rounded-full" style={{ width: "0%" }}></div>
                   </div>
                 </div>
               </CardContent>
@@ -223,19 +168,11 @@ export default function DashboardPage() {
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="p-3 bg-blue-50 rounded-lg">
-                  <p className="text-sm font-medium text-blue-800">Practica más geometría</p>
-                  <p className="text-xs text-blue-600">Tu rendimiento ha bajado en este tema</p>
+                  <p className="text-sm font-medium text-blue-800">Practica más fracciones</p>
+                  <p className="text-xs text-blue-600">Tu rendimiento mejorara en este tema</p>
                 </div>
 
-                <div className="p-3 bg-green-50 rounded-lg">
-                  <p className="text-sm font-medium text-green-800">¡Excelente en fracciones!</p>
-                  <p className="text-xs text-green-600">Considera avanzar al siguiente nivel</p>
-                </div>
-
-                <div className="p-3 bg-purple-50 rounded-lg">
-                  <p className="text-sm font-medium text-purple-800">Sesión de repaso</p>
-                  <p className="text-xs text-purple-600">Revisa conceptos de álgebra básica</p>
-                </div>
+            
               </CardContent>
             </Card>
           </div>

@@ -95,7 +95,6 @@ export default function ProfesorDashboardPage() {
     }
   }
 
-  // Cargar salones al montar el componente
   useEffect(() => {
     fetchSalones()
     fetchTemas()
@@ -179,11 +178,7 @@ export default function ProfesorDashboardPage() {
     ultimaActividad: "Hace " + Math.floor(Math.random() * 24) + " horas",
   }))
 
-  const alumnosDestacados = [
-    { nombre: "Ana García", salon: "3°A", avance: 95, tema: "Fracciones" },
-    { nombre: "Carlos López", salon: "3°B", avance: 92, tema: "Álgebra" },
-    { nombre: "María Rodríguez", salon: "2°A", avance: 90, tema: "Geometría" },
-  ]
+ 
 
   const alertas = [
     {
@@ -359,38 +354,7 @@ export default function ProfesorDashboardPage() {
               </CardContent>
             </Card>
 
-            {/* Alumnos destacados */}
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <div>
-                  <CardTitle className="text-xl">Alumnos Destacados</CardTitle>
-                  <CardDescription>Mejores rendimientos esta semana</CardDescription>
-                </div>
-                <Link to="/profesor/alumnos">
-                  <Button variant="outline" size="sm">
-                    Ver Todos
-                  </Button>
-                </Link>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {alumnosDestacados.map((alumno, index) => (
-                    <div key={index} className="flex items-center justify-between p-4 bg-green-50 rounded-lg">
-                      <div>
-                        <h3 className="font-medium">{alumno.nombre}</h3>
-                        <div className="text-sm text-gray-600">
-                          Salón: {alumno.salon} • Tema: {alumno.tema}
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-green-600 font-bold">{alumno.avance}%</div>
-                        <div className="text-xs text-gray-500">de avance</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+           
           </div>
 
           {/* Columna derecha */}
