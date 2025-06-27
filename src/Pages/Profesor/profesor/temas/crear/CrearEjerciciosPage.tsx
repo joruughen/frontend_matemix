@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../..
 import { ArrowLeft, Trash2, Pencil } from "lucide-react"
 import {  type ejercicioCreate, type ejercicioNivel, type Nivel } from "../../../../../Service/Ejercicios/types"
 import { ejercicioService } from "../../../../../Service/Ejercicios/servie"
+import { useCallback } from "react"
 
 export default function EjerciciosSubtemaPage() {
   const { id: subtemaId } = useParams<{ id: string }>()
@@ -32,27 +33,26 @@ export default function EjerciciosSubtemaPage() {
 
   const token = localStorage.getItem("token") || ""
 
-  const fetchEjercicios = async () => {
-  if (!subtemaId || !token) return
-  setLoading(true)
-  console.log("Obteniendo ejercicios para subtema:", subtemaId)
-  try {
 
-    const data = await ejercicioService.getEjerciciosBySubtemaId(subtemaId, token)
-    console.log("Respuesta del backend:", data)
-    setEjercicios(data.ejercicios)
-  } catch (error) {
-    console.error("Error al obtener ejercicios:", error)
-    setEjercicios({ facil: [], medio: [], dificil: [] })
-  } finally {
-    setLoading(false)
-  }
-}
+  const fetchEjercicios = useCallback(async () => {
+    if (!subtemaId || !token) return
+    setLoading(true)
+    try {
+      const data = await ejercicioService.getEjerciciosBySubtemaId(subtemaId, token)
+      setEjercicios(data.ejercicios)
+    } catch (error) {
+      console.error("Error al obtener ejercicios:", error)
+      setEjercicios({ facil: [], medio: [], dificil: [] })
+    } finally {
+      setLoading(false)
+    }
+  }, [subtemaId, token])
+
 
   useEffect(() => {
     fetchEjercicios()
-    // eslint-disable-next-line
-  }, [subtemaId])
+  }, [fetchEjercicios])
+
 
   const handleGenerateEjercicios = async () => {
     if (!subtemaId || !token) return
@@ -164,8 +164,12 @@ export default function EjerciciosSubtemaPage() {
             {!loading && Object.values(ejercicios).flat().length === 0 && (
               <div className="flex flex-col items-center gap-4 my-8">
                 <p className="text-gray-500">No hay ejercicios aún.</p>
-                <Button onClick={handleGenerateEjercicios} variant="outline">
-                  Generar ejercicios automáticamente
+              <Button
+                onClick={() => {
+                  console.log("Botón presionado");
+                  handleGenerateEjercicios();
+                }}>   
+                 Generar ejercicios automáticamente
                 </Button>
               </div>
             )}
