@@ -55,6 +55,7 @@ export default function EjerciciosSubtemaPage() {
 
 
   const handleGenerateEjercicios = async () => {
+    console.log("subtema id y token:", subtemaId, token)
     if (!subtemaId || !token) return
     setLoading(true)
     try {
