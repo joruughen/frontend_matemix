@@ -31,7 +31,7 @@ export default function EjerciciosSubtemaPage() {
     nivel: "facil",
   })
 
-  const token = localStorage.getItem("token") || ""
+  const token = localStorage.getItem("token_matemix") || ""
 
 
   const fetchEjercicios = useCallback(async () => {
