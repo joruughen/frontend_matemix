@@ -26,7 +26,7 @@ export function NavigationProfesor() {
 
   const handleLogout = () => {
     logout()
-    navigate("/login") // Redirige a la página de login después del logout
+    navigate("/login")
   }
 
   return (
