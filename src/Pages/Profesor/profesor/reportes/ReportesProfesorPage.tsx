@@ -13,8 +13,6 @@ import { ArrowLeft, FileText, Download, TrendingUp, Users, School } from "lucide
 export default function ReportesProfesorPage() {
   const [selectedSalon, setSelectedSalon] = useState("todos")
   const [selectedPeriodo, setSelectedPeriodo] = useState("")
-
-  // Datos ficticios para reportes
   const resumenGeneral = {
     totalAlumnos: 127,
     salonesActivos: 5,
