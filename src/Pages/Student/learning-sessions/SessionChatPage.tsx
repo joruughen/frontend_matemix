@@ -28,7 +28,6 @@ const SessionChatPage: React.FC = () => {
   const user_id = localStorage.getItem('userId_matemix') || 'default_user';
   const { toast } = useToast();
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const eventSourceRef = useRef<EventSource | null>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -62,13 +61,6 @@ const SessionChatPage: React.FC = () => {
     if (sessionId && user_id) {
       loadSessionData();
     }
-
-    // Cleanup function to close EventSource
-    return () => {
-      if (eventSourceRef.current) {
-        eventSourceRef.current.close();
-      }
-    };
   }, [sessionId, user_id, loadSessionData]);
 
   useEffect(() => {
@@ -80,9 +72,10 @@ const SessionChatPage: React.FC = () => {
     
     if (!currentMessage.trim() || !sessionId || sending) return;
 
+    const messageToSend = currentMessage;
     const userMessage: ChatMessage = {
       role: 'user',
-      content: currentMessage,
+      content: messageToSend,
       timestamp: new Date().toISOString()
     };
 
@@ -91,72 +84,75 @@ const SessionChatPage: React.FC = () => {
     setSending(true);
 
     try {
-      // Setup Server-Sent Events for real-time response
-      const eventSource = new EventSource(
-        `/api/learning/session/${sessionId}/chat-stream?message=${encodeURIComponent(currentMessage)}`
-      );
-      eventSourceRef.current = eventSource;
+      const response = await fetch(`http://52.206.13.161:8030/learning/session/${sessionId}/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          session_id: sessionId,
+          message: messageToSend,
+          user_id: user_id
+        }),
+      });
 
+      if (!response.body) throw new Error('No stream available');
+
+      const reader = response.body.getReader();
       let assistantMessage = '';
       
-      eventSource.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        
-        if (data.type === 'content') {
-          assistantMessage += data.content;
-          
-          // Update the last message or add new one
-          setMessages(prev => {
-            const newMessages = [...prev];
-            const lastMessage = newMessages[newMessages.length - 1];
-            
-            if (lastMessage?.role === 'assistant') {
-              // Update existing assistant message
-              newMessages[newMessages.length - 1] = {
-                ...lastMessage,
-                content: assistantMessage
-              };
-            } else {
-              // Add new assistant message
-              newMessages.push({
-                role: 'assistant',
-                content: assistantMessage,
-                timestamp: new Date().toISOString()
-              });
-            }
-            
-            return newMessages;
-          });
-        } else if (data.type === 'done') {
-          eventSource.close();
-          setSending(false);
-        } else if (data.type === 'error') {
-          throw new Error(data.message);
-        }
-      };
+      // Add empty assistant message to start
+      setMessages(prev => [...prev, { role: 'assistant', content: '', timestamp: new Date().toISOString() }]);
 
-      eventSource.onerror = (error) => {
-        console.error('SSE Error:', error);
-        eventSource.close();
-        setSending(false);
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
         
-        // Fallback to regular API call if SSE fails
-        fallbackToRegularChat();
-      };
+        const chunk = new TextDecoder().decode(value);
+        
+        // Split by lines and process each line
+        chunk.split('\n').forEach(line => {
+          if (line.startsWith('data:')) {
+            try {
+              const data = JSON.parse(line.replace('data:', '').trim());
+              
+              if (data.text) {
+                assistantMessage += data.text;
+                
+                // Update the last assistant message
+                setMessages(prev => {
+                  const lastMessage = prev[prev.length - 1];
+                  if (lastMessage?.role === 'assistant') {
+                    return [...prev.slice(0, -1), { 
+                      role: 'assistant', 
+                      content: assistantMessage,
+                      timestamp: new Date().toISOString()
+                    }];
+                  }
+                  return prev;
+                });
+              }
+            } catch (parseError) {
+              console.warn('Failed to parse streaming data:', parseError);
+            }
+          }
+        });
+      }
 
     } catch (error) {
-      console.error('Error setting up chat stream:', error);
-      fallbackToRegularChat();
+      console.error('Error with chat stream:', error);
+      // Fallback to regular API call if streaming fails
+      await fallbackToRegularChat(messageToSend);
+    } finally {
+      setSending(false);
     }
   };
 
-  const fallbackToRegularChat = async () => {
+  const fallbackToRegularChat = async (messageToSend: string) => {
     if (!sessionId || !user_id) return;
 
     try {
       const response = await chatService.chatInLearningSession({
         session_id: sessionId,
-        message: currentMessage,
+        message: messageToSend,
         user_id: user_id
       });
 
@@ -174,8 +170,6 @@ const SessionChatPage: React.FC = () => {
         description: "No se pudo enviar el mensaje. Inténtalo de nuevo.",
         variant: "destructive",
       });
-    } finally {
-      setSending(false);
     }
   };
 
