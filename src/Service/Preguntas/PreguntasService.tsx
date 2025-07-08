@@ -3,10 +3,9 @@ import type { PreguntaCreate, PreguntaUpdate, PreguntaResponse } from '../types'
 
 export class PreguntasService {
 
-    // 1. Agregar una nueva pregunta a un tema
     async agregarPregunta(
         temaId: string,
-        nivel: string, // Nivel como string, por ejemplo "facil", "medio", "dificil"
+        nivel: string,
         preguntaData: PreguntaCreate
     ): Promise<PreguntaResponse> {
         try {
@@ -21,7 +20,6 @@ export class PreguntasService {
         }
     }
 
-    // 2. Eliminar una pregunta de un tema
     async eliminarPregunta(
         temaId: string,
         nivel: string,
@@ -38,7 +36,6 @@ export class PreguntasService {
         }
     }
 
-    // 3. Actualizar una pregunta de un tema
     async actualizarPregunta(
         temaId: string,
         nivel: string,
@@ -57,7 +54,6 @@ export class PreguntasService {
         }
     }
 
-    // 4. Obtener todas las preguntas de un tema y nivel
     async obtenerPreguntasNivel(
         temaId: string,
         nivel: string
@@ -73,7 +69,6 @@ export class PreguntasService {
         }
     }
 
-    // 5. Obtener una pregunta específica de un tema y nivel
     async obtenerPreguntaEspecifica(
         temaId: string,
         nivel: string,
