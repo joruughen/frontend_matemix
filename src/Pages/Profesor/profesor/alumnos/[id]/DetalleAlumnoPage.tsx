@@ -10,7 +10,6 @@ import { ArrowLeft, User, TrendingUp, BookOpen, Clock, Mail, MessageSquare, File
 
 export default function DetalleAlumnoPage() {
   const { id } = useParams<{ id: string }>();
-  // Datos ficticios del alumno
   const alumno = {
     id,
     nombre: "Ana García",
@@ -26,7 +25,6 @@ export default function DetalleAlumnoPage() {
     estado: "activo",
   }
 
-  // Progreso por temas
   const progresoTemas = [
     { tema: "Fracciones", avance: 100, precision: 95, ejercicios: 45, tiempo: "12h" },
     { tema: "Álgebra Básica", avance: 85, precision: 88, ejercicios: 32, tiempo: "15h" },
@@ -59,7 +57,6 @@ export default function DetalleAlumnoPage() {
     },
   ]
 
-  // Estadísticas semanales
   const estadisticasSemanales = [
     { dia: "Lun", ejercicios: 8, tiempo: 45, precision: 88 },
     { dia: "Mar", ejercicios: 12, tiempo: 60, precision: 92 },

@@ -17,7 +17,6 @@ export type UserRegister = {
 };
 
 
-// temas types.tsx
 
 export interface Pregunta {
     id: string;
@@ -29,14 +28,14 @@ export interface Pregunta {
 }
 
 export interface Nivel {
-    nivel: "facil" | "medio" | "dificil"; // O puedes agregar más valores si es necesario
-    preguntas: Pregunta[];  // Un nivel tiene una lista de preguntas
+    nivel: "facil" | "medio" | "dificil";
+    preguntas: Pregunta[];
 }
 
 export interface TemaCreate {
     nombre: string;
     descripcion?: string;
-    niveles: Nivel[];  // Ahora especificamos que niveles es un array de objetos de tipo Nivel
+    niveles: Nivel[];
     puntos?: number;
     cantidad_problemas?: number;
 }
@@ -44,7 +43,7 @@ export interface TemaCreate {
 export interface TemaUpdate {
     nombre?: string;
     descripcion?: string;
-    niveles?: Nivel[];  // Lo mismo para la actualización, ahora es un array de objetos de tipo Nivel
+    niveles?: Nivel[];
     puntos?: number;
     cantidad_problemas?: number;
 }
@@ -53,7 +52,7 @@ export interface TemaResponse {
     id: string;
     nombre: string;
     descripcion?: string;
-    niveles: Nivel[];  // Lo mismo aquí, niveles es un array de objetos de tipo Nivel
+    niveles: Nivel[];
     fecha_creacion: string;
     puntos?: number;
     cantidad_problemas?: number;
@@ -79,7 +78,7 @@ export interface UnenrollResponse {
 }
 
 export interface AlumnoTema  {
-    id: string;  // También cambiamos el tipo a string, ya que en MongoDB se almacena como string
+    id: string;
 }
 
 export interface UsuarioResponse {
@@ -100,17 +99,16 @@ export interface UsuarioTemaUpdate {
 }
 
 
-// Respuestas types.tsx
 
 
 export interface Respuesta {
-    id: string;                  // ID único de la respuesta
-    alumno_id: string;           // ID del alumno que responde
-    tema_id: string;             // ID del tema al que pertenece la pregunta
-    pregunta_id: string;        // ID de la pregunta a la que se responde
-    respuesta: string;           // Respuesta proporcionada por el alumno
-    respuesta_correcta: boolean; // Indica si la respuesta es correcta o no
-    fecha_respuesta: string;     // Fecha en que el alumno respondió
+    id: string;     
+    alumno_id: string;   
+    tema_id: string;  
+    pregunta_id: string;   
+    respuesta: string;   
+    respuesta_correcta: boolean;
+    fecha_respuesta: string; 
 }
 
 export interface RespuestaCorrecta {

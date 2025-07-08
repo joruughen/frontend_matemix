@@ -47,7 +47,7 @@ export default function EjerciciosPage() {
         tema._id,
         localStorage.getItem("token_matemix") || ""
       )
-      setSubtemas(response || response) // por compatibilidad
+      setSubtemas(response || response)
       setView("subtemas")
     } catch (error) {
       console.log("Error al obtener subtemas:", error)
@@ -153,10 +153,8 @@ export default function EjerciciosPage() {
 
   useEffect(() => {
     fetchTemas()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localStorage.getItem("token_matemix")])
 
-  // --- Vistas ---
   if (view === "temas") {
     return (
       <div className="min-h-screen bg-gray-50 p-8">

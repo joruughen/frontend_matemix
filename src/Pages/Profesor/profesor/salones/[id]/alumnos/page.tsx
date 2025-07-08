@@ -12,14 +12,12 @@ export default function AlumnosSalonPage({ params }: { params: { id: string } })
   const [searchQuery, setSearchQuery] = useState("")
   const [filtroRendimiento, setFiltroRendimiento] = useState("todos")
 
-  // Datos ficticios del salón
   const salon = {
     id: params.id,
     nombre: "Matemáticas 3°A",
     alumnos: 28,
   }
 
-  // Datos ficticios de alumnos del salón
   const alumnos = [
     {
       id: "a1",

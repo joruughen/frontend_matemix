@@ -72,7 +72,7 @@ export class RespuestasService {
             const params: { tema_id: string; nivel?: string } = { tema_id };
 
             if (nivel) {
-                params.nivel = nivel;  //Añade el nivel solo si se proporciona
+                params.nivel = nivel;
             }
 
             const response = await axiosInstanceBackend_AI_Ejercicios.get('/respuestas/respuestas_correctas', {

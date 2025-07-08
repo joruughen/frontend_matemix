@@ -8,7 +8,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../Components/ui
 import { TrendingUp, Target, Award, BarChart3, Clock } from "lucide-react"
 
 export default function ProgresoPage() {
-  // Datos ficticios de progreso
   const progresoGeneral = {
     ejerciciosCompletados: 127,
     horasEstudio: 45,

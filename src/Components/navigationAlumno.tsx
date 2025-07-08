@@ -12,10 +12,7 @@ const navigation = [
   { name: "Dashboard", href: "/alumno", icon: Home },
   { name: "Sesiones de Aprendizaje", href: "/alumno/learning-sessions", icon: GraduationCap },
   { name: "Ejercicios", href: "/alumno/ejercicios", icon: BookOpen },
-  /*{ name: "Mi Progreso", href: "/alumno/progreso", icon: TrendingUp },
-  { name: "Reportes", href: "/alumno/reportes", icon: FileText },
-  { name: "Análisis IA", href: "/alumno/analisis", icon: Brain },
-  */{ name: "Chat", href: "/alumno/chat", icon: FileText },
+  { name: "Chat", href: "/alumno/chat", icon: FileText },
 ]
 
 export function NavigationAlumno() {
@@ -28,7 +25,7 @@ export function NavigationAlumno() {
 
   const handleLogout = () => {
     logout()
-    navigate("/login") // Redirige a la página de login después del logout
+    navigate("/login") 
   }
 
   return (

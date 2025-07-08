@@ -15,7 +15,6 @@ export default function AlumnosPage() {
   const [selectedSalon, setSelectedSalon] = useState("all")
   const [selectedEstado, setSelectedEstado] = useState("all")
 
-  // Datos ficticios de alumnos
   const alumnos = [
     {
       id: "a1",
