@@ -1,6 +1,6 @@
 import  { useState } from 'react';
 import { useChat } from "../../context/chatContext";
-import { PlusIcon, Bars3Icon, XMarkIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import { PlusIcon, Bars3Icon, XMarkIcon, ChatBubbleLeftRightIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 const ChatSidebar = () => {
   const {
@@ -9,10 +9,12 @@ const ChatSidebar = () => {
     selectConversation,
     setCurrentConversation,
     setMessages,
+    deleteConversation,
     isLoading
   } = useChat();
 
   const [open, setOpen] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null);
 
   const handleCreateNewConversation = () => {
     setCurrentConversation(null);
@@ -23,6 +25,27 @@ const ChatSidebar = () => {
   const handleSelectConversation = (id: string) => {
     selectConversation(id);
     setOpen(false);
+  };
+
+  const handleDeleteConversation = async (conversationId: string, e: React.MouseEvent) => {
+    e.stopPropagation(); // Evitar que se seleccione la conversación
+    try {
+      await deleteConversation(conversationId);
+      setShowDeleteConfirm(null);
+    } catch (error) {
+      console.error('Error al eliminar conversación:', error);
+      alert('Error al eliminar la conversación');
+    }
+  };
+
+  const confirmDelete = (conversationId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowDeleteConfirm(conversationId);
+  };
+
+  const cancelDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowDeleteConfirm(null);
   };
 
   return (
@@ -60,25 +83,51 @@ const ChatSidebar = () => {
               conversations.map(conversation => (
                 <div
                   key={conversation.id}
-                  onClick={() => handleSelectConversation(conversation.id)}
-                  className={`p-5 border-b border-gray-100 cursor-pointer hover:bg-blue-50 transition ${
+                  className={`p-5 border-b border-gray-100 cursor-pointer hover:bg-blue-50 transition group ${
                     currentConversation === conversation.id ? 'bg-blue-100' : ''
                   }`}
                 >
-                  <div className="flex items-start">
-                    <ChatBubbleLeftRightIcon className="h-6 w-6 text-blue-400 mr-3 mt-0.5" />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-base font-semibold text-gray-900 truncate">
-                        {conversation.title || 'Sin título'}
-                      </p>
-                      <p className="text-xs text-gray-500 truncate">
-                        {conversation.lastMessage}
-                      </p>
-                      <p className="text-xs text-gray-400 mt-1">
-                        {new Date(conversation.updatedAt).toLocaleString()}
-                      </p>
+                  {showDeleteConfirm === conversation.id ? (
+                    <div className="flex flex-col gap-2">
+                      <p className="text-sm text-gray-700">¿Eliminar esta conversación?</p>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={(e) => handleDeleteConversation(conversation.id, e)}
+                          className="px-3 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600"
+                        >
+                          Eliminar
+                        </button>
+                        <button
+                          onClick={cancelDelete}
+                          className="px-3 py-1 bg-gray-300 text-gray-700 text-xs rounded hover:bg-gray-400"
+                        >
+                          Cancelar
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="flex items-start" onClick={() => handleSelectConversation(conversation.id)}>
+                      <ChatBubbleLeftRightIcon className="h-6 w-6 text-blue-400 mr-3 mt-0.5" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-base font-semibold text-gray-900 truncate">
+                          {conversation.title || 'Sin título'}
+                        </p>
+                        <p className="text-xs text-gray-500 truncate">
+                          {conversation.lastMessage}
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1">
+                          {new Date(conversation.updatedAt).toLocaleString()}
+                        </p>
+                      </div>
+                      <button
+                        onClick={(e) => confirmDelete(conversation.id, e)}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity ml-2 p-1 hover:bg-red-100 rounded"
+                        title="Eliminar conversación"
+                      >
+                        <TrashIcon className="h-4 w-4 text-red-500" />
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))
             )}
@@ -107,25 +156,51 @@ const ChatSidebar = () => {
             conversations.map(conversation => (
               <div
                 key={conversation.id}
-                onClick={() => handleSelectConversation(conversation.id)}
-                className={`p-5 border-b border-gray-100 cursor-pointer hover:bg-blue-50 transition ${
+                className={`p-5 border-b border-gray-100 cursor-pointer hover:bg-blue-50 transition group ${
                   currentConversation === conversation.id ? 'bg-blue-100' : ''
                 }`}
               >
-                <div className="flex items-start">
-                  <ChatBubbleLeftRightIcon className="h-6 w-6 text-blue-400 mr-3 mt-0.5" />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-base font-semibold text-gray-900 truncate">
-                      {conversation.title || 'Sin título'}
-                    </p>
-                    <p className="text-xs text-gray-500 truncate">
-                      {conversation.lastMessage}
-                    </p>
-                    <p className="text-xs text-gray-400 mt-1">
-                      {new Date(conversation.updatedAt).toLocaleString()}
-                    </p>
+                {showDeleteConfirm === conversation.id ? (
+                  <div className="flex flex-col gap-2">
+                    <p className="text-sm text-gray-700">¿Eliminar esta conversación?</p>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={(e) => handleDeleteConversation(conversation.id, e)}
+                        className="px-3 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600"
+                      >
+                        Eliminar
+                      </button>
+                      <button
+                        onClick={cancelDelete}
+                        className="px-3 py-1 bg-gray-300 text-gray-700 text-xs rounded hover:bg-gray-400"
+                      >
+                        Cancelar
+                      </button>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="flex items-start" onClick={() => handleSelectConversation(conversation.id)}>
+                    <ChatBubbleLeftRightIcon className="h-6 w-6 text-blue-400 mr-3 mt-0.5" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-base font-semibold text-gray-900 truncate">
+                        {conversation.title || 'Sin título'}
+                      </p>
+                      <p className="text-xs text-gray-500 truncate">
+                        {conversation.lastMessage}
+                      </p>
+                      <p className="text-xs text-gray-400 mt-1">
+                        {new Date(conversation.updatedAt).toLocaleString()}
+                      </p>
+                    </div>
+                    <button
+                      onClick={(e) => confirmDelete(conversation.id, e)}
+                      className="opacity-0 group-hover:opacity-100 transition-opacity ml-2 p-1 hover:bg-red-100 rounded"
+                      title="Eliminar conversación"
+                    >
+                      <TrashIcon className="h-4 w-4 text-red-500" />
+                    </button>
+                  </div>
+                )}
               </div>
             ))
           )}

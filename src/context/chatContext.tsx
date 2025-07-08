@@ -26,8 +26,9 @@ interface ChatContextType {
   createNewConversation: () => void;
   loadConversations: () => Promise<void>;
   areConversationsLoaded: boolean;
-  setCurrentConversation: React.Dispatch<React.SetStateAction<string | null>>; // <-- Añade esto
-  setMessages: React.Dispatch<React.SetStateAction<Message[]>>; // <-- Añade esto
+  setCurrentConversation: React.Dispatch<React.SetStateAction<string | null>>;
+  setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+  deleteConversation: (conversationId: string) => Promise<void>;
 }
 
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
@@ -143,6 +144,24 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setMessages([]);
   };
 
+  const deleteConversation = async (conversationId: string) => {
+    try {
+      const userId = localStorage.getItem('userId_matemix') || 'default_user';
+      await chatService.deleteConversation(userId, conversationId);
+      
+      // Actualizar la lista local de conversaciones
+      setConversations(prev => prev.filter(conv => conv.id !== conversationId));
+      
+      // Si estamos viendo la conversación que se eliminó, limpiar el chat
+      if (currentConversation === conversationId) {
+        setCurrentConversation(null);
+        setMessages([]);
+      }
+    } catch (error) {
+      console.error('Error al eliminar conversación:', error);
+      throw error;
+    }
+  };
 
   const toggleChat = () => setIsOpen(!isOpen);
 
@@ -168,7 +187,8 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
       loadConversations,
       areConversationsLoaded,
       setCurrentConversation, 
-      setMessages             
+      setMessages,
+      deleteConversation             
       }}>
     {children}
   </ChatContext.Provider>

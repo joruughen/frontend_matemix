@@ -3,13 +3,14 @@
 import { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { Button } from "./ui/button"
-import { BookOpen, TrendingUp, FileText, Brain, Home, Menu, X } from "lucide-react"
+import { BookOpen, FileText, Home, Menu, X, GraduationCap } from "lucide-react"
 import { cn } from "../Lib/Util"
 import { useAuth } from "../context/authContext" 
 import MatemixIcon from "../assets/Matemix_icon.svg"
 
 const navigation = [
   { name: "Dashboard", href: "/alumno", icon: Home },
+  { name: "Sesiones de Aprendizaje", href: "/alumno/learning-sessions", icon: GraduationCap },
   { name: "Ejercicios", href: "/alumno/ejercicios", icon: BookOpen },
   /*{ name: "Mi Progreso", href: "/alumno/progreso", icon: TrendingUp },
   { name: "Reportes", href: "/alumno/reportes", icon: FileText },

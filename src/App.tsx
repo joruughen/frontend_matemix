@@ -26,6 +26,14 @@ import { ChatProvider } from "./context/chatContext.tsx"
 import { ChatModal } from "./Pages/Chat/ChatModal.tsx"
 import AnalisisPage from "./Pages/Student/analisis/analisisPage.tsx"
 import ConversationHistoryPage from "./Pages/Chat/ConversationHistoryPage.tsx"
+// Learning Sessions
+import LearningSessionsPage from "./Pages/Student/learning-sessions/LearningSessionsPage.tsx"
+import CreateLearningSessionPage from "./Pages/Student/learning-sessions/CreateLearningSessionPage.tsx"
+import LearningSessionDetailPage from "./Pages/Student/learning-sessions/LearningSessionDetailPage.tsx"
+import SessionChatPage from "./Pages/Student/learning-sessions/SessionChatPage.tsx"
+import SessionStatsPage from "./Pages/Student/learning-sessions/SessionStatsPage.tsx"
+import SessionHistoryPage from "./Pages/Student/learning-sessions/SessionHistoryPage.tsx"
+import ErrorBoundary from "./Components/ErrorBoundary.tsx"
 
 function App() {
   return (
@@ -69,6 +77,36 @@ function AppRoutes() {
           <Route path="reportes" element={<ReportesPage />} />
           <Route path="analisis" element={<AnalisisPage />} />
           <Route path="chat" element={<ConversationHistoryPage />} />
+          <Route path="learning-sessions" element={
+            <ErrorBoundary>
+              <LearningSessionsPage />
+            </ErrorBoundary>
+          } />
+          <Route path="learning-sessions/create" element={
+            <ErrorBoundary>
+              <CreateLearningSessionPage />
+            </ErrorBoundary>
+          } />
+          <Route path="learning-sessions/:sessionId" element={
+            <ErrorBoundary>
+              <LearningSessionDetailPage />
+            </ErrorBoundary>
+          } />
+          <Route path="learning-sessions/:sessionId/chat" element={
+            <ErrorBoundary>
+              <SessionChatPage />
+            </ErrorBoundary>
+          } />
+          <Route path="learning-sessions/:sessionId/stats" element={
+            <ErrorBoundary>
+              <SessionStatsPage />
+            </ErrorBoundary>
+          } />
+          <Route path="learning-sessions/:sessionId/history" element={
+            <ErrorBoundary>
+              <SessionHistoryPage />
+            </ErrorBoundary>
+          } />
         </Route>
       </Routes>
       {role === "STUDENT" && <ChatModal />}
