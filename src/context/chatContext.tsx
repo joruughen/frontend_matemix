@@ -26,8 +26,8 @@ interface ChatContextType {
   createNewConversation: () => void;
   loadConversations: () => Promise<void>;
   areConversationsLoaded: boolean;
-  setCurrentConversation: React.Dispatch<React.SetStateAction<string | null>>; // <-- Añade esto
-  setMessages: React.Dispatch<React.SetStateAction<Message[]>>; // <-- Añade esto
+  setCurrentConversation: React.Dispatch<React.SetStateAction<string | null>>; 
+  setMessages: React.Dispatch<React.SetStateAction<Message[]>>; 
 }
 
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
@@ -36,7 +36,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [messages, setMessages] = useState<Message[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const conversationIdRef = useRef<string | null>(null); // para acceso en el stream
+  const conversationIdRef = useRef<string | null>(null); 
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [currentConversation, setCurrentConversation] = useState<string | null>(null);
   const [areConversationsLoaded, setAreConversationsLoaded] = useState(false);
@@ -108,7 +108,6 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const data = JSON.parse(line.replace('data:', '').trim());
         assistantMsg += data.text;
 
-        // Detecta si se creó una nueva conversación
         if (data.conversation_id && !conversationIdRef.current) {
         conversationIdRef.current = data.conversation_id;
         newConversationCreated = true;
@@ -125,9 +124,8 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
     }
 
-    // Si se creó una nueva conversación, recarga el historial
     if (newConversationCreated) {
-    setAreConversationsLoaded(false); // fuerza recarga
+    setAreConversationsLoaded(false);
     await loadConversations();
     }
     } catch (e) {
