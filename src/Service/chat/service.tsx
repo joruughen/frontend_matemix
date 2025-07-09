@@ -78,6 +78,16 @@ class ChatService {
         }
     }
 
+    async getLearningSessionConversationHistory(sessionId: string){
+        try {
+            const response = await axiosInstanceChat.get(`/learning/session/${sessionId}/conversation`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching session conversation history:', error);
+            throw error;
+        }
+    }
+
     async getLearningSessionHistory(sessionId: string) {
         try {
             const response = await axiosInstanceChat.get(`/learning/session/${sessionId}/history`);

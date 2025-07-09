@@ -40,11 +40,12 @@ const SessionChatPage: React.FC = () => {
       setLoading(true);
       const [sessionResponse, historyResponse] = await Promise.all([
         chatService.getLearningSession(sessionId),
-        chatService.getLearningSessionHistory(sessionId)
+        chatService.getLearningSessionConversationHistory(sessionId)
       ]);
       
       setSession(sessionResponse);
       setMessages(historyResponse.messages || []);
+      console.log('Session data loaded:', sessionResponse, historyResponse);
     } catch (error) {
       console.error('Error loading session data:', error);
       toast({
